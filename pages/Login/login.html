@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation System - Portal</title>
+    <!-- External CSS Link -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="auth-card">
+
+        <!-- Header -->
+        <div class="card-header">
+            <h1>LifeShare</h1>
+            <p>Blood Donation & Hospital Network</p>
+        </div>
+
+        <!-- Mode Toggle (Donor vs Hospital Staff) -->
+        <div class="mode-toggle-container">
+            <label class="mode-label">Select Portal Mode</label>
+            <div class="mode-grid">
+                <button id="mode-donor-btn" onclick="setMode('donor')" class="btn-mode active">
+                    Donor
+                </button>
+                <button id="mode-staff-btn" onclick="setMode('staff')" class="btn-mode inactive">
+                    Hospital Staff
+                </button>
+            </div>
+        </div>
+
+        <!-- Auth Tabs (Login vs Register) -->
+        <div class="auth-tabs">
+            <button id="tab-login" onclick="switchAuthTab('login')" class="tab-btn active">
+                Login
+            </button>
+            <button id="tab-register" onclick="switchAuthTab('register')" class="tab-btn inactive">
+                Register
+            </button>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-container">
+
+            <!-- 1. LOGIN FORM -->
+            <form id="form-login" onsubmit="handleAuth(event, 'login')">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-input" required placeholder="user@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-input" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-submit">
+                    Sign In
+                </button>
+            </form>
+
+            <!-- 2. REGISTER FORM -->
+            <form id="form-register" onsubmit="handleAuth(event, 'register')" class="hidden">
+                <!-- Common Fields -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-input" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-input" required placeholder="user@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-input" required placeholder="••••••••">
+                </div>
+
+                <!-- DONOR SPECIFIC FIELDS -->
+                <div id="donor-fields">
+                    <div class="form-group grid-2">
+                        <div>
+                            <label>Blood Group</label>
+                            <select class="form-select">
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>District</label>
+                            <input type="text" class="form-input" placeholder="Colombo">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HOSPITAL STAFF SPECIFIC FIELDS -->
+                <div id="staff-fields" class="hidden">
+                    <div class="form-group">
+                        <label>Hospital / Clinic Name</label>
+                        <input type="text" class="form-input" placeholder="National Hospital Colombo">
+                    </div>
+                    <div class="form-group">
+                        <label>Employee / Staff ID</label>
+                        <input type="text" class="form-input" placeholder="EMP-10023">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    Create Account
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- UI State Handling Logic -->
+    <script>
+        let currentMode = 'donor';
+        let currentAuth = 'login';
+
+        function setMode(mode) {
+            currentMode = mode;
+            const donorBtn = document.getElementById('mode-donor-btn');
+            const staffBtn = document.getElementById('mode-staff-btn');
+
+            const donorFields = document.getElementById('donor-fields');
+            const staffFields = document.getElementById('staff-fields');
+
+            if (mode === 'donor') {
+                donorBtn.className = "btn-mode active";
+                staffBtn.className = "btn-mode inactive";
+
+                donorFields.classList.remove('hidden');
+                staffFields.classList.add('hidden');
+            } else {
+                staffBtn.className = "btn-mode active";
+                donorBtn.className = "btn-mode inactive";
+
+                staffFields.classList.remove('hidden');
+                donorFields.classList.add('hidden');
+            }
+        }
+
+        function switchAuthTab(tab) {
+            currentAuth = tab;
+            const loginTab = document.getElementById('tab-login');
+            const regTab = document.getElementById('tab-register');
+            const loginForm = document.getElementById('form-login');
+            const regForm = document.getElementById('form-register');
+
+            if (tab === 'login') {
+                loginTab.className = "tab-btn active";
+                regTab.className = "tab-btn inactive";
+                loginForm.classList.remove('hidden');
+                regForm.classList.add('hidden');
+            } else {
+                regTab.className = "tab-btn active";
+                loginTab.className = "tab-btn inactive";
+                regForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            }
+        }
+
+        function handleAuth(event, type) {
+            event.preventDefault();
+            alert(`Submitted ${type.toUpperCase()} request for role: ${currentMode.toUpperCase()}`);
+        }
+    </script>
+</body>
+
+</html>
