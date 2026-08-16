@@ -1,0 +1,384 @@
+<div class="update-overlay" id="updateOverlay">
+
+    <div class="update-popup">
+
+        <!-- HEADER -->
+
+        <div class="update-header">
+
+            <div>
+                <h2>Update Hospital Profile</h2>
+
+                <p>
+                    Manage your hospital information
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="close-update"
+                id="closeUpdate">
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form id="hospitalUpdateForm">
+
+
+            <!-- HOSPITAL INFORMATION -->
+
+            <div class="form-section">
+
+                <h3>Hospital Information</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>Hospital Name</label>
+
+                        <input
+                            id="hospitalName"
+                            required
+                            placeholder="Enter hospital name">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Registration Number</label>
+
+                        <input
+                            id="registrationNumber"
+                            required
+                            placeholder="Enter registration number">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Hospital Type</label>
+
+                        <select id="hospitalType" required>
+
+                            <option value="">
+                                Select type
+                            </option>
+
+                            <option>
+                                Government Hospital
+                            </option>
+
+                            <option>
+                                Private Hospital
+                            </option>
+
+                            <option>
+                                Teaching Hospital
+                            </option>
+
+                            <option>
+                                District Hospital
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Hospital Phone</label>
+
+                        <input
+                            id="hospitalPhone"
+                            type="tel"
+                            required
+                            placeholder="Enter phone number">
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label>Address</label>
+
+                        <input
+                            id="hospitalAddress"
+                            required
+                            placeholder="Enter hospital address">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>City</label>
+
+                        <input
+                            id="hospitalCity"
+                            required
+                            placeholder="Enter city">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>District</label>
+
+                        <input
+                            id="hospitalDistrict"
+                            required
+                            placeholder="Enter district">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTACT PERSON -->
+
+            <div class="form-section">
+
+                <h3>Contact Person</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>Contact Person Name</label>
+
+                        <input
+                            id="contactName"
+                            required
+                            placeholder="Enter name">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Designation</label>
+
+                        <select id="designation" required>
+
+                            <option value="">
+                                Select designation
+                            </option>
+
+                            <option>Doctor</option>
+
+                            <option>
+                                Blood Bank Officer
+                            </option>
+
+                            <option>
+                                Hospital Administrator
+                            </option>
+
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Contact Phone</label>
+
+                        <input
+                            id="contactPhone"
+                            type="tel"
+                            required
+                            placeholder="Enter phone number">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Contact Email</label>
+
+                        <input
+                            id="contactEmail"
+                            type="email"
+                            required
+                            placeholder="Enter email">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BLOOD BANK -->
+
+            <div class="form-section">
+
+                <h3>Blood Bank Information</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Blood Bank Available?
+                        </label>
+
+                        <select id="bloodBank" required>
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>Yes</option>
+
+                            <option>No</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Blood Bank Phone</label>
+
+                        <input
+                            id="bloodBankPhone"
+                            type="tel"
+                            placeholder="Enter phone number">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Operating Hours</label>
+
+                        <input
+                            id="operatingHours"
+                            placeholder="Example: 8:00 AM - 6:00 PM">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Emergency Service</label>
+
+                        <select
+                            id="emergencyService"
+                            required>
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>
+                                Available
+                            </option>
+
+                            <option>
+                                Not Available
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACCOUNT SECURITY -->
+
+            <div class="form-section">
+
+                <h3>Account Security</h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+
+                        <label>Login Email</label>
+
+                        <input
+                            id="loginEmail"
+                            type="email"
+                            required
+                            placeholder="Enter login email">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>New Password</label>
+
+                        <input
+                            id="newPassword"
+                            type="password"
+                            minlength="6"
+                            placeholder="Leave blank to keep current password">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Confirm Password</label>
+
+                        <input
+                            id="confirmPassword"
+                            type="password"
+                            minlength="6"
+                            placeholder="Confirm new password">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="update-buttons">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelUpdate">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-btn">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

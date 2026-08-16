@@ -1,22 +1,15 @@
-/* =================================
-   HOSPITAL DASHBOARD
-================================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-
-    /* =========================
-       PROFILE MENU
-    ========================= */
+document.addEventListener("DOMContentLoaded", function(){
 
     const profileBtn = document.getElementById("profileBtn");
     const profileCard = document.getElementById("profileCard");
     const logoutBtn = document.getElementById("logoutBtn");
 
 
-    if (profileBtn && profileCard) {
+    /* PROFILE DROPDOWN */
 
-        profileBtn.addEventListener("click", function (event) {
+    if(profileBtn && profileCard){
+
+        profileBtn.addEventListener("click", function(event){
 
             event.stopPropagation();
 
@@ -25,14 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        profileCard.addEventListener("click", function (event) {
+        profileCard.addEventListener("click", function(event){
 
             event.stopPropagation();
 
         });
 
 
-        document.addEventListener("click", function () {
+        document.addEventListener("click", function(){
 
             profileCard.classList.remove("show");
 
@@ -41,185 +34,100 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
-       LOGOUT
-    ========================= */
+    /* LOGOUT */
 
-    if (logoutBtn) {
+    if(logoutBtn){
 
-        logoutBtn.addEventListener("click", function (event) {
+        logoutBtn.addEventListener("click", function(event){
 
             event.preventDefault();
 
-            alert("Logout clicked.");
+            if(confirm("Do you want to logout?")){
 
-            /*
-                Later connect this to your
-                real login/backend system.
+                alert("Logout successful.");
 
-                Example:
+                /*
+                Later connect this to your login page:
 
-                localStorage.removeItem("token");
                 window.location.href = "login.html";
-            */
+                */
+
+            }
 
         });
 
     }
 
 
-    /* =========================
-       LOAD HOSPITAL DATA
-    ========================= */
-
     loadHospitalData();
 
 });
 
 
-/* =================================
-   HOSPITAL DATA
-================================= */
+/* HOSPITAL DATA */
 
-function loadHospitalData() {
+function loadHospitalData(){
 
-    /*
-        At this stage there is no fake
-        blood request data.
+    document.getElementById("totalRequests").textContent = "—";
 
-        These values remain as "—"
-        until your backend/database
-        provides real information.
-    */
+    document.getElementById("activeRequests").textContent = "—";
 
+    document.getElementById("fulfilledRequests").textContent = "—";
 
-    const totalRequests =
-        document.getElementById("totalRequests");
-
-    const activeRequests =
-        document.getElementById("activeRequests");
-
-    const fulfilledRequests =
-        document.getElementById("fulfilledRequests");
-
-    const availableDonors =
-        document.getElementById("availableDonors");
-
-
-    if (totalRequests) {
-        totalRequests.textContent = "—";
-    }
-
-    if (activeRequests) {
-        activeRequests.textContent = "—";
-    }
-
-    if (fulfilledRequests) {
-        fulfilledRequests.textContent = "—";
-    }
-
-    if (availableDonors) {
-        availableDonors.textContent = "—";
-    }
+    document.getElementById("availableDonors").textContent = "—";
 
 }
 
 
-/* =================================
-   DISPLAY REAL BLOOD REQUESTS
-================================= */
+/* DISPLAY REAL REQUESTS FROM BACKEND */
 
-function displayRequests(requests) {
+function displayRequests(requests){
 
-    const requestContainer =
-        document.getElementById("requests");
+    const box = document.getElementById("requests");
 
-
-    if (!requestContainer) {
+    if(!box){
         return;
     }
 
 
-    /* No data */
+    if(!requests || requests.length === 0){
 
-    if (!requests || requests.length === 0) {
-
-        requestContainer.innerHTML = `
-            <p class="empty">
-                No verified blood requests available.
-            </p>
-        `;
+        box.innerHTML =
+            '<p class="empty">No verified blood requests available.</p>';
 
         return;
 
     }
 
 
-    /* Create request elements */
-
-    requestContainer.innerHTML = "";
+    box.innerHTML = "";
 
 
-    requests.forEach(function (request) {
+    requests.forEach(function(request){
 
-        const item =
-            document.createElement("div");
+        const item = document.createElement("div");
 
         item.className = "request";
 
 
         item.innerHTML = `
-
             <div class="blood-group">
                 ${request.bloodGroup}
             </div>
 
             <div>
-
-                <strong>
-                    ${request.hospitalName}
-                </strong>
-
-                <small>
-                    ${request.location}
-                </small>
-
+                <strong>${request.hospitalName}</strong>
+                <small>${request.location}</small>
             </div>
 
             <span class="status">
                 ${request.status}
             </span>
-
         `;
 
 
-        requestContainer.appendChild(item);
+        box.appendChild(item);
 
     });
-
-}
-
-
-/* =================================
-   FUTURE API FUNCTION
-================================= */
-
-async function loadRealRequests() {
-
-    /*
-        Later, when your backend is ready,
-        you can replace this function with
-        your real API request.
-
-        Example:
-
-        const response =
-            await fetch("/api/blood-requests");
-
-        const requests =
-            await response.json();
-
-        displayRequests(requests);
-    */
 
 }

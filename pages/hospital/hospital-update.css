@@ -1,0 +1,335 @@
+/* ================================
+   UPDATE PROFILE POPUP
+================================ */
+
+.update-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(16,35,46,.55);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    z-index:10000;
+}
+
+.update-overlay.show{
+    display:flex;
+}
+
+
+/* POPUP */
+
+.update-popup{
+    width:100%;
+    max-width:850px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:#fff;
+
+    border:1px solid #dce7ed;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 20px 60px rgba(22,35,46,.25);
+
+    animation:popupOpen .2s ease;
+}
+
+
+/* ANIMATION */
+
+@keyframes popupOpen{
+
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+
+}
+
+
+/* ================================
+   POPUP HEADER
+================================ */
+
+.update-header{
+    display:flex;
+
+    justify-content:space-between;
+    align-items:flex-start;
+
+    padding:25px 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e4f0fc,
+            #fff
+        );
+
+    border-bottom:1px solid #dce7ed;
+}
+
+.update-header h2{
+    margin:0 0 4px;
+
+    font:800 21px Manrope,Arial,sans-serif;
+}
+
+.update-header p{
+    margin:0;
+
+    color:#5b6b75;
+
+    font-size:12px;
+}
+
+
+/* CLOSE BUTTON */
+
+.close-update{
+    width:35px;
+    height:35px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    color:#5b6b75;
+
+    font-size:25px;
+
+    cursor:pointer;
+}
+
+.close-update:hover{
+    background:#fff0f0;
+    color:#d62828;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+#hospitalUpdateForm{
+    padding:25px 30px;
+}
+
+
+/* SECTION */
+
+.form-section{
+    padding-bottom:22px;
+
+    margin-bottom:22px;
+
+    border-bottom:1px solid #e5edf2;
+}
+
+.form-section:last-of-type{
+    border:0;
+    margin-bottom:0;
+}
+
+.form-section h3{
+    margin:0 0 16px;
+
+    color:#124f91;
+
+    font:800 15px Manrope,Arial,sans-serif;
+}
+
+
+/* FORM GRID */
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:16px;
+}
+
+
+/* FORM GROUP */
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+
+/* LABEL */
+
+.form-group label{
+    margin-bottom:6px;
+
+    color:#183b5a;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+
+/* INPUT + SELECT */
+
+.form-group input,
+.form-group select{
+
+    width:100%;
+
+    height:42px;
+
+    padding:0 12px;
+
+    border:1px solid #dce7ed;
+
+    border-radius:8px;
+
+    background:#fbfdff;
+
+    color:#16232e;
+
+    font:12px Inter,Arial,sans-serif;
+
+    outline:0;
+}
+
+
+/* FOCUS */
+
+.form-group input:focus,
+.form-group select:focus{
+
+    border-color:#1b6fc9;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(27,111,201,.08);
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.update-buttons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+}
+
+.cancel-btn,
+.save-btn{
+
+    padding:11px 22px;
+
+    border-radius:8px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+
+/* CANCEL */
+
+.cancel-btn{
+
+    border:1px solid #dce7ed;
+
+    background:#fff;
+
+    color:#5b6b75;
+}
+
+.cancel-btn:hover{
+    background:#f1f7fb;
+}
+
+
+/* SAVE */
+
+.save-btn{
+
+    border:0;
+
+    background:#1f9d6b;
+
+    color:#fff;
+}
+
+.save-btn:hover{
+    background:#146b49;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:650px){
+
+    .update-overlay{
+        padding:10px;
+    }
+
+    .update-popup{
+        max-height:95vh;
+    }
+
+    .update-header{
+        padding:20px;
+    }
+
+    #hospitalUpdateForm{
+        padding:20px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .update-buttons{
+        flex-direction:column-reverse;
+    }
+
+    .cancel-btn,
+    .save-btn{
+        width:100%;
+    }
+
+}
