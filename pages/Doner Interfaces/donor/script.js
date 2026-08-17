@@ -49,13 +49,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* LOGOUT */
 
-    if (logoutBtn) {
+    if(logoutBtn){
 
-        logoutBtn.addEventListener("click", function (event) {
+        logoutBtn.addEventListener("click", function(event){
 
             event.preventDefault();
 
-            alert("Logout clicked");
+            if(confirm("Do you want to logout?")){
+
+                window.location.href = "../../Public Interfaces/Home/Home.html";
+
+            }
 
         });
 
