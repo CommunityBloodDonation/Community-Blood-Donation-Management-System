@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Verify OTP - Community Blood Donation Network</title>
+
+    <link rel="stylesheet" href="otp-verification.css">
+</head>
+
+<body>
+
+    <div class="auth-card">
+
+        <!-- Header -->
+        <div class="card-header">
+            <h3>COMMUNITY BLOOD DONATION NETWORK</h3>
+            <p>Password Recovery</p>
+        </div>
+
+        <!-- Icon -->
+        <div class="recovery-icon">
+            🔐
+        </div>
+
+        <!-- Content -->
+        <div class="form-container">
+
+            <h2>Verify OTP Code</h2>
+
+            <p class="description">
+                Enter the 6-digit verification code sent to your
+                registered email address or mobile number.
+            </p>
+
+            <!-- OTP Form -->
+            <form id="otpForm" onsubmit="handleOTPVerification(event)">
+
+                <div class="form-group">
+
+                    <label for="otpCode">
+                        Verification Code
+                    </label>
+
+                    <input
+                        type="text"
+                        id="otpCode"
+                        class="form-input otp-input"
+                        placeholder="Enter 6-digit OTP"
+                        maxlength="6"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        pattern="[0-9]{6}"
+                        required
+                    >
+
+                </div>
+
+                <!-- OTP Information -->
+                <div class="otp-info">
+
+                    <p>
+                        <strong>Didn't receive the code?</strong>
+                    </p>
+
+                    <p>
+                        Please check your spam/junk folder or
+                        request a new verification code.
+                    </p>
+
+                </div>
+
+                <!-- Verify Button -->
+                <button type="submit" class="btn-submit">
+                    Verify OTP
+                </button>
+
+            </form>
+
+            <!-- Resend OTP -->
+            <div class="resend-otp">
+
+                <span>Didn't receive the OTP?</span>
+
+                <button
+                    type="button"
+                    id="resendBtn"
+                    onclick="resendOTP()"
+                    disabled
+                >
+                    Resend OTP (<span id="timer">30</span>s)
+                </button>
+
+            </div>
+
+            <!-- Back to Login -->
+            <div class="back-login">
+
+                <a href="../Login/login.html">
+                    ← Back to Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let countdown = 30;
+
+        const timerElement =
+            document.getElementById("timer");
+
+        const resendBtn =
+            document.getElementById("resendBtn");
+
+
+        /* =====================================================
+           OTP Countdown
+           ===================================================== */
+
+        const countdownTimer = setInterval(() => {
+
+            countdown--;
+
+            timerElement.textContent = countdown;
+
+            if (countdown <= 0) {
+
+                clearInterval(countdownTimer);
+
+                resendBtn.disabled = false;
+
+                resendBtn.innerHTML = "Resend OTP";
+            }
+
+        }, 1000);
+
+
+        /* =====================================================
+           OTP Verification
+           ===================================================== */
+
+        function handleOTPVerification(event) {
+
+            event.preventDefault();
+
+            const otp =
+                document.getElementById("otpCode").value.trim();
+
+
+            // Check OTP format
+
+            if (!/^\d{6}$/.test(otp)) {
+
+                alert(
+                    "Please enter a valid 6-digit OTP code."
+                );
+
+                return;
+            }
+
+
+            // Demo verification
+
+            alert(
+                "OTP verified successfully."
+            );
+
+
+            // Redirect to Reset Password page
+
+            window.location.href =
+                "../Reset Password/reset-password.html";
+        }
+
+
+        /* =====================================================
+           Resend OTP
+           ===================================================== */
+
+        function resendOTP() {
+
+            alert(
+                "A new OTP has been sent successfully."
+            );
+
+            startCountdown();
+        }
+
+
+        /* =====================================================
+           Start Countdown
+           ===================================================== */
+
+        function startCountdown() {
+
+            countdown = 30;
+
+            resendBtn.disabled = true;
+
+            resendBtn.innerHTML =
+                'Resend OTP (<span id="timer">30</span>s)';
+
+
+            const newTimer =
+                document.getElementById("timer");
+
+
+            const resendTimer =
+                setInterval(() => {
+
+                    countdown--;
+
+                    newTimer.textContent =
+                        countdown;
+
+
+                    if (countdown <= 0) {
+
+                        clearInterval(resendTimer);
+
+                        resendBtn.disabled =
+                            false;
+
+                        resendBtn.innerHTML =
+                            "Resend OTP";
+                    }
+
+                }, 1000);
+        }
+
+    </script>
+
+</body>
+
+</html>
