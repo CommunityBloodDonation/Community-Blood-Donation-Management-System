@@ -170,6 +170,211 @@ main {
 }
 
 
+/* UPDATE PROFILE OVERLAY */
+
+.update-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(16, 42, 67, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 2000;
+}
+
+.update-overlay.show {
+    display: flex;
+}
+
+.update-popup {
+    width: min(820px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #dce7ed;
+    border-radius: 18px;
+    box-shadow: 0 25px 60px rgba(15, 26, 35, 0.25);
+}
+
+.update-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px 28px 18px;
+    border-bottom: 1px solid #e4edf3;
+}
+
+.update-label {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: #1768ca;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.update-header h2 {
+    margin: 0 0 6px;
+    color: #102a43;
+    font-size: 26px;
+}
+
+.update-header p {
+    margin: 0;
+    color: #5b6b75;
+    font-size: 13px;
+}
+
+.update-close {
+    border: none;
+    background: transparent;
+    color: #5b6b75;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.update-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 28px 10px;
+}
+
+.update-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #1b6fc9;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.update-profile strong {
+    display: block;
+    color: #16232e;
+    font-size: 16px;
+}
+
+.update-profile small {
+    color: #5b6b75;
+    font-size: 11px;
+}
+
+#donorProfileForm {
+    padding: 0 28px 28px;
+}
+
+.update-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 20px;
+    margin-top: 18px;
+}
+
+.update-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.update-field label {
+    color: #16314d;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.update-field input,
+.update-field select,
+.update-field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d8e3ed;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #102a43;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.update-field input:focus,
+.update-field select:focus,
+.update-field textarea:focus {
+    outline: none;
+    border-color: #1b6fc9;
+    box-shadow: 0 0 0 3px rgba(27, 111, 201, 0.12);
+}
+
+.update-field textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.password-box {
+    margin-top: 22px;
+    border-top: 1px solid #edf2f6;
+    padding-top: 20px;
+}
+
+.password-box h3 {
+    margin: 0 0 8px;
+    color: #102a43;
+    font-size: 16px;
+}
+
+.password-box p {
+    margin: 0 0 16px;
+    color: #647b91;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.update-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.cancel-btn,
+.save-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #edf3f7;
+    color: #183b5a;
+}
+
+.save-btn {
+    background: #1b6fc9;
+    color: #ffffff;
+}
+
+@media (max-width: 650px) {
+    .update-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .update-header,
+    .update-profile,
+    #donorProfileForm {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+}
+
+
 /* PROFILE INFORMATION */
 
 .profile-top {
