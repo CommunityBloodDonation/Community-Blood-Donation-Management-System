@@ -62,9 +62,8 @@ header{
     z-index:20;
 }
 
-.logo h1{
-    font-size:1.2em;
-    margin:0;
+.logo image{
+    height:50px;
 }
 
 nav ul{
