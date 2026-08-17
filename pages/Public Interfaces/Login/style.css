@@ -206,6 +206,11 @@ body {
     background-color: var(--accent-deep);
 }
 
+.forgot-password {
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
 /* Dynamic Visibility Utilities */
 .hidden {
     display: none !important;
