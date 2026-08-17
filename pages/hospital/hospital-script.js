@@ -44,13 +44,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
             if(confirm("Do you want to logout?")){
 
-                alert("Logout successful.");
-
-                /*
-                Later connect this to your login page:
-
-                window.location.href = "login.html";
-                */
+                window.location.href = "../Public Interfaces/Home/Home.html";
 
             }
 
