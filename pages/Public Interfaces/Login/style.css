@@ -215,3 +215,99 @@ body {
 .hidden {
     display: none !important;
 }
+
+/* ============================================================
+   Portal Title
+   ============================================================ */
+
+.portal-title {
+
+    text-align: center;
+
+    font-size: 1.2rem;
+
+    font-weight: 700;
+
+    color: var(--text-dark);
+
+    margin-bottom: 1.25rem;
+}
+
+
+/* ============================================================
+   Hidden Forms
+   ============================================================ */
+
+.hidden {
+
+    display: none !important;
+
+}
+
+
+/* ============================================================
+   Two Column Fields
+   ============================================================ */
+
+.grid-2 {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0.75rem;
+}
+
+
+/* ============================================================
+   Select Input
+   ============================================================ */
+
+.form-select {
+
+    width: 100%;
+
+    padding: 0.65rem 0.75rem;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 0.5rem;
+
+    box-sizing: border-box;
+
+    font-size: 0.875rem;
+
+    color: var(--text-dark);
+
+    background-color: #ffffff;
+
+    cursor: pointer;
+
+}
+
+
+.form-select:focus {
+
+    outline: none;
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px var(--primary-tint);
+
+}
+
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .grid-2 {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

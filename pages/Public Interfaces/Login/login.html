@@ -2,179 +2,696 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Blood Donation System - Portal</title>
-    <!-- External CSS Link -->
+
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
     <div class="auth-card">
 
-        <!-- Header -->
+
+        <!-- ==================================================
+             HEADER
+        =================================================== -->
+
         <div class="card-header">
-            <h3>COMMUNITY BLOOD DONATION NETWORK</h3>
-            <p>Blood Donation & Hospital Network</p>
+
+            <h3>
+                COMMUNITY BLOOD DONATION NETWORK
+            </h3>
+
+            <p>
+                Blood Donation & Hospital Network
+            </p>
+
         </div>
 
-        <!-- Mode Toggle (Donor vs Hospital Staff) -->
+
+
+        <!-- ==================================================
+             PORTAL MODE
+        =================================================== -->
+
         <div class="mode-toggle-container">
-            <label class="mode-label">Select Portal Mode</label>
+
+
             <div class="mode-grid">
-                <button id="mode-donor-btn" onclick="setMode('donor')" class="btn-mode active">
+
+                <button
+                    type="button"
+                    id="mode-donor-btn"
+                    onclick="setMode('donor')"
+                    class="btn-mode active"
+                >
                     Donor
                 </button>
-                <button id="mode-staff-btn" onclick="setMode('staff')" class="btn-mode inactive">
+
+
+                <button
+                    type="button"
+                    id="mode-staff-btn"
+                    onclick="setMode('staff')"
+                    class="btn-mode inactive"
+                >
                     Hospital Staff
                 </button>
+
             </div>
+
         </div>
 
-        <!-- Auth Tabs (Login vs Register) -->
+
+
+        <!-- ==================================================
+             AUTH TABS
+        =================================================== -->
+
         <div class="auth-tabs">
-            <button id="tab-login" onclick="switchAuthTab('login')" class="tab-btn active">
+
+            <button
+                type="button"
+                id="tab-login"
+                onclick="switchAuthTab('login')"
+                class="tab-btn active"
+            >
                 Login
             </button>
-            <button id="tab-register" onclick="switchAuthTab('register')" class="tab-btn inactive">
+
+
+            <button
+                type="button"
+                id="tab-register"
+                onclick="switchAuthTab('register')"
+                class="tab-btn inactive"
+            >
                 Register
             </button>
+
         </div>
 
-        <!-- Form Section -->
+
+
+        <!-- ==================================================
+             FORMS
+        =================================================== -->
+
         <div class="form-container">
 
-            <!-- 1. LOGIN FORM -->
-            <form id="form-login" onsubmit="handleAuth(event, 'login')">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" class="form-input" required placeholder="user@example.com">
+
+
+            <!-- =================================================
+                 DONOR LOGIN
+            ================================================== -->
+
+            <form
+                id="donor-login"
+                onsubmit="handleAuth(event, 'Donor Login')"
+            >
+
+                <div class="portal-title">
+                    Donor Login
                 </div>
+
+
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-input" required placeholder="••••••••">
+
+                    <label for="donorLoginEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="donorLoginEmail"
+                        class="form-input"
+                        placeholder="donor@example.com"
+                        required
+                    >
+
                 </div>
-                <button type="submit" class="btn-submit">
-                    Sign In
+
+
+                <div class="form-group">
+
+                    <label for="donorLoginPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="donorLoginPassword"
+                        class="form-input"
+                        placeholder="••••••••"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-submit"
+                >
+                    Donor Sign In
                 </button>
+
+
                 <div class="forgot-password">
-                    <a href="../Forget-Password/forgot-password.html">Forgot Password?</a>
+
+                    <a href="../Forget-Password/forgot-password.html">
+                        Forgot Password?
+                    </a>
+
                 </div>
+
             </form>
 
-            <!-- 2. REGISTER FORM -->
-            <form id="form-register" onsubmit="handleAuth(event, 'register')" class="hidden">
-                <!-- Common Fields -->
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" class="form-input" required placeholder="John Doe">
-                </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" class="form-input" required placeholder="user@example.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-input" required placeholder="••••••••">
+
+
+
+            <!-- =================================================
+                 DONOR REGISTER
+            ================================================== -->
+
+            <form
+                id="donor-register"
+                onsubmit="handleAuth(event, 'Donor Registration')"
+                class="hidden"
+            >
+
+                <div class="portal-title">
+                    Donor Registration
                 </div>
 
-                <!-- DONOR SPECIFIC FIELDS -->
-                <div id="donor-fields">
-                    <div class="form-group grid-2">
-                        <div>
-                            <label>Blood Group</label>
-                            <select class="form-select">
-                                <option>A+</option>
-                                <option>A-</option>
-                                <option>B+</option>
-                                <option>B-</option>
-                                <option>O+</option>
-                                <option>O-</option>
-                                <option>AB+</option>
-                                <option>AB-</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>District</label>
-                            <input type="text" class="form-input" placeholder="Colombo">
-                        </div>
-                    </div>
+
+                <div class="form-group">
+
+                    <label for="donorName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="donorName"
+                        class="form-input"
+                        placeholder="John Doe"
+                        required
+                    >
+
                 </div>
 
-                <!-- HOSPITAL STAFF SPECIFIC FIELDS -->
-                <div id="staff-fields" class="hidden">
-                    <div class="form-group">
-                        <label>Hospital / Clinic Name</label>
-                        <input type="text" class="form-input" placeholder="National Hospital Colombo">
-                    </div>
-                    <div class="form-group">
-                        <label>Employee / Staff ID</label>
-                        <input type="text" class="form-input" placeholder="EMP-10023">
-                    </div>
+
+                <div class="form-group">
+
+                    <label for="donorEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="donorEmail"
+                        class="form-input"
+                        placeholder="donor@example.com"
+                        required
+                    >
+
                 </div>
 
-                <button type="submit" class="btn-submit">
-                    Create Account
+
+                <div class="form-group">
+
+                    <label for="donorPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="donorPassword"
+                        class="form-input"
+                        placeholder="••••••••"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group grid-2">
+
+                    <div>
+
+                        <label for="bloodGroup">
+                            Blood Group
+                        </label>
+
+                        <select
+                            id="bloodGroup"
+                            class="form-select"
+                            required
+                        >
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option>A+</option>
+                            <option>A-</option>
+                            <option>B+</option>
+                            <option>B-</option>
+                            <option>O+</option>
+                            <option>O-</option>
+                            <option>AB+</option>
+                            <option>AB-</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="district">
+                            District
+                        </label>
+
+                        <input
+                            type="text"
+                            id="district"
+                            class="form-input"
+                            placeholder="Colombo"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-submit"
+                >
+                    Create Donor Account
                 </button>
+
             </form>
+
+
+
+
+            <!-- =================================================
+                 HOSPITAL STAFF LOGIN
+            ================================================== -->
+
+            <form
+                id="staff-login"
+                onsubmit="handleAuth(event, 'Hospital Staff Login')"
+                class="hidden"
+            >
+
+                <div class="portal-title">
+                    Hospital Staff Login
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="staffLoginEmail">
+                        Staff Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="staffLoginEmail"
+                        class="form-input"
+                        placeholder="staff@hospital.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="staffLoginPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="staffLoginPassword"
+                        class="form-input"
+                        placeholder="••••••••"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-submit"
+                >
+                    Staff Sign In
+                </button>
+
+
+                <div class="forgot-password">
+
+                    <a href="../Forget-Password/forgot-password.html">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+            </form>
+
+
+
+
+            <!-- =================================================
+                 HOSPITAL STAFF REGISTER
+            ================================================== -->
+
+            <form
+                id="staff-register"
+                onsubmit="handleAuth(event, 'Hospital Staff Registration')"
+                class="hidden"
+            >
+
+                <div class="portal-title">
+                    Hospital Staff Registration
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="staffName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="staffName"
+                        class="form-input"
+                        placeholder="John Doe"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="staffEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="staffEmail"
+                        class="form-input"
+                        placeholder="staff@hospital.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="staffPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="staffPassword"
+                        class="form-input"
+                        placeholder="••••••••"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="hospitalName">
+                        Hospital / Clinic Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hospitalName"
+                        class="form-input"
+                        placeholder="National Hospital Colombo"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="employeeId">
+                        Employee / Staff ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="employeeId"
+                        class="form-input"
+                        placeholder="EMP-10023"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn-submit"
+                >
+                    Create Staff Account
+                </button>
+
+            </form>
+
 
         </div>
+
     </div>
 
-    <!-- UI State Handling Logic -->
+
+
+    <!-- ======================================================
+         JAVASCRIPT
+    ======================================================= -->
+
     <script>
-        let currentMode = 'donor';
-        let currentAuth = 'login';
+
+        let currentMode = "donor";
+
+        let currentAuth = "login";
+
+
+        /* ==================================================
+           CHANGE DONOR / STAFF MODE
+        ================================================== */
 
         function setMode(mode) {
+
             currentMode = mode;
-            const donorBtn = document.getElementById('mode-donor-btn');
-            const staffBtn = document.getElementById('mode-staff-btn');
 
-            const donorFields = document.getElementById('donor-fields');
-            const staffFields = document.getElementById('staff-fields');
 
-            if (mode === 'donor') {
-                donorBtn.className = "btn-mode active";
-                staffBtn.className = "btn-mode inactive";
+            const donorBtn =
+                document.getElementById("mode-donor-btn");
 
-                donorFields.classList.remove('hidden');
-                staffFields.classList.add('hidden');
-            } else {
-                staffBtn.className = "btn-mode active";
-                donorBtn.className = "btn-mode inactive";
+            const staffBtn =
+                document.getElementById("mode-staff-btn");
 
-                staffFields.classList.remove('hidden');
-                donorFields.classList.add('hidden');
+
+            if (mode === "donor") {
+
+                donorBtn.className =
+                    "btn-mode active";
+
+                staffBtn.className =
+                    "btn-mode inactive";
+
             }
+            else {
+
+                staffBtn.className =
+                    "btn-mode active";
+
+                donorBtn.className =
+                    "btn-mode inactive";
+
+            }
+
+
+            updateForm();
+
         }
+
+
+
+        /* ==================================================
+           LOGIN / REGISTER TAB
+        ================================================== */
 
         function switchAuthTab(tab) {
-            currentAuth = tab;
-            const loginTab = document.getElementById('tab-login');
-            const regTab = document.getElementById('tab-register');
-            const loginForm = document.getElementById('form-login');
-            const regForm = document.getElementById('form-register');
 
-            if (tab === 'login') {
-                loginTab.className = "tab-btn active";
-                regTab.className = "tab-btn inactive";
-                loginForm.classList.remove('hidden');
-                regForm.classList.add('hidden');
-            } else {
-                regTab.className = "tab-btn active";
-                loginTab.className = "tab-btn inactive";
-                regForm.classList.remove('hidden');
-                loginForm.classList.add('hidden');
+            currentAuth = tab;
+
+
+            const loginTab =
+                document.getElementById("tab-login");
+
+            const registerTab =
+                document.getElementById("tab-register");
+
+
+            if (tab === "login") {
+
+                loginTab.className =
+                    "tab-btn active";
+
+                registerTab.className =
+                    "tab-btn inactive";
+
             }
+            else {
+
+                registerTab.className =
+                    "tab-btn active";
+
+                loginTab.className =
+                    "tab-btn inactive";
+
+            }
+
+
+            updateForm();
+
         }
+
+
+
+        /* ==================================================
+           DISPLAY CORRECT FORM
+        ================================================== */
+
+        function updateForm() {
+
+            const forms = [
+
+                "donor-login",
+
+                "donor-register",
+
+                "staff-login",
+
+                "staff-register"
+
+            ];
+
+
+            // Hide every form
+
+            forms.forEach(function(formId) {
+
+                document
+                    .getElementById(formId)
+                    .classList.add("hidden");
+
+            });
+
+
+            // Show selected form
+
+            let selectedForm;
+
+
+            if (
+                currentMode === "donor" &&
+                currentAuth === "login"
+            ) {
+
+                selectedForm =
+                    "donor-login";
+
+            }
+
+
+            else if (
+                currentMode === "donor" &&
+                currentAuth === "register"
+            ) {
+
+                selectedForm =
+                    "donor-register";
+
+            }
+
+
+            else if (
+                currentMode === "staff" &&
+                currentAuth === "login"
+            ) {
+
+                selectedForm =
+                    "staff-login";
+
+            }
+
+
+            else {
+
+                selectedForm =
+                    "staff-register";
+
+            }
+
+
+            document
+                .getElementById(selectedForm)
+                .classList.remove("hidden");
+
+        }
+
+
+
+        /* ==================================================
+           FORM SUBMISSION
+        ================================================== */
 
         function handleAuth(event, type) {
+
             event.preventDefault();
-            alert(`Submitted ${type.toUpperCase()} request for role: ${currentMode.toUpperCase()}`);
+
+
+            alert(
+                type +
+                " submitted successfully."
+            );
+
         }
+
     </script>
+
 </body>
 
 </html>
