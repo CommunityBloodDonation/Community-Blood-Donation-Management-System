@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BloodConnect | Hospital Dashboard</title>
+
+    <link rel="stylesheet" href="hospital-style.css">
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <h1>COMMUNITY BLOOD DONATION NETWORK</h1>
+    </div>
+
+    <div class="profile-menu">
+
+        <button class="profile-btn" id="profileBtn" type="button">
+            <span class="profile-avatar">H</span>
+            <span class="profile-arrow">▼</span>
+        </button>
+
+        <div class="profile-card" id="profileCard">
+
+            <div class="profile-top">
+
+                <div class="large-avatar">H</div>
+
+                <h3 id="profileName">Hospital</h3>
+
+                <p>Hospital Account</p>
+
+            </div>
+
+            <div class="profile-options">
+
+                <a href="hospital-profile.html">
+                    <span class="option-icon">🏥</span>
+
+                    <span>
+                        <b>Update Profile</b>
+                        <small>Manage hospital information</small>
+                    </span>
+                </a>
+
+                <a href="#" id="logoutBtn">
+                    <span class="option-icon logout-icon">↪</span>
+
+                    <span>
+                        <b>Logout</b>
+                        <small>Sign out of your account</small>
+                    </span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<main>
+
+    <section class="content">
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <div>
+                <h1>
+                    Welcome back,
+                    <span id="welcomeName">Hospital!</span>
+                </h1>
+
+                <p>
+                    Manage blood requests and help connect patients
+                    with available donors.
+                </p>
+            </div>
+
+            <div class="hospital-icon">
+                🏥
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             STATISTICS
+        ========================= -->
+
+        <div class="stats">
+
+            <article>
+
+                <b class="ico red">♥</b>
+
+                <p>Blood Requests</p>
+
+                <h2 id="totalRequests">—</h2>
+
+                <small>Total requests</small>
+
+            </article>
+
+
+            <article>
+
+                <b class="ico blue">●</b>
+
+                <p>Active Requests</p>
+
+                <h2 id="activeRequests">—</h2>
+
+                <small>Currently active</small>
+
+            </article>
+
+
+            <article>
+
+                <b class="ico green">✓</b>
+
+                <p>Fulfilled Requests</p>
+
+                <h2 id="fulfilledRequests">—</h2>
+
+                <small>Successfully fulfilled</small>
+
+            </article>
+
+
+            <article>
+
+                <b class="ico green">♥</b>
+
+                <p>Available Donors</p>
+
+                <h2 id="availableDonors">—</h2>
+
+                <small>Matching donors</small>
+
+            </article>
+
+        </div>
+
+
+        <!-- =========================
+             EMERGENCY REQUESTS
+        ========================= -->
+
+        <section class="panel">
+
+            <header>
+
+                <div>
+
+                    <h2>Emergency Blood Requests</h2>
+
+                    <small>
+                        Verified requests from the system.
+                    </small>
+
+                </div>
+
+                <a href="hospital-requests.html">
+                    View All →
+                </a>
+
+            </header>
+
+
+            <div id="requests">
+
+                <p class="empty">
+                    No verified blood requests available.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             QUICK ACTIONS
+        ========================= -->
+
+        <section class="panel quick">
+
+            <h2>Quick Actions</h2>
+
+            <div class="actions">
+
+                <a href="create-blood-request.html">
+
+                    <span class="action-icon red-icon">
+                        +
+                    </span>
+
+                    <span>
+                        Create Blood Request
+                        <small>
+                            Request blood for a patient
+                        </small>
+                    </span>
+
+                </a>
+
+
+                <a href="hospital-requests.html">
+
+                    <span class="action-icon blue-icon">
+                        ▣
+                    </span>
+
+                    <span>
+                        Manage Requests
+                        <small>
+                            View and manage requests
+                        </small>
+                    </span>
+
+                </a>
+
+
+                <a href="hospital-donors.html">
+
+                    <span class="action-icon green-icon">
+                        ♥
+                    </span>
+
+                    <span>
+                        Find Donors
+                        <small>
+                            View available donors
+                        </small>
+                    </span>
+
+                </a>
+
+
+                <a href="hospital-history.html">
+
+                    <span class="action-icon blue-icon">
+                        ◷
+                    </span>
+
+                    <span>
+                        Request History
+                        <small>
+                            View previous requests
+                        </small>
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="footer-center-name">
+        Community Blood Donation Center
+    </div>
+
+    <ul class="contact-details">
+
+        <li>
+            📍 123 Main Street, Colombo, Sri Lanka
+        </li>
+
+        <li>
+            📞 Hotline: +94 11 234 5678
+        </li>
+
+        <li>
+            📱 Emergency: +94 77 123 4567
+        </li>
+
+        <li>
+            ✉️ Email: support@blooddonation.org
+        </li>
+
+        <li>
+            🌐 Website: www.blooddonation.org
+        </li>
+
+    </ul>
+
+    <p>
+        &copy; 2026 Community Blood Donation Management System
+        | All Rights Reserved
+    </p>
+
+</footer>
+
+
+<script src="hospital-script.js"></script>
+
+</body>
+</html>
