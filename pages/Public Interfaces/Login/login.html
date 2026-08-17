@@ -499,7 +499,19 @@
          JAVASCRIPT
     ======================================================= -->
 
+    <!-- ======================================================
+         SUPABASE
+    ======================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
     <script>
+
+        const SUPABASE_URL = "https://egkfscgkpgbqcvxkxwdn.supabase.co";
+
+        const SUPABASE_ANON_KEY = "sb_publishable_RwlYoQ4ihEG9v15fzYg0Cw_8IrOr--q";
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentMode = "donor";
 
@@ -674,19 +686,86 @@
 
 
 
-        /* ==================================================
-           FORM SUBMISSION
-        ================================================== */
-
-        function handleAuth(event, type) {
+        async function handleAuth(event, type) {
 
             event.preventDefault();
 
+            const isLogin = type.includes("Login");
 
-            alert(
-                type +
-                " submitted successfully."
-            );
+            let email = "";
+            let password = "";
+            let options = {};
+
+            if (type === "Donor Login") {
+                email = document.getElementById("donorLoginEmail").value;
+                password = document.getElementById("donorLoginPassword").value;
+
+            } else if (type === "Donor Registration") {
+                email = document.getElementById("donorEmail").value;
+                password = document.getElementById("donorPassword").value;
+                options = {
+                    options: {
+                        data: {
+                            full_name: document.getElementById("donorName").value,
+                            blood_group: document.getElementById("bloodGroup").value,
+                            district: document.getElementById("district").value,
+                            user_type: "donor"
+                        }
+                    }
+                };
+
+            } else if (type === "Hospital Staff Login") {
+                email = document.getElementById("staffLoginEmail").value;
+                password = document.getElementById("staffLoginPassword").value;
+
+            } else if (type === "Hospital Staff Registration") {
+                email = document.getElementById("staffEmail").value;
+                password = document.getElementById("staffPassword").value;
+                options = {
+                    options: {
+                        data: {
+                            full_name: document.getElementById("staffName").value,
+                            hospital_name: document.getElementById("hospitalName").value,
+                            employee_id: document.getElementById("employeeId").value,
+                            user_type: "hospital"
+                        }
+                    }
+                };
+
+            }
+
+            if (!email || !password) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            try {
+                const { error } = isLogin
+                    ? await supabaseClient.auth.signInWithPassword({ email, password })
+                    : await supabaseClient.auth.signUp({ email, password, ...options });
+
+                if (error) {
+                    alert(error.message);
+                } else {
+                    if (isLogin) {
+                        alert(type + " successful.");
+
+                        if (type === "Donor Login") {
+                            window.location.href = "../../Doner Interfaces/donor/donor-dashboard.html";
+                        } else {
+                            window.location.href = "../../hospital/hospital-dashboard.html";
+                        }
+
+                    } else {
+                        alert("A confirmation email has been sent. Please verify your account to continue.");
+
+                        switchAuthTab("login");
+                    }
+                }
+
+            } catch (err) {
+                alert("An unexpected error occurred: " + err.message);
+            }
 
         }
 
