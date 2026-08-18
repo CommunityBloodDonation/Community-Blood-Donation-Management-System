@@ -1,58 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Community Blood Donation Management System</title>
+
     <link rel="stylesheet" href="home.css">
+
+    <!-- =========================================================
+         SUPABASE LIBRARY
+         ========================================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
+
 <body>
+
 <header>
+
     <div class="logo">
-        <img src="logo.png" height="50">
+        <img src="logo.png" height="50" alt="Blood Donation Logo">
     </div>
+
     <nav>
         <ul>
-            <li><a href="../Login/login.html">Login</a></li>
-            <li><a href="../Login/login.html">Register</a></li>
+            <li>
+                <a href="../Login/login.html">Login</a>
+            </li>
+
+            <li>
+                <a href="../Login/login.html">Register</a>
+            </li>
         </ul>
     </nav>
+
 </header>
 
-<!--  up Hero Section -->
+
+<!-- =========================================================
+     HERO SECTION
+     ========================================================= -->
 
 <section class="up_hero">
 
     <div class="Save_Lives_content">
 
         <!-- LEFT SIDE -->
+
         <div class="left_card">
 
             <label>● COMMUNITY BLOOD DONATION NETWORK</label>
+
             <h1>
                 Save Lives.<br>
                 <span>Donate Blood.</span>
             </h1>
+
             <p>
                 Join our community of life savers.
                 Your single donation can make a huge
                 difference for someone in need.
             </p>
+
             <div class="buttons">
-                <a href="#" class="btn blue-btn">
+
+                <a href="blood-requests.html" class="btn blue-btn">
                     🩸 Find Blood Requests
                 </a>
 
                 <a href="../Login/login.html" class="btn green-btn">
                     ♥ Become a Donor
                 </a>
+
             </div>
-            <small class="safe">✓ Safe. Secure. Saving Lives.</small>
+
+            <small class="safe">
+                ✓ Safe. Secure. Saving Lives.
+            </small>
 
         </div>
 
+
         <!-- RIGHT SIDE -->
+
         <div class="right_card">
+
             <div class="hero-art">
 
                 <div class="art-circle"></div>
@@ -74,11 +108,18 @@
 
 </section>
 
+
+
+<!-- =========================================================
+     ABOUT US
+     ========================================================= -->
+
 <section class="about_us">
 
     <div class="about_us_content">
 
         <!-- LEFT SIDE -->
+
         <div class="about_us_card">
 
             <h2>About Us</h2>
@@ -104,6 +145,7 @@
 
 
         <!-- RIGHT SIDE -->
+
         <div class="about_features">
 
             <h3>What We Do</h3>
@@ -147,20 +189,32 @@
     </div>
 
 </section>
-<!-- Main Content -->
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+     ========================================================= -->
+
 <main>
+
     <section class="section light" id="about">
 
         <div class="about">
 
             <div class="about-box">
+
                 ❤️
+
                 <h2>Every Drop Matters</h2>
+
                 <p>
                     A connected community for donors,
                     hospitals and patients.
                 </p>
+
             </div>
+
 
             <div>
 
@@ -178,9 +232,11 @@
                 </p>
 
                 <ul>
+
                     <li>✓ Find donors faster</li>
                     <li>✓ Track blood requests</li>
                     <li>✓ Support emergency requests</li>
+
                 </ul>
 
             </div>
@@ -189,152 +245,191 @@
 
     </section>
 
+
+
+    <!-- =========================================================
+         CURRENT STATISTICS
+         THESE VALUES WILL BE LOADED FROM SUPABASE
+         ========================================================= -->
+
     <section class="stats">
+
         <h3>Current Statistics</h3>
+
         <div class="stats-card">
+
             <div class="stat-item">
+
                 <span class="stat-icon">👥</span>
-                <div class="stat-number">1200+</div>
-                <div class="stat-label">Total Donors</div>
-                <div class="stat-desc">People who care</div>
+
+                <div
+                    class="stat-number"
+                    id="totalDonors">
+                    Loading...
+                </div>
+
+                <div class="stat-label">
+                    Total Donors
+                </div>
+
+                <div class="stat-desc">
+                    People who care
+                </div>
+
             </div>
+
+
             <div class="stat-item">
+
                 <span class="stat-icon">🩸</span>
-                <div class="stat-number">45</div>
-                <div class="stat-label">Blood Requests</div>
-                <div class="stat-desc">Requests received</div>
+
+                <div
+                    class="stat-number"
+                    id="totalRequests">
+                    Loading...
+                </div>
+
+                <div class="stat-label">
+                    Blood Requests
+                </div>
+
+                <div class="stat-desc">
+                    Requests received
+                </div>
+
             </div>
+
+
             <div class="stat-item">
+
                 <span class="stat-icon">❤️</span>
-                <div class="stat-number">980+</div>
-                <div class="stat-label">Donations</div>
-                <div class="stat-desc">Successful donations</div>
+
+                <div
+                    class="stat-number"
+                    id="totalDonations">
+                    Loading...
+                </div>
+
+                <div class="stat-label">
+                    Donations
+                </div>
+
+                <div class="stat-desc">
+                    Successful donations
+                </div>
+
             </div>
+
+
             <div class="stat-item">
+
                 <span class="stat-icon">👨‍👩‍👦</span>
-                <div class="stat-number">2,940+</div>
-                <div class="stat-label">Lives Saved</div>
-                <div class="stat-desc">Thanks to donors</div>
+
+                <div
+                    class="stat-number"
+                    id="livesSaved">
+                    Loading...
+                </div>
+
+                <div class="stat-label">
+                    Lives Saved
+                </div>
+
+                <div class="stat-desc">
+                    Thanks to donors
+                </div>
+
             </div>
+
         </div>
+
     </section>
+
 </main>
 
-<!-- BLOOD REQUESTS -->
+
+
+<!-- =========================================================
+     BLOOD REQUESTS
+     ========================================================= -->
+
 <section class="section light">
 
     <div class="section-title">
 
         <div>
-            <label class="red">● URGENT NEED</label>
-            <h2>Emergency Blood Requests</h2>
-            <p>Help connect donors with patients who need blood.</p>
+
+            <label class="red">
+                ● URGENT NEED
+            </label>
+
+            <h2>
+                Emergency Blood Requests
+            </h2>
+
+            <p>
+                Help connect donors with patients who need blood.
+            </p>
+
         </div>
 
-        <a href="blood-requests.html">View All Requests →</a>
+
+        <a href="blood-requests.html">
+            View All Requests →
+        </a>
 
     </div>
 
 
-    <div class="cards">
+    <!-- =====================================================
+         DYNAMIC REQUESTS CONTAINER
 
-        <article class="request">
-            <span class="emergency">EMERGENCY</span>
-            <small>10 min ago</small>
+         Supabase blood requests will be inserted here.
+         ===================================================== -->
 
-            <div class="request-info">
-                <b>O+</b>
-                <div>
-                    <strong>City Hospital</strong>
-                    <small>Colombo</small>
-                </div>
-            </div>
+    <div
+        class="cards"
+        id="bloodRequestsContainer">
 
-            <footer>
-                2 Units · 📍 2.5 km
-                <a href="blood-requests.html">Details</a>
-            </footer>
-        </article>
-
-
-        <article class="request">
-            <span class="emergency">EMERGENCY</span>
-            <small>20 min ago</small>
-
-            <div class="request-info">
-                <b>A-</b>
-                <div>
-                    <strong>General Hospital</strong>
-                    <small>Kandy</small>
-                </div>
-            </div>
-
-            <footer>
-                1 Unit · 📍 5.1 km
-                <a href="blood-requests.html">Details</a>
-            </footer>
-        </article>
-
-
-        <article class="request">
-            <span class="emergency">EMERGENCY</span>
-            <small>35 min ago</small>
-
-            <div class="request-info">
-                <b>B+</b>
-                <div>
-                    <strong>Teaching Hospital</strong>
-                    <small>Galle</small>
-                </div>
-            </div>
-
-            <footer>
-                3 Units · 📍 6.8 km
-                <a href="blood-requests.html">Details</a>
-            </footer>
-        </article>
-
-
-        <article class="request">
-            <span class="emergency">EMERGENCY</span>
-            <small>1 hr ago</small>
-
-            <div class="request-info">
-                <b>AB-</b>
-                <div>
-                    <strong>District Hospital</strong>
-                    <small>Kurunegala</small>
-                </div>
-            </div>
-
-            <footer>
-                1 Unit · 📍 8.3 km
-                <a href="blood-requests.html">Details</a>
-            </footer>
-        </article>
+        <p>
+            Loading blood requests...
+        </p>
 
     </div>
 
 </section>
 
 
-<!-- ABOUT -->
+
+<!-- =========================================================
+     ABOUT
+     ========================================================= -->
+
 <section class="section light" id="about">
 
     <div class="about">
 
         <div class="about-box">
+
             ❤️
-            <h2>Every Drop Matters</h2>
+
+            <h2>
+                Every Drop Matters
+            </h2>
+
             <p>
                 A connected community for donors,
                 hospitals and patients.
             </p>
+
         </div>
+
 
         <div>
 
-            <label>ABOUT BLOODCONNECT</label>
+            <label>
+                ABOUT BLOODCONNECT
+            </label>
 
             <h2>
                 Connecting people when
@@ -348,9 +443,11 @@
             </p>
 
             <ul>
+
                 <li>✓ Find donors faster</li>
                 <li>✓ Track blood requests</li>
                 <li>✓ Support emergency requests</li>
+
             </ul>
 
         </div>
@@ -359,19 +456,557 @@
 
 </section>
 
-<!-- Footer -->
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
 <footer class="footer">
-    <div class="footer-center-name">Community Blood Donation Center</div>
+
+    <div class="footer-center-name">
+        Community Blood Donation Center
+    </div>
 
     <ul class="contact-details">
-        <li>📍 123 Main Street, Colombo, Sri Lanka</li>
-        <li>📞 Hotline: +94 11 234 5678</li>
-        <li>📱 Emergency: +94 77 123 4567</li>
-        <li>✉️ Email: support@blooddonation.org</li>
-        <li>🌐 Website: www.blooddonation.org</li>
+
+        <li>
+            📍 123 Main Street, Colombo, Sri Lanka
+        </li>
+
+        <li>
+            📞 Hotline: +94 11 234 5678
+        </li>
+
+        <li>
+            📱 Emergency: +94 77 123 4567
+        </li>
+
+        <li>
+            ✉️ Email: support@blooddonation.org
+        </li>
+
+        <li>
+            🌐 Website: www.blooddonation.org
+        </li>
+
     </ul>
 
-    <p>&copy; 2026 Community Blood Donation Management System | All Rights Reserved</p>
+    <p>
+        &copy; 2026 Community Blood Donation Management System |
+        All Rights Reserved
+    </p>
+
 </footer>
+
+
+
+<!-- =========================================================
+     SUPABASE JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+    /* =========================================================
+       SUPABASE CONFIGURATION
+       =========================================================
+
+       IMPORTANT:
+       UPDATE THESE TWO VALUES WITH YOUR OWN SUPABASE DETAILS.
+
+       1. SUPABASE_URL
+       2. SUPABASE_KEY
+
+       You can find them in:
+
+       Supabase Dashboard
+       → Project Settings
+       → API
+
+       Use the Publishable/Anon key for frontend code.
+
+       DO NOT PUT YOUR SERVICE_ROLE KEY HERE.
+       ========================================================= */
+
+
+    // =========================================================
+    // UPDATE THIS: YOUR SUPABASE PROJECT URL
+    // =========================================================
+
+    const SUPABASE_URL =
+        "https://YOUR-PROJECT-ID.supabase.co";
+
+
+    // =========================================================
+    // UPDATE THIS: YOUR SUPABASE PUBLISHABLE/ANON KEY
+    // =========================================================
+
+    const SUPABASE_KEY =
+        "YOUR-SUPABASE-PUBLISHABLE-OR-ANON-KEY";
+
+
+    // Create Supabase client
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+
+    /* =========================================================
+       DATABASE TABLE NAMES
+       =========================================================
+
+       IMPORTANT:
+
+       Change these names if your Supabase tables have
+       different names.
+
+       Example:
+
+       donors
+       blood_requests
+       donations
+
+       ========================================================= */
+
+    const DONORS_TABLE =
+        "donors";
+
+    const BLOOD_REQUESTS_TABLE =
+        "blood_requests";
+
+    const DONATIONS_TABLE =
+        "donations";
+
+
+
+    /* =========================================================
+       LOAD STATISTICS
+       ========================================================= */
+
+    async function loadStatistics() {
+
+        try {
+
+            // -------------------------------------------------
+            // COUNT TOTAL DONORS
+            // -------------------------------------------------
+
+            const {
+                count: donorCount,
+                error: donorError
+            } = await supabaseClient
+                .from(DONORS_TABLE)
+                .select("*", {
+                    count: "exact",
+                    head: true
+                });
+
+
+            if (donorError) {
+                throw donorError;
+            }
+
+
+
+            // -------------------------------------------------
+            // COUNT BLOOD REQUESTS
+            // -------------------------------------------------
+
+            const {
+                count: requestCount,
+                error: requestError
+            } = await supabaseClient
+                .from(BLOOD_REQUESTS_TABLE)
+                .select("*", {
+                    count: "exact",
+                    head: true
+                });
+
+
+            if (requestError) {
+                throw requestError;
+            }
+
+
+
+            // -------------------------------------------------
+            // COUNT DONATIONS
+            // -------------------------------------------------
+
+            const {
+                count: donationCount,
+                error: donationError
+            } = await supabaseClient
+                .from(DONATIONS_TABLE)
+                .select("*", {
+                    count: "exact",
+                    head: true
+                });
+
+
+            if (donationError) {
+                throw donationError;
+            }
+
+
+
+            // -------------------------------------------------
+            // UPDATE HTML
+            // -------------------------------------------------
+
+            document.getElementById("totalDonors")
+                .textContent =
+                donorCount ?? 0;
+
+
+            document.getElementById("totalRequests")
+                .textContent =
+                requestCount ?? 0;
+
+
+            document.getElementById("totalDonations")
+                .textContent =
+                donationCount ?? 0;
+
+
+            /*
+                For now, lives saved is calculated from
+                successful donations.
+
+                You can change this later if you have a
+                separate lives_saved column/table.
+            */
+
+            document.getElementById("livesSaved")
+                .textContent =
+                donationCount ?? 0;
+
+
+        } catch (error) {
+
+            console.error(
+                "Error loading statistics:",
+                error
+            );
+
+
+            document.getElementById("totalDonors")
+                .textContent = "0";
+
+            document.getElementById("totalRequests")
+                .textContent = "0";
+
+            document.getElementById("totalDonations")
+                .textContent = "0";
+
+            document.getElementById("livesSaved")
+                .textContent = "0";
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       LOAD BLOOD REQUESTS
+       ========================================================= */
+
+    async function loadBloodRequests() {
+
+        const container =
+            document.getElementById(
+                "bloodRequestsContainer"
+            );
+
+
+        try {
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+
+                .from(BLOOD_REQUESTS_TABLE)
+
+                .select("*")
+
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                )
+
+                .limit(4);
+
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+
+            // Remove loading message
+
+            container.innerHTML = "";
+
+
+
+            // No requests
+
+            if (!data || data.length === 0) {
+
+                container.innerHTML = `
+                    <p>
+                        No blood requests available
+                        at the moment.
+                    </p>
+                `;
+
+                return;
+
+            }
+
+
+
+            // -------------------------------------------------
+            // CREATE REQUEST CARDS
+            // -------------------------------------------------
+
+            data.forEach(request => {
+
+                const article =
+                    document.createElement("article");
+
+
+                article.className =
+                    "request";
+
+
+
+                /*
+                    These property names assume your table
+                    contains:
+
+                    blood_group
+                    hospital_name
+                    location
+                    units
+                    urgency
+                    created_at
+
+                    If your column names are different,
+                    change them below.
+                */
+
+
+                const bloodGroup =
+                    request.blood_group ||
+                    "N/A";
+
+
+                const hospitalName =
+                    request.hospital_name ||
+                    "Hospital";
+
+
+                const location =
+                    request.location ||
+                    "Location";
+
+
+                const units =
+                    request.units ||
+                    1;
+
+
+                const urgency =
+                    request.urgency ||
+                    "EMERGENCY";
+
+
+
+                article.innerHTML = `
+
+                    <span class="emergency">
+                        ${urgency}
+                    </span>
+
+                    <small>
+                        Blood request
+                    </small>
+
+                    <div class="request-info">
+
+                        <b>
+                            ${bloodGroup}
+                        </b>
+
+                        <div>
+
+                            <strong>
+                                ${hospitalName}
+                            </strong>
+
+                            <small>
+                                ${location}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <footer>
+
+                        ${units} Unit${units > 1 ? "s" : ""}
+
+                        · 📍 ${location}
+
+                        <a href="blood-requests.html">
+                            Details
+                        </a>
+
+                    </footer>
+
+                `;
+
+
+                container.appendChild(article);
+
+            });
+
+
+
+        } catch (error) {
+
+            console.error(
+                "Error loading blood requests:",
+                error
+            );
+
+
+            container.innerHTML = `
+
+                <p>
+                    Unable to load blood requests.
+                    Please try again later.
+                </p>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       CHECK SUPABASE CONNECTION
+       ========================================================= */
+
+    async function checkSupabaseConnection() {
+
+        try {
+
+            const {
+                error
+            } = await supabaseClient
+
+                .from(DONORS_TABLE)
+
+                .select("*", {
+                    count: "exact",
+                    head: true
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Supabase connection error:",
+                    error
+                );
+
+                return false;
+
+            }
+
+
+            console.log(
+                "✅ Supabase connected successfully."
+            );
+
+
+            return true;
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Supabase connection failed:",
+                error
+            );
+
+            return false;
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       START APPLICATION
+       ========================================================= */
+
+    async function initializeHomePage() {
+
+        console.log(
+            "Connecting to Supabase..."
+        );
+
+
+        const connected =
+            await checkSupabaseConnection();
+
+
+        if (!connected) {
+
+            console.error(
+                "Please check your Supabase URL, key, table names and RLS policies."
+            );
+
+            return;
+
+        }
+
+
+        await loadStatistics();
+
+        await loadBloodRequests();
+
+    }
+
+
+
+    // Run when page loads
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeHomePage
+    );
+
+</script>
+
+
 </body>
+
 </html>
