@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BloodConnect | Donor List</title>
+
+    <link rel="stylesheet" href="donor-list.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <img src="../../Assets/images/logo.png" height="50">
+    </div>
+
+    <div class="profile-menu">
+
+        <button class="profile-btn" id="profileBtn">
+            <span class="profile-avatar">D</span>
+            <span class="profile-arrow">▼</span>
+        </button>
+
+        <div class="profile-card" id="profileCard">
+
+            <div class="profile-top">
+                <div class="large-avatar">D</div>
+                <h3>Donor</h3>
+                <p>Blood Donor</p>
+            </div>
+
+            <div class="profile-options">
+
+                <a href="#">
+                    <span class="option-icon">👤</span>
+                    <span>
+                        <b>Update Profile</b>
+                        <small>Manage your information</small>
+                    </span>
+                </a>
+
+                <a href="#" id="logoutBtn">
+                    <span class="option-icon">↪</span>
+                    <span>
+                        <b>Logout</b>
+                        <small>Sign out of your account</small>
+                    </span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <section class="donor-page">
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <div>
+                <span>● BLOOD DONORS</span>
+
+                <h1>Donor Directory</h1>
+
+                <p>
+                    Find available donors and connect with people
+                    who can help save lives.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH + FILTER -->
+
+        <div class="filters">
+
+            <div class="search">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search donor or city...">
+
+            </div>
+
+
+            <select id="bloodFilter">
+
+                <option value="">All Blood Groups</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+
+            </select>
+
+
+            <select id="statusFilter">
+
+                <option value="">All Status</option>
+                <option value="Available">Available</option>
+                <option value="Unavailable">Unavailable</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- DONOR COUNT -->
+
+        <div class="list-heading">
+
+            <div>
+                <h2>Available Donors</h2>
+                <small id="donorCount">0 donors found</small>
+            </div>
+
+        </div>
+
+
+        <!-- DONOR LIST -->
+
+        <div class="donor-list" id="donorList">
+            <!-- Donors are added by JavaScript -->
+        </div>
+
+
+        <!-- NO RESULTS -->
+
+        <div class="no-results" id="noResults">
+
+            <div>🔍</div>
+
+            <h3>No donors found</h3>
+
+            <p>
+                Try changing your search or filter.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= DONOR DETAILS POPUP ================= -->
+
+<div class="details-overlay" id="detailsOverlay">
+
+    <div class="details-popup">
+
+        <button
+            class="close-btn"
+            id="closeDetails">
+            ×
+        </button>
+
+        <div class="details-avatar" id="detailsAvatar">
+            D
+        </div>
+
+        <h2 id="detailsName">Donor Name</h2>
+
+        <span class="available" id="detailsStatus">
+            ● Available
+        </span>
+
+
+        <div class="details-info">
+
+            <div>
+                <small>Blood Group</small>
+                <strong id="detailsBlood">O+</strong>
+            </div>
+
+            <div>
+                <small>Location</small>
+                <strong id="detailsCity">Colombo</strong>
+            </div>
+
+            <div>
+                <small>Last Donation</small>
+                <strong id="detailsLast">—</strong>
+            </div>
+
+            <div>
+                <small>Total Donations</small>
+                <strong id="detailsTotal">—</strong>
+            </div>
+
+        </div>
+
+
+        <button class="contact-btn">
+            Contact Donor
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-center-name">
+        Community Blood Donation Center
+    </div>
+
+    <ul class="contact-details">
+
+        <li>📍 123 Main Street, Colombo, Sri Lanka</li>
+
+        <li>📞 Hotline: +94 11 234 5678</li>
+
+        <li>📱 Emergency: +94 77 123 4567</li>
+
+        <li>✉️ Email: support@blooddonation.org</li>
+
+        <li>🌐 Website: www.blooddonation.org</li>
+
+    </ul>
+
+    <p>
+        &copy; 2026 Community Blood Donation Management System
+        | All Rights Reserved
+    </p>
+
+</footer>
+
+
+<script src="donor-list.js"></script>
+
+</body>
+</html>
