@@ -1,127 +1,483 @@
-document.addEventListener("DOMContentLoaded", function(){
+/* ==================================================
+   HOSPITAL PROFILE DATA
+================================================== */
 
-    const profileBtn = document.getElementById("profileBtn");
-    const profileCard = document.getElementById("profileCard");
-    const logoutBtn = document.getElementById("logoutBtn");
+let hospitalData = {
 
+    name: "City Hospital",
 
-    /* PROFILE DROPDOWN */
+    email: "hospital@example.com",
 
-    if(profileBtn && profileCard){
+    phone: "+94 11 234 5678",
 
-        profileBtn.addEventListener("click", function(event){
+    location: "Colombo",
 
-            event.stopPropagation();
+    registration: "HSP-001",
 
-            profileCard.classList.toggle("show");
+    type: "General Hospital",
 
-        });
+    address: "123 Main Street, Colombo, Sri Lanka",
 
+    bloodBank: "Available",
 
-        profileCard.addEventListener("click", function(event){
+    emergency: "+94 77 123 4567"
 
-            event.stopPropagation();
-
-        });
-
-
-        document.addEventListener("click", function(){
-
-            profileCard.classList.remove("show");
-
-        });
-
-    }
+};
 
 
-    /* LOGOUT */
+/* ==================================================
+   GET ELEMENTS
+================================================== */
 
-    if(logoutBtn){
+const profileBtn =
+    document.getElementById("profileBtn");
 
-        logoutBtn.addEventListener("click", function(event){
+const profileCard =
+    document.getElementById("profileCard");
 
-            event.preventDefault();
+const informationBtn =
+    document.getElementById("informationBtn");
 
-            if(confirm("Do you want to logout?")){
+const informationModal =
+    document.getElementById("informationModal");
 
-                window.location.href = "../Public Interfaces/Home/Home.html";
+const updateModal =
+    document.getElementById("updateModal");
 
-            }
+const openUpdateBtn =
+    document.getElementById("openUpdateBtn");
 
-        });
+const quickUpdateProfile =
+    document.getElementById("quickUpdateProfile");
 
-    }
+const closeInformation =
+    document.getElementById("closeInformation");
+
+const closeUpdate =
+    document.getElementById("closeUpdate");
+
+const cancelUpdate =
+    document.getElementById("cancelUpdate");
+
+const updateForm =
+    document.getElementById("updateForm");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
 
 
-    loadHospitalData();
+/* ==================================================
+   PROFILE DROPDOWN
+================================================== */
+
+profileBtn.addEventListener("click", function (event) {
+
+    event.stopPropagation();
+
+    profileCard.classList.toggle("show");
 
 });
 
 
-/* HOSPITAL DATA */
+profileCard.addEventListener("click", function (event) {
 
-function loadHospitalData(){
+    event.stopPropagation();
 
-    document.getElementById("totalRequests").textContent = "—";
+});
 
-    document.getElementById("activeRequests").textContent = "—";
 
-    document.getElementById("fulfilledRequests").textContent = "—";
+document.addEventListener("click", function () {
 
-    document.getElementById("availableDonors").textContent = "—";
+    profileCard.classList.remove("show");
+
+});
+
+
+/* ==================================================
+   OPEN INFORMATION MODAL
+================================================== */
+
+function openInformation() {
+
+    profileCard.classList.remove("show");
+
+    updateInformationDisplay();
+
+    informationModal.classList.add("show");
+
+}
+
+
+informationBtn.addEventListener(
+    "click",
+    openInformation
+);
+
+
+/* QUICK ACTION */
+
+quickUpdateProfile.addEventListener(
+    "click",
+    function (event) {
+
+        event.preventDefault();
+
+        openInformation();
+
+    }
+);
+
+
+/* ==================================================
+   CLOSE INFORMATION
+================================================== */
+
+closeInformation.addEventListener(
+    "click",
+    function () {
+
+        informationModal.classList.remove("show");
+
+    }
+);
+
+
+/* ==================================================
+   OPEN UPDATE MODAL
+================================================== */
+
+function openUpdate() {
+
+    /*
+       Fill form with current information
+    */
+
+    document.getElementById("hospitalName").value =
+        hospitalData.name;
+
+    document.getElementById("hospitalEmail").value =
+        hospitalData.email;
+
+    document.getElementById("hospitalPhone").value =
+        hospitalData.phone;
+
+    document.getElementById("hospitalLocation").value =
+        hospitalData.location;
+
+    document.getElementById("registrationNumber").value =
+        hospitalData.registration;
+
+    document.getElementById("hospitalType").value =
+        hospitalData.type;
+
+    document.getElementById("hospitalAddress").value =
+        hospitalData.address;
+
+    document.getElementById("bloodBank").value =
+        hospitalData.bloodBank;
+
+    document.getElementById("emergencyContact").value =
+        hospitalData.emergency;
+
+
+    /*
+       Close information
+       Open update
+    */
+
+    informationModal.classList.remove("show");
+
+    updateModal.classList.add("show");
 
 }
 
 
-/* DISPLAY REAL REQUESTS FROM BACKEND */
-
-function displayRequests(requests){
-
-    const box = document.getElementById("requests");
-
-    if(!box){
-        return;
-    }
+openUpdateBtn.addEventListener(
+    "click",
+    openUpdate
+);
 
 
-    if(!requests || requests.length === 0){
+/* ==================================================
+   CLOSE UPDATE
+================================================== */
 
-        box.innerHTML =
-            '<p class="empty">No verified blood requests available.</p>';
+function cancelProfileUpdate() {
 
-        return;
+    /*
+       IMPORTANT:
+       Do not change hospitalData.
+    */
 
-    }
+    updateModal.classList.remove("show");
 
-
-    box.innerHTML = "";
-
-
-    requests.forEach(function(request){
-
-        const item = document.createElement("div");
-
-        item.className = "request";
-
-
-        item.innerHTML = `
-            <div class="blood-group">
-                ${request.bloodGroup}
-            </div>
-
-            <div>
-                <strong>${request.hospitalName}</strong>
-                <small>${request.location}</small>
-            </div>
-
-            <span class="status">
-                ${request.status}
-            </span>
-        `;
-
-
-        box.appendChild(item);
-
-    });
+    informationModal.classList.add("show");
 
 }
+
+
+cancelUpdate.addEventListener(
+    "click",
+    cancelProfileUpdate
+);
+
+
+closeUpdate.addEventListener(
+    "click",
+    cancelProfileUpdate
+);
+
+
+/* ==================================================
+   SAVE PROFILE
+================================================== */
+
+updateForm.addEventListener(
+    "submit",
+    function (event) {
+
+        event.preventDefault();
+
+
+        /*
+           Get form values
+        */
+
+        const name =
+            document.getElementById("hospitalName").value.trim();
+
+        const email =
+            document.getElementById("hospitalEmail").value.trim();
+
+        const phone =
+            document.getElementById("hospitalPhone").value.trim();
+
+        const location =
+            document.getElementById("hospitalLocation").value.trim();
+
+        const registration =
+            document.getElementById("registrationNumber").value.trim();
+
+        const type =
+            document.getElementById("hospitalType").value;
+
+        const address =
+            document.getElementById("hospitalAddress").value.trim();
+
+        const bloodBank =
+            document.getElementById("bloodBank").value;
+
+        const emergency =
+            document.getElementById("emergencyContact").value.trim();
+
+
+        /*
+           Basic validation
+        */
+
+        if (
+            !name ||
+            !email ||
+            !phone ||
+            !location ||
+            !registration ||
+            !address ||
+            !emergency
+        ) {
+
+            alert("Please complete all required fields.");
+
+            return;
+
+        }
+
+
+        /*
+           Update main profile data
+        */
+
+        hospitalData = {
+
+            name: name,
+
+            email: email,
+
+            phone: phone,
+
+            location: location,
+
+            registration: registration,
+
+            type: type,
+
+            address: address,
+
+            bloodBank: bloodBank,
+
+            emergency: emergency
+
+        };
+
+
+        /*
+           Update dashboard name
+        */
+
+        document.getElementById(
+            "welcomeName"
+        ).textContent =
+            hospitalData.name + "!";
+
+
+        document.getElementById(
+            "menuHospitalName"
+        ).textContent =
+            hospitalData.name;
+
+
+        /*
+           Close update modal
+           Open information modal
+        */
+
+        updateModal.classList.remove("show");
+
+        updateInformationDisplay();
+
+        informationModal.classList.add("show");
+
+
+        /*
+           Success message
+        */
+
+        console.log("Hospital profile updated.");
+
+    }
+);
+
+
+/* ==================================================
+   UPDATE INFORMATION DISPLAY
+================================================== */
+
+function updateInformationDisplay() {
+
+    document.getElementById("infoName")
+        .textContent = hospitalData.name;
+
+    document.getElementById("infoEmail")
+        .textContent = hospitalData.email;
+
+    document.getElementById("infoPhone")
+        .textContent = hospitalData.phone;
+
+    document.getElementById("infoLocation")
+        .textContent = hospitalData.location;
+
+    document.getElementById("infoRegistration")
+        .textContent = hospitalData.registration;
+
+    document.getElementById("infoType")
+        .textContent = hospitalData.type;
+
+    document.getElementById("infoAddress")
+        .textContent = hospitalData.address;
+
+    document.getElementById("infoBloodBank")
+        .textContent = hospitalData.bloodBank;
+
+    document.getElementById("infoEmergency")
+        .textContent = hospitalData.emergency;
+
+}
+
+
+/* ==================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+================================================== */
+
+informationModal.addEventListener(
+    "click",
+    function (event) {
+
+        if (event.target === informationModal) {
+
+            informationModal.classList.remove("show");
+
+        }
+
+    }
+);
+
+
+updateModal.addEventListener(
+    "click",
+    function (event) {
+
+        if (event.target === updateModal) {
+
+            cancelProfileUpdate();
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   ESC KEY
+================================================== */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Escape") {
+
+            if (updateModal.classList.contains("show")) {
+
+                cancelProfileUpdate();
+
+            }
+
+            else if (
+                informationModal.classList.contains("show")
+            ) {
+
+                informationModal.classList.remove("show");
+
+            }
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   LOGOUT
+================================================== */
+
+logoutBtn.addEventListener(
+    "click",
+    function () {
+
+        if (
+            confirm("Do you want to logout?")
+        ) {
+
+            window.location.href =
+                "../../Public Interfaces/Home/Home.html";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   INITIAL DISPLAY
+================================================== */
+
+updateInformationDisplay();

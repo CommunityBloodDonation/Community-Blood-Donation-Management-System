@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>BloodConnect | Donor Dashboard</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BloodConnect | Donor Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -20,78 +17,40 @@
         <img src="../../Assets/images/logo.png" height="50">
     </div>
 
-
-    <!-- PROFILE MENU -->
-
     <div class="profile-menu">
 
-        <button
-            class="profile-btn"
-            id="profileBtn"
-            type="button">
-
-            <span class="profile-avatar">D</span>
+        <button class="profile-btn" id="profileBtn" type="button">
+            <span class="profile-avatar" id="avatarLetter">D</span>
             <span class="profile-arrow">▼</span>
-
         </button>
-
 
         <!-- PROFILE DROPDOWN -->
 
-        <div
-            class="profile-card"
-            id="profileCard">
+        <div class="profile-card" id="profileCard">
 
             <div class="profile-top">
-
-                <div class="large-avatar">D</div>
-
-                <h3>Donor</h3>
-
+                <div class="large-avatar" id="largeAvatar">D</div>
+                <h3 id="menuName">Donor</h3>
                 <p>Blood Donor</p>
-
             </div>
-
 
             <div class="profile-options">
 
-                <!-- UPDATE PROFILE -->
-
-                <a
-                    href="#"
-                    id="updateProfileBtn">
-
+                <button type="button" id="infoBtn">
                     <span class="option-icon">👤</span>
-
                     <span>
-                        <b>Update Profile</b>
-                        <small>
-                            Manage your donor information
-                        </small>
+                        <b>Your Information</b>
+                        <small>View your donor information</small>
                     </span>
+                </button>
 
-                </a>
-
-
-                <!-- LOGOUT -->
-
-                <a
-                    href="../../Public Interfaces/Home/Home.html"
-                    id="logoutBtn">
-
-                    <span class="option-icon logout-icon">
-                        ↪
-                    </span>
-
+                <button type="button" id="logoutBtn">
+                    <span class="option-icon logout-icon">↪</span>
                     <span>
                         <b>Logout</b>
-
-                        <small>
-                            Sign out of your account
-                        </small>
+                        <small>Sign out of your account</small>
                     </span>
-
-                </a>
+                </button>
 
             </div>
 
@@ -106,409 +65,334 @@
 
 <main>
 
-    <!-- WELCOME SECTION -->
+<section class="content">
 
-    <section class="content">
+    <!-- WELCOME -->
 
-        <div class="welcome">
+    <div class="welcome">
 
-            <div>
+        <div>
+            <h1>
+                Welcome back,
+                <span id="welcomeName">Donor!</span>
+            </h1>
 
-                <h1>
-                    Welcome back,
-                    <span id="welcomeName">
-                        Donor!
-                    </span>
-                </h1>
-
-                <p>
-                    Thank you for being a life saver.
-                    Your donation can make a real difference.
-                </p>
-
-            </div>
-
-            <div class="drop">
-                ♥
-            </div>
-
+            <p>
+                Thank you for being a life saver.
+                Your donation can make a real difference.
+            </p>
         </div>
 
+        <div class="drop">♥</div>
 
-        <!-- ================= STATS ================= -->
-
-        <div class="stats">
-
-            <article>
-
-                <b class="ico red">♥</b>
-
-                <p>Blood Group</p>
-
-                <h2 id="bloodGroup">—</h2>
-
-                <a href="#" id="viewProfileBtn">
-                    View Details →
-                </a>
-
-            </article>
+    </div>
 
 
-            <article>
+    <!-- STATS -->
 
-                <b class="ico green">✓</b>
+    <div class="stats">
 
-                <p>Eligibility Status</p>
+        <article>
+            <b class="ico red">♥</b>
+            <p>Blood Group</p>
+            <h2 id="bloodGroup">—</h2>
+            <a href="#">View Details →</a>
+        </article>
 
-                <h2 id="eligibility">—</h2>
+        <article>
+            <b class="ico green">✓</b>
+            <p>Eligibility Status</p>
+            <h2 id="eligibility">—</h2>
+            <small id="eligibleDate">—</small>
+        </article>
 
-                <small id="eligibleDate">
-                    —
-                </small>
+        <article>
+            <b class="ico blue">▣</b>
+            <p>Last Donation</p>
+            <h2 id="lastDonation">—</h2>
+            <small id="lastDonationAgo">—</small>
+        </article>
 
-            </article>
+        <article>
+            <b class="ico green">♥</b>
+            <p>Total Donations</p>
+            <h2 id="totalDonations">—</h2>
+            <small>Recorded donations</small>
+        </article>
 
-
-            <article>
-
-                <b class="ico blue">▣</b>
-
-                <p>Last Donation</p>
-
-                <h2 id="lastDonation">—</h2>
-
-                <small id="lastDonationAgo">
-                    —
-                </small>
-
-            </article>
-
-
-            <article>
-
-                <b class="ico green">♥</b>
-
-                <p>Total Donations</p>
-
-                <h2 id="totalDonations">—</h2>
-
-                <small>
-                    Recorded donations
-                </small>
-
-            </article>
-
-        </div>
+    </div>
 
 
-        <!-- ================= REQUESTS ================= -->
+    <!-- EMERGENCY REQUESTS -->
 
-        <div class="columns">
+    <div class="columns">
 
-            <section class="panel">
+        <section class="panel">
 
-                <header>
-
-                    <div>
-
-                        <h2>
-                            Current Emergency Requests
-                        </h2>
-
-                        <small>
-                            Verified requests from the system.
-                        </small>
-
-                    </div>
-
-                    <a href="donation-requests.html">
-                        View All →
-                    </a>
-
-                </header>
-
-
-                <div id="requests">
-
-                    <p class="empty">
-                        Loading requests...
-                    </p>
-
+            <header>
+                <div>
+                    <h2>Current Emergency Requests</h2>
+                    <small>
+                        Verified requests from the system.
+                    </small>
                 </div>
 
-            </section>
-
-        </div>
-
-
-        <!-- ================= QUICK ACTIONS ================= -->
-
-        <section class="panel quick">
-
-            <h2>
-                Quick Actions
-            </h2>
-
-
-            <div class="actions">
-
-                <!-- UPDATE PROFILE -->
-
-                <a
-                    href="#"
-                    id="quickUpdateProfile">
-
-                    ♙
-
-                    <span>
-
-                        Update Profile
-
-                        <small>
-                            Edit your information
-                        </small>
-
-                    </span>
-
+                <a href="donation-requests.html">
+                    View All →
                 </a>
+            </header>
 
-
-                <!-- CHECK ELIGIBILITY -->
-
-                <a href="health.html">
-
-                    ✓
-
-                    <span>
-
-                        Check Eligibility
-
-                        <small>
-                            Check eligibility
-                        </small>
-
-                    </span>
-
-                </a>
-
-
-                <!-- DONATION HISTORY -->
-
-                <a href="donation-history.html">
-
-                    ▣
-
-                    <span>
-
-                        View History
-
-                        <small>
-                            Donation history
-                        </small>
-
-                    </span>
-
-                </a>
-
+            <div id="requests">
+                <p class="empty">
+                    Loading requests...
+                </p>
             </div>
 
         </section>
 
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <section class="panel quick">
+
+        <h2>Quick Actions</h2>
+
+        <div class="actions">
+
+            <a href="#">
+                ♙
+                <span>
+                    Update Profile
+                    <small>Edit your information</small>
+                </span>
+            </a>
+
+            <a href="health.html">
+                ✓
+                <span>
+                    Check Eligibility
+                    <small>Check eligibility</small>
+                </span>
+            </a>
+
+            <a href="donation-history.html">
+                ▣
+                <span>
+                    View History
+                    <small>Donation history</small>
+                </span>
+            </a>
+
+        </div>
+
     </section>
+
+</section>
 
 </main>
 
 
-<!-- =====================================================
-     UPDATE PROFILE POPUP
-     ===================================================== -->
+<!-- ================= YOUR INFORMATION POPUP ================= -->
 
-<div
-    class="update-overlay"
-    id="updateOverlay">
+<div class="modal" id="infoModal">
 
+    <div class="info-box">
 
-    <div
-        class="update-popup"
-        id="updatePopup">
+        <button class="close-btn" id="closeInfo">
+            ×
+        </button>
 
+        <div class="modal-heading">
 
-        <!-- POPUP HEADER -->
-
-        <div class="update-header">
-
-            <div>
-
-                <span class="update-label">
-                    DONOR ACCOUNT
-                </span>
-
-                <h2>
-                    Update Profile
-                </h2>
-
-                <p>
-                    Update your personal information.
-                </p>
-
-            </div>
-
-
-            <button
-                type="button"
-                class="update-close"
-                id="updateClose">
-
-                &times;
-
-            </button>
-
-        </div>
-
-
-        <!-- PROFILE -->
-
-        <div class="update-profile">
-
-            <div class="update-avatar">
+            <div class="modal-avatar" id="infoAvatar">
                 D
             </div>
 
             <div>
-
-                <strong>
-                    Donor
-                </strong>
-
-                <small>
-                    Blood Donor
-                </small>
-
+                <h2>Your Information</h2>
+                <p>Your registered donor information</p>
             </div>
 
         </div>
 
 
-        <!-- FORM -->
+        <div class="info-grid">
 
-        <form id="donorProfileForm">
+            <div>
+                <label>Full Name</label>
+                <p id="infoName">—</p>
+            </div>
+
+            <div>
+                <label>Email</label>
+                <p id="infoEmail">—</p>
+            </div>
+
+            <div>
+                <label>Phone Number</label>
+                <p id="infoPhone">—</p>
+            </div>
+
+            <div>
+                <label>Blood Group</label>
+                <p id="infoBlood">—</p>
+            </div>
+
+            <div>
+                <label>Date of Birth</label>
+                <p id="infoDob">—</p>
+            </div>
+
+            <div>
+                <label>Gender</label>
+                <p id="infoGender">—</p>
+            </div>
+
+            <div>
+                <label>Address</label>
+                <p id="infoAddress">—</p>
+            </div>
+
+            <div>
+                <label>City</label>
+                <p id="infoCity">—</p>
+            </div>
+
+            <div>
+                <label>Last Donation</label>
+                <p id="infoLastDonation">—</p>
+            </div>
+
+            <div>
+                <label>Eligibility Status</label>
+                <p id="infoEligibility">—</p>
+            </div>
+
+        </div>
 
 
-            <div class="update-grid">
+        <div class="modal-footer">
+
+            <button class="update-btn" id="openUpdate">
+                Update Profile
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 
-                <!-- FULL NAME -->
+<!-- ================= UPDATE PROFILE POPUP ================= -->
 
-                <div class="update-field">
+<div class="modal" id="updateModal">
 
-                    <label for="donorName">
-                        Full Name
-                    </label>
+    <div class="update-box">
 
+        <button class="close-btn" id="closeUpdate">
+            ×
+        </button>
+
+        <div class="modal-heading">
+
+            <div class="modal-avatar">
+                ✎
+            </div>
+
+            <div>
+                <h2>Update Profile</h2>
+                <p>Update your donor information</p>
+            </div>
+
+        </div>
+
+
+        <form id="updateForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Full Name</label>
                     <input
                         type="text"
-                        id="donorName"
-                        placeholder="Enter your full name"
+                        id="formName"
                         required>
-
                 </div>
 
-
-                <!-- EMAIL -->
-
-                <div class="update-field">
-
-                    <label for="donorEmail">
-                        Email Address
-                    </label>
-
+                <div class="form-group">
+                    <label>Email</label>
                     <input
                         type="email"
-                        id="donorEmail"
-                        placeholder="Enter your email"
+                        id="formEmail"
                         required>
-
                 </div>
 
-
-                <!-- PHONE -->
-
-                <div class="update-field">
-
-                    <label for="donorPhone">
-                        Phone Number
-                    </label>
-
+                <div class="form-group">
+                    <label>Phone Number</label>
                     <input
                         type="tel"
-                        id="donorPhone"
-                        placeholder="Enter your phone number"
+                        id="formPhone"
                         required>
-
                 </div>
 
+                <div class="form-group">
+                    <label>Blood Group</label>
 
-                <!-- BLOOD GROUP -->
-
-                <div class="update-field">
-
-                    <label for="donorBloodGroup">
-                        Blood Group
-                    </label>
-
-                    <select
-                        id="donorBloodGroup"
-                        required>
-
-                        <option value="">
-                            Select blood group
-                        </option>
-
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-
+                    <select id="formBlood" required>
+                        <option value="">Select</option>
+                        <option>A+</option>
+                        <option>A-</option>
+                        <option>B+</option>
+                        <option>B-</option>
+                        <option>AB+</option>
+                        <option>AB-</option>
+                        <option>O+</option>
+                        <option>O-</option>
                     </select>
 
                 </div>
 
-
-                <!-- DATE OF BIRTH -->
-
-                <div class="update-field">
-
-                    <label for="donorDob">
-                        Date of Birth
-                    </label>
+                <div class="form-group">
+                    <label>Date of Birth</label>
 
                     <input
                         type="date"
-                        id="donorDob"
+                        id="formDob"
                         required>
 
                 </div>
 
+                <div class="form-group">
+                    <label>Gender</label>
 
-                <!-- CITY -->
+                    <select id="formGender" required>
+                        <option value="">Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
 
-                <div class="update-field">
+                </div>
 
-                    <label for="donorCity">
-                        City
-                    </label>
+                <div class="form-group full">
+                    <label>Address</label>
 
                     <input
                         type="text"
-                        id="donorCity"
-                        placeholder="Enter your city"
+                        id="formAddress"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+                    <label>City</label>
+
+                    <input
+                        type="text"
+                        id="formCity"
                         required>
 
                 </div>
@@ -516,95 +400,22 @@
             </div>
 
 
-            <!-- ADDRESS -->
-
-            <div class="update-field">
-
-                <label for="donorAddress">
-                    Address
-                </label>
-
-                <textarea
-                    id="donorAddress"
-                    rows="3"
-                    placeholder="Enter your address"
-                    required></textarea>
-
-            </div>
-
-
-            <!-- PASSWORD -->
-
-            <div class="password-box">
-
-                <h3>
-                    Change Password
-                </h3>
-
-                <p>
-                    Leave these fields empty if you don't
-                    want to change your password.
-                </p>
-
-
-                <div class="update-grid">
-
-                    <div class="update-field">
-
-                        <label for="newPassword">
-                            New Password
-                        </label>
-
-                        <input
-                            type="password"
-                            id="newPassword"
-                            placeholder="Enter new password">
-
-                    </div>
-
-
-                    <div class="update-field">
-
-                        <label for="confirmPassword">
-                            Confirm Password
-                        </label>
-
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            placeholder="Confirm new password">
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- BUTTONS -->
-
-            <div class="update-buttons">
+            <div class="form-buttons">
 
                 <button
                     type="button"
                     class="cancel-btn"
-                    id="updateCancel">
-
+                    id="cancelUpdate">
                     Cancel
-
                 </button>
-
 
                 <button
                     type="submit"
                     class="save-btn">
-
                     Save Changes
-
                 </button>
 
             </div>
-
 
         </form>
 
@@ -620,7 +431,6 @@
     <div class="footer-center-name">
         Community Blood Donation Center
     </div>
-
 
     <ul class="contact-details">
 
@@ -645,7 +455,6 @@
         </li>
 
     </ul>
-
 
     <p>
         &copy; 2026 Community Blood Donation Management System

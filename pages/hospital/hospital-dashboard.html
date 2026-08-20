@@ -1,71 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BloodConnect | Hospital Dashboard</title>
+    <title>BloodConnect | Hospital Dashboard</title>
 
-<link rel="stylesheet" href="hospital-style.css">
-<link rel="stylesheet" href="hospital-update.css">
+    <link rel="stylesheet" href="hospital-style.css">
 </head>
 
 <body>
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
+
 <header class="header">
 
-   <div class="logo">
-        <img src="../Assets/images/logo.png" height="50">
+    <div class="logo">
+        <img src="../../Assets/images/logo.png" height="50">
     </div>
 
-
-
-    <!-- PROFILE  icon-->
     <div class="profile-menu">
 
-        <button class="profile-btn" id="profileBtn">
+        <button class="profile-btn" id="profileBtn" type="button">
+
             <span class="profile-avatar">H</span>
+
             <span class="profile-arrow">▼</span>
+
         </button>
+
+
+        <!-- PROFILE DROPDOWN -->
 
         <div class="profile-card" id="profileCard">
 
             <div class="profile-top">
+
                 <div class="large-avatar">H</div>
-                <h3 id="profileName">Hospital</h3>
+
+                <h3 id="menuHospitalName">
+                    City Hospital
+                </h3>
+
                 <p>Hospital Account</p>
+
             </div>
+
 
             <div class="profile-options">
 
+                <button id="informationBtn">
 
-
-
-                <!-- update profile-->
-
-                <a href="#" id="openUpdateProfile">
                     <span class="option-icon">🏥</span>
+
                     <span>
-                        <b>Update Profile</b>
-                        <small>Manage hospital information</small>
+                        <b>Your Information</b>
+                        <small>View hospital details</small>
                     </span>
-                </a>
+
+                </button>
 
 
+                <button id="logoutBtn">
 
+                    <span class="option-icon">↪</span>
 
-                <!-- logout-->
-
-                <a href="../Public Interfaces/Login/login.html" id="logoutBtn">
-                    <span class="option-icon logout-icon">↪</span>
                     <span>
                         <b>Logout</b>
                         <small>Sign out of your account</small>
                     </span>
-                </a>
+
+                </button>
 
             </div>
+
         </div>
 
     </div>
@@ -73,165 +82,589 @@
 </header>
 
 
-<!-- MAIN -->
+<!-- ================= MAIN ================= -->
+
 <main>
 
-<section class="content">
+    <section class="content">
 
 
+        <!-- WELCOME -->
 
-
-    <!-- WELCOME -->
-    <div class="welcome">
-
-        <div>
-            <h1>
-                Welcome back,
-                <span id="welcomeName">Hospital!</span>
-            </h1>
-
-            <p>
-                Manage blood requests and help connect patients
-                with available donors.
-            </p>
-        </div>
-
-        <div class="hospital-icon">🏥</div>
-
-    </div>
-
-
-
-
-
-
-    <!-- STATISTICS -->
-    <div class="stats">
-
-        <article>
-            <b class="ico red">♥</b>
-            <p>Blood Requests</p>
-            <h2 id="totalRequests">—</h2>
-            <small>Total requests</small>
-        </article>
-
-        <article>
-            <b class="ico blue">●</b>
-            <p>Active Requests</p>
-            <h2 id="activeRequests">—</h2>
-            <small>Currently active</small>
-        </article>
-
-        <article>
-            <b class="ico green">✓</b>
-            <p>Fulfilled Requests</p>
-            <h2 id="fulfilledRequests">—</h2>
-            <small>Successfully fulfilled</small>
-        </article>
-
-        <article>
-            <b class="ico green">♥</b>
-            <p>Available Donors</p>
-            <h2 id="availableDonors">—</h2>
-            <small>Matching donors</small>
-        </article>
-
-    </div>
-
-
-
-
-
-
-
-    <!-- BLOOD REQUESTS -->
-    <section class="panel">
-
-        <header class="panel-header">
+        <div class="welcome">
 
             <div>
-                <h2>Emergency Blood Requests</h2>
-                <small>Verified requests from the system.</small>
+
+                <h1>
+                    Welcome back,
+                    <span id="welcomeName">
+                        City Hospital!
+                    </span>
+                </h1>
+
+                <p>
+                    Manage blood requests, donor connections
+                    and hospital information from your dashboard.
+                </p>
+
             </div>
 
-            <a href="hospital-requests.html">
-                View All →
-            </a>
-
-        </header>
-
-        <div id="requests">
-            <p class="empty">
-                No verified blood requests available.
-            </p>
-        </div>
-
-    </section>
-
-
-
-
-
-    <!-- QUICK ACTIONS -->
-    <section class="panel quick">
-
-        <h2>Quick Actions</h2>
-
-        <div class="actions">
-
-            <a href="create-blood-request.html">
-                <span class="action-icon red-icon">+</span>
-
-                <span>
-                    Create Blood Request
-                    <small>Request blood for a patient</small>
-                </span>
-            </a>
-
-
-            <a href="hospital-requests.html">
-                <span class="action-icon blue-icon">▣</span>
-
-                <span>
-                    Manage Requests
-                    <small>View and manage requests</small>
-                </span>
-            </a>
-
-
-            <a href="hospital-donors.html">
-                <span class="action-icon green-icon">♥</span>
-
-                <span>
-                    Find Donors
-                    <small>View available donors</small>
-                </span>
-            </a>
-
-
-            <a href="hospital-history.html">
-                <span class="action-icon blue-icon">◷</span>
-
-                <span>
-                    Request History
-                    <small>View previous requests</small>
-                </span>
-            </a>
+            <div class="hospital-icon">
+                🏥
+            </div>
 
         </div>
 
-    </section>
 
-</section>
+        <!-- ================= STATS ================= -->
+
+        <div class="stats">
+
+            <article>
+
+                <b class="ico red">♥</b>
+
+                <p>Active Requests</p>
+
+                <h2 id="activeRequests">—</h2>
+
+                <small>Current blood requests</small>
+
+            </article>
+
+
+            <article>
+
+                <b class="ico green">✓</b>
+
+                <p>Donors Connected</p>
+
+                <h2 id="donorsConnected">—</h2>
+
+                <small>Connected donors</small>
+
+            </article>
+
+
+            <article>
+
+                <b class="ico blue">▣</b>
+
+                <p>Completed Requests</p>
+
+                <h2 id="completedRequests">—</h2>
+
+                <small>Successfully completed</small>
+
+            </article>
+
+
+            <article>
+
+                <b class="ico green">♥</b>
+
+                <p>Total Blood Units</p>
+
+                <h2 id="bloodUnits">—</h2>
+
+                <small>Recorded blood units</small>
+
+            </article>
+
+        </div>
+
+
+        <!-- ================= BLOOD REQUESTS ================= -->
+
+        <div class="columns">
+
+            <section class="panel">
+
+                <header>
+
+                    <div>
+
+                        <h2>Current Blood Requests</h2>
+
+                        <small>
+                            Verified requests from the hospital.
+                        </small>
+
+                    </div>
+
+                    <a href="#">
+                        View All →
+                    </a>
+
+                </header>
+
+
+                <div id="requests">
+
+                    <p class="empty">
+                        No current blood requests.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="panel quick">
+
+            <h2>Quick Actions</h2>
+
+            <div class="actions">
+
+                <a href="#"
+                   id="quickUpdateProfile">
+
+                    🏥
+
+                    <span>
+                        Your Information
+                        <small>
+                            View and update hospital details
+                        </small>
+                    </span>
+
+                </a>
+
+
+                <a href="#">
+
+                    +
+
+                    <span>
+                        Create Blood Request
+                        <small>
+                            Create a new request
+                        </small>
+                    </span>
+
+                </a>
+
+
+                <a href="#">
+
+                    ▣
+
+                    <span>
+                        View Requests
+                        <small>
+                            Manage blood requests
+                        </small>
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </section>
 
 </main>
 
 
+<!-- ==================================================
+     YOUR INFORMATION MODAL
+================================================== -->
+
+<div class="modal-overlay" id="informationModal">
+
+    <div class="modal information-modal">
+
+        <button
+            class="modal-close"
+            id="closeInformation"
+            type="button">
+            ×
+        </button>
 
 
+        <div class="modal-title">
+
+            <div class="modal-avatar">
+                🏥
+            </div>
+
+            <div>
+
+                <h2>Hospital Information</h2>
+
+                <p>
+                    Your registered hospital details
+                </p>
+
+            </div>
+
+        </div>
 
 
-<!-- FOOTER -->
+        <!-- INFORMATION -->
+
+        <div class="info-status">
+            <span>✓</span>
+            Hospital Account
+        </div>
+
+
+        <div class="information-grid">
+
+
+            <div class="info-item">
+
+                <small>Hospital Name</small>
+
+                <strong id="infoName">
+                    City Hospital
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <small>Email</small>
+
+                <strong id="infoEmail">
+                    hospital@example.com
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <small>Phone</small>
+
+                <strong id="infoPhone">
+                    +94 11 234 5678
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <small>Location</small>
+
+                <strong id="infoLocation">
+                    Colombo
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <small>Registration Number</small>
+
+                <strong id="infoRegistration">
+                    HSP-001
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <small>Hospital Type</small>
+
+                <strong id="infoType">
+                    General Hospital
+                </strong>
+
+            </div>
+
+
+            <div class="info-item full">
+
+                <small>Address</small>
+
+                <strong id="infoAddress">
+                    123 Main Street, Colombo, Sri Lanka
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <small>Blood Bank</small>
+
+                <strong id="infoBloodBank">
+                    Available
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <small>Emergency Contact</small>
+
+                <strong id="infoEmergency">
+                    +94 77 123 4567
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                class="primary-btn"
+                id="openUpdateBtn"
+                type="button">
+
+                Update Profile
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     UPDATE PROFILE MODAL
+================================================== -->
+
+<div class="modal-overlay" id="updateModal">
+
+    <div class="modal update-modal">
+
+        <button
+            class="modal-close"
+            id="closeUpdate"
+            type="button">
+            ×
+        </button>
+
+
+        <div class="modal-title">
+
+            <div class="modal-avatar">
+                ✎
+            </div>
+
+            <div>
+
+                <h2>Update Profile</h2>
+
+                <p>
+                    Update your hospital information
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- UPDATE FORM -->
+
+        <form id="updateForm">
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="hospitalName">
+                        Hospital Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hospitalName"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="hospitalEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="hospitalEmail"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="hospitalPhone">
+                        Phone
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="hospitalPhone"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="hospitalLocation">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="hospitalLocation"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registrationNumber">
+                        Registration Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registrationNumber"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="hospitalType">
+                        Hospital Type
+                    </label>
+
+                    <select id="hospitalType">
+
+                        <option>
+                            General Hospital
+                        </option>
+
+                        <option>
+                            Teaching Hospital
+                        </option>
+
+                        <option>
+                            District Hospital
+                        </option>
+
+                        <option>
+                            Private Hospital
+                        </option>
+
+                        <option>
+                            Specialized Hospital
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="hospitalAddress">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="hospitalAddress"
+                        rows="3"
+                        required></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="bloodBank">
+                        Blood Bank
+                    </label>
+
+                    <select id="bloodBank">
+
+                        <option>Available</option>
+
+                        <option>
+                            Not Available
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="emergencyContact">
+                        Emergency Contact
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="emergencyContact"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORM BUTTONS -->
+
+            <div class="modal-actions form-actions">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelUpdate">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    Save Changes
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
 <footer class="footer">
 
     <div class="footer-center-name">
@@ -263,19 +696,14 @@
     </ul>
 
     <p>
-        &copy; 2026 Community Blood Donation Management System |
-        All Rights Reserved
+        &copy; 2026 Community Blood Donation Management System
+        | All Rights Reserved
     </p>
 
 </footer>
 
 
-<!-- UPDATE PROFILE POPUP -->
-<div id="updatePopupContainer"></div>
-
-
 <script src="hospital-script.js"></script>
-<script src="hospital-update.js"></script>
 
 </body>
 </html>
