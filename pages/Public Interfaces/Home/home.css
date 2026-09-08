@@ -62,6 +62,20 @@ header{
     z-index:20;
 }
 
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+/* Hide header */
+header.hide {
+    transform: translateY(-100%);
+}
+
 .logo image{
     height:50px;
 }
