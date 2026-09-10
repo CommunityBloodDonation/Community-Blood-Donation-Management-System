@@ -8,45 +8,74 @@
     box-sizing: border-box;
 }
 
+
 :root {
+
     --white: #ffffff;
+
     --bg: #f5f9fd;
+
     --text: #102a43;
+
     --slate: #71869a;
 
+
     --blue: #1565c0;
+
     --blue-dark: #124f91;
+
     --blue-light: #e4f0fc;
 
+
     --green: #16a34a;
+
     --green-dark: #146b49;
+
     --green-light: #eaf8f0;
 
+
     --red: #d62828;
+
     --red-light: #fff0f0;
+
 
     --border: #dce7ed;
 
+
     --radius: 14px;
+
 }
+
 
 body {
+
     font-family: Arial, sans-serif;
+
     background: var(--bg);
+
     color: var(--text);
+
 }
 
+
 a {
+
     text-decoration: none;
+
     color: inherit;
+
 }
+
 
 button,
 input,
 select,
 textarea {
+
     font-family: inherit;
+
 }
+
 
 
 /* ==================================================
@@ -54,25 +83,36 @@ textarea {
 ================================================== */
 
 .header {
+
     height: 82px;
 
     background: var(--white);
+
     border-bottom: 1px solid var(--border);
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
     padding: 0 40px;
 
     position: sticky;
+
     top: 0;
+
     z-index: 50;
+
 }
 
+
 .logo img {
+
     display: block;
+
 }
+
 
 
 /* ==================================================
@@ -80,47 +120,71 @@ textarea {
 ================================================== */
 
 .profile-menu {
+
     position: relative;
+
 }
 
+
 .profile-btn {
+
     border: 0;
+
     background: none;
 
     display: flex;
+
     align-items: center;
+
     gap: 8px;
 
     cursor: pointer;
+
 }
+
 
 .profile-avatar,
 .large-avatar {
+
     display: grid;
+
     place-items: center;
 
     border-radius: 50%;
 
     background: var(--blue);
+
     color: white;
 
     font-weight: bold;
+
 }
+
 
 .profile-avatar {
+
     width: 42px;
+
     height: 42px;
+
 }
+
 
 .profile-arrow {
+
     font-size: 10px;
+
     color: var(--slate);
+
 }
 
+
 .profile-card {
+
     position: absolute;
 
     top: 55px;
+
     right: 0;
 
     width: 280px;
@@ -128,6 +192,7 @@ textarea {
     background: white;
 
     border: 1px solid var(--border);
+
     border-radius: 15px;
 
     box-shadow: 0 15px 35px rgba(20,60,90,.15);
@@ -135,45 +200,69 @@ textarea {
     display: none;
 
     overflow: hidden;
+
 }
+
 
 .profile-card.show {
+
     display: block;
+
 }
 
+
 .profile-top {
+
     text-align: center;
 
     padding: 22px;
 
     background: #f1f7fb;
+
 }
 
+
 .large-avatar {
+
     width: 58px;
+
     height: 58px;
 
     margin: auto;
+
 }
+
 
 .profile-top h3 {
+
     margin-top: 8px;
+
     font-size: 16px;
+
 }
+
 
 .profile-top p {
+
     color: var(--slate);
+
     font-size: 11px;
+
     margin-top: 3px;
+
 }
 
+
 .profile-options button {
+
     width: 100%;
 
     border: 0;
+
     background: white;
 
     display: flex;
+
     align-items: center;
 
     gap: 12px;
@@ -183,30 +272,49 @@ textarea {
     text-align: left;
 
     cursor: pointer;
+
 }
+
 
 .profile-options button:hover {
+
     background: #f5f9fd;
+
 }
 
+
 .option-icon {
+
     font-size: 20px;
+
 }
+
 
 .profile-options b,
 .profile-options small {
+
     display: block;
+
 }
+
 
 .profile-options b {
+
     font-size: 13px;
+
 }
 
+
 .profile-options small {
+
     color: var(--slate);
+
     font-size: 10px;
+
     margin-top: 3px;
+
 }
+
 
 
 /* ==================================================
@@ -214,13 +322,17 @@ textarea {
 ================================================== */
 
 .content {
+
     width: 100%;
+
     max-width: 1250px;
 
     margin: auto;
 
     padding: 35px;
+
 }
+
 
 
 /* ==================================================
@@ -228,10 +340,13 @@ textarea {
 ================================================== */
 
 .welcome {
+
     min-height: 190px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     padding: 35px 45px;
@@ -248,18 +363,28 @@ textarea {
     border-radius: 18px;
 
     box-shadow: 0 8px 25px rgba(20,70,110,.06);
+
 }
+
 
 .welcome h1 {
+
     font-size: 36px;
+
     margin-bottom: 12px;
+
 }
+
 
 .welcome h1 span {
+
     color: var(--blue);
+
 }
 
+
 .welcome p {
+
     max-width: 600px;
 
     color: var(--slate);
@@ -267,13 +392,18 @@ textarea {
     font-size: 14px;
 
     line-height: 1.7;
+
 }
 
+
 .hospital-icon {
+
     width: 120px;
+
     height: 120px;
 
     display: grid;
+
     place-items: center;
 
     border-radius: 50%;
@@ -281,7 +411,9 @@ textarea {
     background: var(--blue-light);
 
     font-size: 55px;
+
 }
+
 
 
 /* ==================================================
@@ -289,6 +421,7 @@ textarea {
 ================================================== */
 
 .stats {
+
     display: grid;
 
     grid-template-columns: repeat(4, 1fr);
@@ -296,9 +429,12 @@ textarea {
     gap: 18px;
 
     margin: 22px 0;
+
 }
 
+
 .stats article {
+
     background: white;
 
     padding: 22px;
@@ -310,17 +446,25 @@ textarea {
     box-shadow: 0 5px 18px rgba(20,60,90,.05);
 
     transition: .2s;
+
 }
+
 
 .stats article:hover {
+
     transform: translateY(-3px);
+
 }
 
+
 .ico {
+
     width: 45px;
+
     height: 45px;
 
     display: grid;
+
     place-items: center;
 
     border-radius: 50%;
@@ -328,42 +472,65 @@ textarea {
     margin-bottom: 15px;
 
     font-size: 20px;
+
 }
+
 
 .ico.red {
+
     background: var(--red-light);
+
     color: var(--red);
+
 }
+
 
 .ico.green {
+
     background: var(--green-light);
+
     color: var(--green);
+
 }
+
 
 .ico.blue {
+
     background: var(--blue-light);
+
     color: var(--blue);
+
 }
 
+
 .stats article p {
+
     color: var(--slate);
 
     font-size: 12px;
 
     margin-bottom: 5px;
+
 }
 
+
 .stats article h2 {
+
     font-size: 25px;
 
     margin-bottom: 8px;
+
 }
 
+
 .stats article small {
+
     color: var(--slate);
 
     font-size: 10px;
+
 }
+
 
 
 /* ==================================================
@@ -371,11 +538,16 @@ textarea {
 ================================================== */
 
 .columns {
+
     display: grid;
+
     gap: 18px;
+
 }
 
+
 .panel {
+
     background: white;
 
     border: 1px solid var(--border);
@@ -385,25 +557,35 @@ textarea {
     padding: 22px;
 
     box-shadow: 0 5px 18px rgba(20,60,90,.05);
+
 }
 
+
 .panel header {
+
     display: flex;
 
     align-items: center;
+
     justify-content: space-between;
 
     gap: 15px;
 
     margin-bottom: 18px;
+
 }
+
 
 .panel header h2,
 .quick h2 {
+
     font-size: 18px;
+
 }
 
+
 .panel header small {
+
     display: block;
 
     color: var(--slate);
@@ -411,17 +593,23 @@ textarea {
     font-size: 10px;
 
     margin-top: 5px;
+
 }
 
+
 .panel header a {
+
     color: var(--blue);
 
     font-size: 11px;
 
     font-weight: bold;
+
 }
 
+
 .empty {
+
     text-align: center;
 
     padding: 28px 15px;
@@ -435,7 +623,9 @@ textarea {
     border: 1px dashed var(--border);
 
     border-radius: 10px;
+
 }
+
 
 
 /* ==================================================
@@ -443,18 +633,25 @@ textarea {
 ================================================== */
 
 .quick {
+
     margin-top: 18px;
+
 }
 
+
 .actions {
+
     display: grid;
 
     grid-template-columns: repeat(3, 1fr);
 
     margin-top: 18px;
+
 }
 
+
 .actions a {
+
     display: flex;
 
     align-items: center;
@@ -470,27 +667,39 @@ textarea {
     font-size: 20px;
 
     transition: .2s;
+
 }
+
 
 .actions a:last-child {
+
     border-right: 0;
+
 }
 
+
 .actions a:hover {
+
     background: #f5fbf7;
 
     border-radius: 10px;
+
 }
 
+
 .actions span {
+
     color: #183b5a;
 
     font-size: 12px;
 
     font-weight: bold;
+
 }
 
+
 .actions small {
+
     display: block;
 
     color: #7b8ea1;
@@ -500,7 +709,9 @@ textarea {
     font-weight: normal;
 
     margin-top: 4px;
+
 }
+
 
 
 /* ==================================================
@@ -508,6 +719,7 @@ textarea {
 ================================================== */
 
 .modal-overlay {
+
     position: fixed;
 
     inset: 0;
@@ -517,16 +729,22 @@ textarea {
     display: none;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 20px;
 
     z-index: 100;
+
 }
 
+
 .modal-overlay.show {
+
     display: flex;
+
 }
+
 
 
 /* ==================================================
@@ -534,7 +752,9 @@ textarea {
 ================================================== */
 
 .modal {
+
     width: 100%;
+
     max-width: 650px;
 
     max-height: 90vh;
@@ -552,26 +772,37 @@ textarea {
     box-shadow: 0 20px 55px rgba(0,0,0,.20);
 
     animation: modalOpen .2s ease;
+
 }
+
 
 @keyframes modalOpen {
 
     from {
+
         opacity: 0;
+
         transform: translateY(12px) scale(.98);
+
     }
 
     to {
+
         opacity: 1;
+
         transform: translateY(0) scale(1);
+
     }
 
 }
 
+
 .modal-close {
+
     position: absolute;
 
     top: 14px;
+
     right: 18px;
 
     border: 0;
@@ -583,11 +814,16 @@ textarea {
     font-size: 27px;
 
     cursor: pointer;
+
 }
 
+
 .modal-close:hover {
+
     color: var(--red);
+
 }
+
 
 
 /* ==================================================
@@ -595,6 +831,7 @@ textarea {
 ================================================== */
 
 .modal-title {
+
     display: flex;
 
     align-items: center;
@@ -602,13 +839,18 @@ textarea {
     gap: 14px;
 
     margin-bottom: 20px;
+
 }
 
+
 .modal-avatar {
+
     width: 48px;
+
     height: 48px;
 
     display: grid;
+
     place-items: center;
 
     border-radius: 50%;
@@ -618,19 +860,27 @@ textarea {
     color: var(--blue);
 
     font-size: 21px;
+
 }
 
+
 .modal-title h2 {
+
     font-size: 21px;
 
     margin-bottom: 3px;
+
 }
 
+
 .modal-title p {
+
     color: var(--slate);
 
     font-size: 11px;
+
 }
+
 
 
 /* ==================================================
@@ -638,6 +888,7 @@ textarea {
 ================================================== */
 
 .info-status {
+
     display: inline-flex;
 
     align-items: center;
@@ -657,17 +908,23 @@ textarea {
     font-weight: bold;
 
     margin-bottom: 18px;
+
 }
 
+
 .information-grid {
+
     display: grid;
 
     grid-template-columns: 1fr 1fr;
 
     gap: 10px;
+
 }
 
+
 .info-item {
+
     background: #f8fbfd;
 
     border: 1px solid #edf2f5;
@@ -675,55 +932,79 @@ textarea {
     border-radius: 9px;
 
     padding: 13px;
+
 }
 
+
 .info-item.full {
+
     grid-column: 1 / -1;
+
 }
+
 
 .info-item small,
 .info-item strong {
+
     display: block;
+
 }
 
+
 .info-item small {
+
     color: var(--slate);
 
     font-size: 9px;
 
     margin-bottom: 5px;
+
 }
 
+
 .info-item strong {
+
     font-size: 12px;
 
     word-break: break-word;
+
 }
 
 
+
 /* ==================================================
-   UPDATE FORM
+   FORM
 ================================================== */
 
 .form-grid {
+
     display: grid;
 
     grid-template-columns: 1fr 1fr;
 
     gap: 15px;
+
 }
 
+
 .form-group {
+
     display: flex;
 
     flex-direction: column;
+
 }
+
 
 .form-group.full {
+
     grid-column: 1 / -1;
+
 }
 
+
 .form-group label {
+
     color: #36566e;
 
     font-size: 11px;
@@ -731,7 +1012,9 @@ textarea {
     font-weight: bold;
 
     margin-bottom: 6px;
+
 }
+
 
 .form-group input,
 .form-group select,
@@ -752,19 +1035,27 @@ textarea {
     font-size: 12px;
 
     outline: none;
+
 }
 
+
 .form-group textarea {
+
     resize: vertical;
+
 }
+
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
+
     border-color: var(--blue);
 
     box-shadow: 0 0 0 3px rgba(21,101,192,.08);
+
 }
+
 
 
 /* ==================================================
@@ -772,6 +1063,7 @@ textarea {
 ================================================== */
 
 .modal-actions {
+
     display: flex;
 
     justify-content: flex-end;
@@ -779,7 +1071,9 @@ textarea {
     gap: 10px;
 
     margin-top: 22px;
+
 }
+
 
 .primary-btn,
 .cancel-btn {
@@ -795,27 +1089,85 @@ textarea {
     font-weight: bold;
 
     cursor: pointer;
+
 }
 
+
 .primary-btn {
+
     background: var(--green);
 
     color: white;
+
 }
+
 
 .primary-btn:hover {
+
     background: var(--green-dark);
+
 }
 
+
 .cancel-btn {
+
     background: #edf2f5;
 
     color: #526b7d;
+
 }
 
+
 .cancel-btn:hover {
+
     background: #e1e8ed;
+
 }
+
+
+
+/* ==================================================
+   CREATE BLOOD REQUEST
+================================================== */
+
+.request-modal {
+
+    max-width: 720px;
+
+}
+
+
+.request-avatar {
+
+    background: var(--green-light);
+
+    color: var(--green);
+
+}
+
+
+.request-modal .form-grid {
+
+    margin-top: 5px;
+
+}
+
+
+#requestUrgency option[value="Emergency"] {
+
+    color: var(--red);
+
+}
+
+
+.request-modal textarea {
+
+    min-height: 100px;
+
+    resize: vertical;
+
+}
+
 
 
 /* ==================================================
@@ -823,6 +1175,7 @@ textarea {
 ================================================== */
 
 .footer {
+
     background: var(--text);
 
     color: #c7d3da;
@@ -834,9 +1187,12 @@ textarea {
     margin-top: 40px;
 
     font-size: .92em;
+
 }
 
+
 .footer-center-name {
+
     font-weight: bold;
 
     font-size: 1.15em;
@@ -844,9 +1200,12 @@ textarea {
     color: white;
 
     margin-bottom: 20px;
+
 }
 
+
 .contact-details {
+
     list-style: none;
 
     margin: 0 auto 24px;
@@ -862,15 +1221,21 @@ textarea {
     gap: 10px 28px;
 
     max-width: 720px;
+
 }
 
+
 .contact-details li {
+
     font-size: .92em;
 
     color: #c7d3da;
+
 }
 
+
 .contact-details li:first-child {
+
     flex-basis: 100%;
 
     font-weight: bold;
@@ -878,9 +1243,12 @@ textarea {
     color: white;
 
     margin-bottom: 6px;
+
 }
 
+
 .footer p {
+
     color: #8b9ba6;
 
     font-size: .85em;
@@ -890,7 +1258,9 @@ textarea {
     padding-top: 18px;
 
     margin: 0;
+
 }
+
 
 
 /* ==================================================
@@ -900,104 +1270,176 @@ textarea {
 @media (max-width: 1000px) {
 
     .stats {
+
         grid-template-columns: repeat(2, 1fr);
+
     }
+
 
     .form-grid {
+
         grid-template-columns: 1fr;
+
     }
 
+
     .form-group.full {
+
         grid-column: auto;
+
     }
 
 }
+
+
 
 @media (max-width: 650px) {
 
     .header {
+
         padding: 0 18px;
+
     }
+
 
     .content {
+
         padding: 18px;
+
     }
+
 
     .welcome {
+
         padding: 25px;
+
     }
+
 
     .welcome h1 {
+
         font-size: 27px;
+
     }
 
+
     .hospital-icon {
+
         width: 80px;
+
         height: 80px;
 
         font-size: 38px;
+
     }
+
 
     .stats {
+
         grid-template-columns: 1fr;
+
     }
+
 
     .actions {
+
         grid-template-columns: 1fr;
+
     }
 
+
     .actions a {
+
         border-right: 0;
 
         border-bottom: 1px solid #e3ebf2;
+
     }
+
 
     .actions a:last-child {
+
         border-bottom: 0;
+
     }
 
+
     .modal {
+
         padding: 22px;
 
         max-height: 94vh;
+
     }
+
 
     .information-grid {
+
         grid-template-columns: 1fr;
+
     }
+
 
     .info-item.full {
+
         grid-column: auto;
+
     }
+
 
     .modal-actions {
+
         flex-direction: column-reverse;
+
     }
 
+
     .modal-actions button {
+
         width: 100%;
+
+    }
+
+
+    .request-modal {
+
+        width: 94%;
+
     }
 
 }
 
+
+
 @media (max-width: 450px) {
 
     .profile-card {
+
         right: -5px;
 
         width: 260px;
+
     }
+
 
     .welcome {
+
         padding: 20px;
+
     }
+
 
     .welcome h1 {
+
         font-size: 23px;
+
     }
 
+
     .hospital-icon {
+
         display: none;
+
     }
 
 }

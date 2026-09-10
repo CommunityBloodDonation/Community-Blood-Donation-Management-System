@@ -2,76 +2,135 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>BloodConnect | Hospital Dashboard</title>
 
-    <link rel="stylesheet" href="hospital-style.css">
+    <link rel="stylesheet"
+          href="hospital-style.css">
+
 </head>
+
 
 <body>
 
-<!-- ================= HEADER ================= -->
+
+<!-- ==================================================
+     HEADER
+================================================== -->
 
 <header class="header">
 
     <div class="logo">
-        <img src="../../Assets/images/logo.png" height="50">
+
+        <img
+            src="../../Assets/images/logo.png"
+            height="50"
+            alt="BloodConnect Logo">
+
     </div>
+
+
+    <!-- PROFILE -->
 
     <div class="profile-menu">
 
-        <button class="profile-btn" id="profileBtn" type="button">
+        <button
+            class="profile-btn"
+            id="profileBtn"
+            type="button">
 
-            <span class="profile-avatar">H</span>
+            <span class="profile-avatar">
+                H
+            </span>
 
-            <span class="profile-arrow">▼</span>
+            <span class="profile-arrow">
+                ▼
+            </span>
 
         </button>
 
 
         <!-- PROFILE DROPDOWN -->
 
-        <div class="profile-card" id="profileCard">
+        <div
+            class="profile-card"
+            id="profileCard">
+
 
             <div class="profile-top">
 
-                <div class="large-avatar">H</div>
+                <div class="large-avatar">
+                    H
+                </div>
 
                 <h3 id="menuHospitalName">
                     City Hospital
                 </h3>
 
-                <p>Hospital Account</p>
+                <p>
+                    Hospital Account
+                </p>
 
             </div>
 
 
             <div class="profile-options">
 
-                <button id="informationBtn">
 
-                    <span class="option-icon">🏥</span>
+                <!-- YOUR INFORMATION -->
+
+                <button
+                    id="informationBtn"
+                    type="button">
+
+                    <span class="option-icon">
+                        🏥
+                    </span>
 
                     <span>
-                        <b>Your Information</b>
-                        <small>View hospital details</small>
+
+                        <b>
+                            Your Information
+                        </b>
+
+                        <small>
+                            View hospital details
+                        </small>
+
                     </span>
 
                 </button>
 
 
-                <button id="logoutBtn">
+                <!-- LOGOUT -->
 
-                    <span class="option-icon">↪</span>
+                <button
+                    id="logoutBtn"
+                    type="button">
+
+                    <span class="option-icon">
+                        ↪
+                    </span>
 
                     <span>
-                        <b>Logout</b>
-                        <small>Sign out of your account</small>
+
+                        <b>
+                            Logout
+                        </b>
+
+                        <small>
+                            Sign out of your account
+                        </small>
+
                     </span>
 
                 </button>
+
 
             </div>
 
@@ -82,24 +141,32 @@
 </header>
 
 
-<!-- ================= MAIN ================= -->
+
+<!-- ==================================================
+     MAIN
+================================================== -->
 
 <main>
 
     <section class="content">
 
 
-        <!-- WELCOME -->
+        <!-- ==================================================
+             WELCOME
+        ================================================== -->
 
         <div class="welcome">
 
             <div>
 
                 <h1>
+
                     Welcome back,
+
                     <span id="welcomeName">
                         City Hospital!
                     </span>
+
                 </h1>
 
                 <p>
@@ -109,6 +176,7 @@
 
             </div>
 
+
             <div class="hospital-icon">
                 🏥
             </div>
@@ -116,65 +184,105 @@
         </div>
 
 
-        <!-- ================= STATS ================= -->
+
+        <!-- ==================================================
+             STATS
+        ================================================== -->
 
         <div class="stats">
 
+
             <article>
 
-                <b class="ico red">♥</b>
+                <b class="ico red">
+                    ♥
+                </b>
 
-                <p>Active Requests</p>
+                <p>
+                    Active Requests
+                </p>
 
-                <h2 id="activeRequests">—</h2>
+                <h2 id="activeRequests">
+                    —
+                </h2>
 
-                <small>Current blood requests</small>
+                <small>
+                    Current blood requests
+                </small>
 
             </article>
 
 
             <article>
 
-                <b class="ico green">✓</b>
+                <b class="ico green">
+                    ✓
+                </b>
 
-                <p>Donors Connected</p>
+                <p>
+                    Donors Connected
+                </p>
 
-                <h2 id="donorsConnected">—</h2>
+                <h2 id="donorsConnected">
+                    —
+                </h2>
 
-                <small>Connected donors</small>
-
-            </article>
-
-
-            <article>
-
-                <b class="ico blue">▣</b>
-
-                <p>Completed Requests</p>
-
-                <h2 id="completedRequests">—</h2>
-
-                <small>Successfully completed</small>
+                <small>
+                    Connected donors
+                </small>
 
             </article>
 
 
             <article>
 
-                <b class="ico green">♥</b>
+                <b class="ico blue">
+                    ▣
+                </b>
 
-                <p>Total Blood Units</p>
+                <p>
+                    Completed Requests
+                </p>
 
-                <h2 id="bloodUnits">—</h2>
+                <h2 id="completedRequests">
+                    —
+                </h2>
 
-                <small>Recorded blood units</small>
+                <small>
+                    Successfully completed
+                </small>
 
             </article>
+
+
+            <article>
+
+                <b class="ico green">
+                    ♥
+                </b>
+
+                <p>
+                    Total Blood Units
+                </p>
+
+                <h2 id="bloodUnits">
+                    —
+                </h2>
+
+                <small>
+                    Recorded blood units
+                </small>
+
+            </article>
+
 
         </div>
 
 
-        <!-- ================= BLOOD REQUESTS ================= -->
+
+        <!-- ==================================================
+             BLOOD REQUESTS
+        ================================================== -->
 
         <div class="columns">
 
@@ -184,7 +292,9 @@
 
                     <div>
 
-                        <h2>Current Blood Requests</h2>
+                        <h2>
+                            Current Blood Requests
+                        </h2>
 
                         <small>
                             Verified requests from the hospital.
@@ -212,90 +322,131 @@
         </div>
 
 
-        <!-- ================= QUICK ACTIONS ================= -->
+
+        <!-- ==================================================
+             QUICK ACTIONS
+        ================================================== -->
 
         <section class="panel quick">
 
-            <h2>Quick Actions</h2>
+            <h2>
+                Quick Actions
+            </h2>
+
 
             <div class="actions">
 
-                <a href="#"
-                   id="quickUpdateProfile">
+
+                <!-- YOUR INFORMATION -->
+
+                <a
+                    href="#"
+                    id="quickUpdateProfile">
 
                     🏥
 
                     <span>
+
                         Your Information
+
                         <small>
                             View and update hospital details
                         </small>
+
                     </span>
 
                 </a>
 
 
-                <a href="#">
+                <!-- CREATE BLOOD REQUEST -->
+
+                <a
+                    href="#"
+                    id="createRequestBtn">
 
                     +
 
                     <span>
+
                         Create Blood Request
+
                         <small>
                             Create a new request
                         </small>
+
                     </span>
 
                 </a>
 
+
+                <!-- VIEW REQUESTS -->
 
                 <a href="#">
 
                     ▣
 
                     <span>
+
                         View Requests
+
                         <small>
                             Manage blood requests
                         </small>
+
                     </span>
 
                 </a>
 
+
             </div>
 
         </section>
+
 
     </section>
 
 </main>
 
 
+
 <!-- ==================================================
      YOUR INFORMATION MODAL
 ================================================== -->
 
-<div class="modal-overlay" id="informationModal">
+<div
+    class="modal-overlay"
+    id="informationModal">
+
 
     <div class="modal information-modal">
+
 
         <button
             class="modal-close"
             id="closeInformation"
             type="button">
+
             ×
+
         </button>
 
 
+
+        <!-- TITLE -->
+
         <div class="modal-title">
+
 
             <div class="modal-avatar">
                 🏥
             </div>
 
+
             <div>
 
-                <h2>Hospital Information</h2>
+                <h2>
+                    Hospital Information
+                </h2>
 
                 <p>
                     Your registered hospital details
@@ -303,23 +454,35 @@
 
             </div>
 
+
         </div>
+
+
+
+        <!-- STATUS -->
+
+        <div class="info-status">
+
+            <span>
+                ✓
+            </span>
+
+            Hospital Account
+
+        </div>
+
 
 
         <!-- INFORMATION -->
-
-        <div class="info-status">
-            <span>✓</span>
-            Hospital Account
-        </div>
-
 
         <div class="information-grid">
 
 
             <div class="info-item">
 
-                <small>Hospital Name</small>
+                <small>
+                    Hospital Name
+                </small>
 
                 <strong id="infoName">
                     City Hospital
@@ -330,7 +493,9 @@
 
             <div class="info-item">
 
-                <small>Email</small>
+                <small>
+                    Email
+                </small>
 
                 <strong id="infoEmail">
                     hospital@example.com
@@ -341,7 +506,9 @@
 
             <div class="info-item">
 
-                <small>Phone</small>
+                <small>
+                    Phone
+                </small>
 
                 <strong id="infoPhone">
                     +94 11 234 5678
@@ -352,7 +519,9 @@
 
             <div class="info-item">
 
-                <small>Location</small>
+                <small>
+                    Location
+                </small>
 
                 <strong id="infoLocation">
                     Colombo
@@ -363,7 +532,9 @@
 
             <div class="info-item">
 
-                <small>Registration Number</small>
+                <small>
+                    Registration Number
+                </small>
 
                 <strong id="infoRegistration">
                     HSP-001
@@ -374,7 +545,9 @@
 
             <div class="info-item">
 
-                <small>Hospital Type</small>
+                <small>
+                    Hospital Type
+                </small>
 
                 <strong id="infoType">
                     General Hospital
@@ -385,7 +558,9 @@
 
             <div class="info-item full">
 
-                <small>Address</small>
+                <small>
+                    Address
+                </small>
 
                 <strong id="infoAddress">
                     123 Main Street, Colombo, Sri Lanka
@@ -396,7 +571,9 @@
 
             <div class="info-item">
 
-                <small>Blood Bank</small>
+                <small>
+                    Blood Bank
+                </small>
 
                 <strong id="infoBloodBank">
                     Available
@@ -407,7 +584,9 @@
 
             <div class="info-item">
 
-                <small>Emergency Contact</small>
+                <small>
+                    Emergency Contact
+                </small>
 
                 <strong id="infoEmergency">
                     +94 77 123 4567
@@ -415,8 +594,12 @@
 
             </div>
 
+
         </div>
 
+
+
+        <!-- UPDATE BUTTON -->
 
         <div class="modal-actions">
 
@@ -431,36 +614,51 @@
 
         </div>
 
+
     </div>
 
 </div>
+
 
 
 <!-- ==================================================
      UPDATE PROFILE MODAL
 ================================================== -->
 
-<div class="modal-overlay" id="updateModal">
+<div
+    class="modal-overlay"
+    id="updateModal">
+
 
     <div class="modal update-modal">
+
 
         <button
             class="modal-close"
             id="closeUpdate"
             type="button">
+
             ×
+
         </button>
 
 
+
+        <!-- TITLE -->
+
         <div class="modal-title">
+
 
             <div class="modal-avatar">
                 ✎
             </div>
 
+
             <div>
 
-                <h2>Update Profile</h2>
+                <h2>
+                    Update Profile
+                </h2>
 
                 <p>
                     Update your hospital information
@@ -468,7 +666,9 @@
 
             </div>
 
+
         </div>
+
 
 
         <!-- UPDATE FORM -->
@@ -478,6 +678,8 @@
 
             <div class="form-grid">
 
+
+                <!-- HOSPITAL NAME -->
 
                 <div class="form-group">
 
@@ -493,6 +695,8 @@
                 </div>
 
 
+                <!-- EMAIL -->
+
                 <div class="form-group">
 
                     <label for="hospitalEmail">
@@ -506,6 +710,8 @@
 
                 </div>
 
+
+                <!-- PHONE -->
 
                 <div class="form-group">
 
@@ -521,6 +727,8 @@
                 </div>
 
 
+                <!-- LOCATION -->
+
                 <div class="form-group">
 
                     <label for="hospitalLocation">
@@ -535,6 +743,8 @@
                 </div>
 
 
+                <!-- REGISTRATION -->
+
                 <div class="form-group">
 
                     <label for="registrationNumber">
@@ -548,6 +758,8 @@
 
                 </div>
 
+
+                <!-- TYPE -->
 
                 <div class="form-group">
 
@@ -582,6 +794,8 @@
                 </div>
 
 
+                <!-- ADDRESS -->
+
                 <div class="form-group full">
 
                     <label for="hospitalAddress">
@@ -596,6 +810,8 @@
                 </div>
 
 
+                <!-- BLOOD BANK -->
+
                 <div class="form-group">
 
                     <label for="bloodBank">
@@ -604,7 +820,9 @@
 
                     <select id="bloodBank">
 
-                        <option>Available</option>
+                        <option>
+                            Available
+                        </option>
 
                         <option>
                             Not Available
@@ -614,6 +832,8 @@
 
                 </div>
 
+
+                <!-- EMERGENCY -->
 
                 <div class="form-group">
 
@@ -628,10 +848,12 @@
 
                 </div>
 
+
             </div>
 
 
-            <!-- FORM BUTTONS -->
+
+            <!-- BUTTONS -->
 
             <div class="modal-actions form-actions">
 
@@ -663,47 +885,351 @@
 </div>
 
 
-<!-- ================= FOOTER ================= -->
+
+<!-- ==================================================
+     CREATE BLOOD REQUEST MODAL
+================================================== -->
+
+<div
+    class="modal-overlay"
+    id="requestModal">
+
+
+    <div class="modal request-modal">
+
+
+        <button
+            class="modal-close"
+            id="closeRequest"
+            type="button">
+
+            ×
+
+        </button>
+
+
+
+        <!-- TITLE -->
+
+        <div class="modal-title">
+
+
+            <div class="modal-avatar request-avatar">
+                +
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Create Blood Request
+                </h2>
+
+                <p>
+                    Create a new blood request for your hospital
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- REQUEST FORM -->
+
+        <form id="requestForm">
+
+
+            <div class="form-grid">
+
+
+                <!-- BLOOD GROUP -->
+
+                <div class="form-group">
+
+                    <label for="requestBloodGroup">
+                        Blood Group
+                    </label>
+
+                    <select
+                        id="requestBloodGroup"
+                        required>
+
+                        <option value="">
+                            Select Blood Group
+                        </option>
+
+                        <option value="A+">
+                            A+
+                        </option>
+
+                        <option value="A-">
+                            A-
+                        </option>
+
+                        <option value="B+">
+                            B+
+                        </option>
+
+                        <option value="B-">
+                            B-
+                        </option>
+
+                        <option value="AB+">
+                            AB+
+                        </option>
+
+                        <option value="AB-">
+                            AB-
+                        </option>
+
+                        <option value="O+">
+                            O+
+                        </option>
+
+                        <option value="O-">
+                            O-
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- UNITS -->
+
+                <div class="form-group">
+
+                    <label for="requestUnits">
+                        Units Required
+                    </label>
+
+                    <input
+                        type="number"
+                        id="requestUnits"
+                        min="1"
+                        max="100"
+                        placeholder="Enter units"
+                        required>
+
+                </div>
+
+
+
+                <!-- URGENCY -->
+
+                <div class="form-group">
+
+                    <label for="requestUrgency">
+                        Urgency
+                    </label>
+
+                    <select
+                        id="requestUrgency"
+                        required>
+
+                        <option value="">
+                            Select Urgency
+                        </option>
+
+                        <option value="Emergency">
+                            Emergency
+                        </option>
+
+                        <option value="Urgent">
+                            Urgent
+                        </option>
+
+                        <option value="Normal">
+                            Normal
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- REQUIRED DATE -->
+
+                <div class="form-group">
+
+                    <label for="requestDate">
+                        Required Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="requestDate"
+                        required>
+
+                </div>
+
+
+
+                <!-- WARD -->
+
+                <div class="form-group">
+
+                    <label for="requestWard">
+                        Ward / Department
+                    </label>
+
+                    <input
+                        type="text"
+                        id="requestWard"
+                        placeholder="e.g. Emergency Ward"
+                        required>
+
+                </div>
+
+
+
+                <!-- CONTACT -->
+
+                <div class="form-group">
+
+                    <label for="requestContact">
+                        Contact Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="requestContact"
+                        placeholder="+94 XX XXX XXXX"
+                        required>
+
+                </div>
+
+
+
+                <!-- CASE REFERENCE -->
+
+                <div class="form-group full">
+
+                    <label for="requestReference">
+                        Case Reference / Patient ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="requestReference"
+                        placeholder="Enter case reference or patient ID">
+
+                </div>
+
+
+
+                <!-- NOTES -->
+
+                <div class="form-group full">
+
+                    <label for="requestNotes">
+                        Additional Notes
+                    </label>
+
+                    <textarea
+                        id="requestNotes"
+                        rows="4"
+                        placeholder="Add any important information about this request"></textarea>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- REQUEST BUTTONS -->
+
+            <div class="modal-actions form-actions">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelRequest">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn">
+
+                    Create Request
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
 
 <footer class="footer">
+
 
     <div class="footer-center-name">
         Community Blood Donation Center
     </div>
 
+
     <ul class="contact-details">
+
 
         <li>
             📍 123 Main Street, Colombo, Sri Lanka
         </li>
 
+
         <li>
             📞 Hotline: +94 11 234 5678
         </li>
+
 
         <li>
             📱 Emergency: +94 77 123 4567
         </li>
 
+
         <li>
             ✉️ Email: support@blooddonation.org
         </li>
+
 
         <li>
             🌐 Website: www.blooddonation.org
         </li>
 
+
     </ul>
+
 
     <p>
         &copy; 2026 Community Blood Donation Management System
         | All Rights Reserved
     </p>
 
+
 </footer>
+
 
 
 <script src="hospital-script.js"></script>
 
 </body>
+
 </html>
