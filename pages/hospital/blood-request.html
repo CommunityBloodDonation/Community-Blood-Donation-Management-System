@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>BloodConnect | Create Blood Request</title>
+
+    <link rel="stylesheet"
+          href="hospital-style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     HEADER
+================================================== -->
+
+<header class="header">
+
+    <div class="logo">
+
+        <img
+            src="../../Assets/images/logo.png"
+            height="50"
+            alt="BloodConnect Logo">
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div class="profile-menu">
+
+        <button
+            class="profile-btn"
+            id="profileBtn"
+            type="button">
+
+            <span class="profile-avatar">
+                H
+            </span>
+
+            <span class="profile-arrow">
+                ▼
+            </span>
+
+        </button>
+
+
+        <!-- PROFILE DROPDOWN -->
+
+        <div
+            class="profile-card"
+            id="profileCard">
+
+
+            <div class="profile-top">
+
+                <div class="large-avatar">
+                    H
+                </div>
+
+                <h3 id="menuHospitalName">
+                    City Hospital
+                </h3>
+
+                <p>
+                    Hospital Account
+                </p>
+
+            </div>
+
+
+            <div class="profile-options">
+
+
+                <!-- YOUR INFORMATION -->
+
+                <button
+                    id="informationBtn"
+                    type="button">
+
+                    <span class="option-icon">
+                        🏥
+                    </span>
+
+                    <span>
+
+                        <b>
+                            Your Information
+                        </b>
+
+                        <small>
+                            View hospital details
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+                <!-- LOGOUT -->
+
+                <button
+                    id="logoutBtn"
+                    type="button">
+
+                    <span class="option-icon">
+                        ↪
+                    </span>
+
+                    <span>
+
+                        <b>
+                            Logout
+                        </b>
+
+                        <small>
+                            Sign out of your account
+                        </small>
+
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
+<main>
+
+    <section class="content">
+
+
+        <!-- ==================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <div class="welcome">
+
+            <div>
+
+                <h1>
+                    Create Blood Request
+                </h1>
+
+                <p>
+                    Create a new blood request for your hospital.
+                </p>
+
+            </div>
+
+
+            <div class="hospital-icon">
+                +
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             CREATE BLOOD REQUEST PANEL
+        ================================================== -->
+
+        <section class="panel request-panel">
+
+
+            <header>
+
+                <div>
+
+                    <h2>
+                        Blood Request Details
+                    </h2>
+
+                    <small>
+                        Fill in the details below to submit a request.
+                    </small>
+
+                </div>
+
+                <a href="hospital-dashboard.html">
+                    ← Back to Dashboard
+                </a>
+
+            </header>
+
+
+
+            <!-- REQUEST FORM -->
+
+            <form id="requestForm">
+
+
+                <div class="form-grid">
+
+
+                    <!-- BLOOD GROUP -->
+
+                    <div class="form-group">
+
+                        <label for="requestBloodGroup">
+                            Blood Group
+                        </label>
+
+                        <select
+                            id="requestBloodGroup"
+                            required>
+
+                            <option value="">
+                                Select Blood Group
+                            </option>
+
+                            <option value="A+">
+                                A+
+                            </option>
+
+                            <option value="A-">
+                                A-
+                            </option>
+
+                            <option value="B+">
+                                B+
+                            </option>
+
+                            <option value="B-">
+                                B-
+                            </option>
+
+                            <option value="AB+">
+                                AB+
+                            </option>
+
+                            <option value="AB-">
+                                AB-
+                            </option>
+
+                            <option value="O+">
+                                O+
+                            </option>
+
+                            <option value="O-">
+                                O-
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- UNITS -->
+
+                    <div class="form-group">
+
+                        <label for="requestUnits">
+                            Units Required
+                        </label>
+
+                        <input
+                            type="number"
+                            id="requestUnits"
+                            min="1"
+                            max="100"
+                            placeholder="Enter units"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- URGENCY -->
+
+                    <div class="form-group">
+
+                        <label for="requestUrgency">
+                            Urgency
+                        </label>
+
+                        <select
+                            id="requestUrgency"
+                            required>
+
+                            <option value="">
+                                Select Urgency
+                            </option>
+
+                            <option value="Emergency">
+                                Emergency
+                            </option>
+
+                            <option value="Urgent">
+                                Urgent
+                            </option>
+
+                            <option value="Normal">
+                                Normal
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- REQUIRED DATE -->
+
+                    <div class="form-group">
+
+                        <label for="requestDate">
+                            Required Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="requestDate"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- WARD -->
+
+                    <div class="form-group">
+
+                        <label for="requestWard">
+                            Ward / Department
+                        </label>
+
+                        <input
+                            type="text"
+                            id="requestWard"
+                            placeholder="e.g. Emergency Ward"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- CONTACT -->
+
+                    <div class="form-group">
+
+                        <label for="requestContact">
+                            Contact Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="requestContact"
+                            placeholder="+94 XX XXX XXXX"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- CASE REFERENCE -->
+
+                    <div class="form-group full">
+
+                        <label for="requestReference">
+                            Case Reference / Patient ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="requestReference"
+                            placeholder="Enter case reference or patient ID">
+
+                    </div>
+
+
+
+                    <!-- NOTES -->
+
+                    <div class="form-group full">
+
+                        <label for="requestNotes">
+                            Additional Notes
+                        </label>
+
+                        <textarea
+                            id="requestNotes"
+                            rows="4"
+                            placeholder="Add any important information about this request"></textarea>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- REQUEST BUTTONS -->
+
+                <div class="modal-actions form-actions">
+
+                    <a
+                        href="hospital-dashboard.html"
+                        class="cancel-btn"
+                        id="cancelRequest">
+
+                        Cancel
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn">
+
+                        Create Request
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
+
+<footer class="footer">
+
+
+    <div class="footer-center-name">
+        Community Blood Donation Center
+    </div>
+
+
+    <ul class="contact-details">
+
+
+        <li>
+            📍 123 Main Street, Colombo, Sri Lanka
+        </li>
+
+
+        <li>
+            📞 Hotline: +94 11 234 5678
+        </li>
+
+
+        <li>
+            📱 Emergency: +94 77 123 4567
+        </li>
+
+
+        <li>
+            ✉️ Email: support@blooddonation.org
+        </li>
+
+
+        <li>
+            🌐 Website: www.blooddonation.org
+        </li>
+
+
+    </ul>
+
+
+    <p>
+        &copy; 2026 Community Blood Donation Management System
+        | All Rights Reserved
+    </p>
+
+
+</footer>
+
+
+
+<script src="hospital-script.js"></script>
+
+</body>
+
+</html>
