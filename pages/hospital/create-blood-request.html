@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        BloodConnect | Create Blood Request
+    </title>
+
+</head>
+
+
+<body>
+
+
+<div class="popup-page-content">
+
+
+    <!-- ==================================================
+         REQUEST HEADER
+    ================================================== -->
+
+    <div class="profile-page-header">
+
+        <div class="modal-avatar request-avatar">
+            +
+        </div>
+
+
+        <div>
+
+            <h2>
+                Create Blood Request
+            </h2>
+
+            <p>
+                Submit a new blood requirement
+                for your hospital.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="request-notice">
+
+        <span>♥</span>
+
+        Please provide accurate blood requirement
+        information.
+
+    </div>
+
+
+
+    <!-- ==================================================
+         BLOOD REQUEST FORM
+    ================================================== -->
+
+    <form id="requestForm">
+
+
+        <div class="form-grid">
+
+
+            <!-- BLOOD GROUP -->
+
+            <div class="form-group">
+
+                <label for="requestBloodGroup">
+                    Blood Group
+                </label>
+
+                <select
+                    id="requestBloodGroup"
+                    required>
+
+                    <option value="">
+                        Select Blood Group
+                    </option>
+
+                    <option value="A+">
+                        A+
+                    </option>
+
+                    <option value="A-">
+                        A-
+                    </option>
+
+                    <option value="B+">
+                        B+
+                    </option>
+
+                    <option value="B-">
+                        B-
+                    </option>
+
+                    <option value="AB+">
+                        AB+
+                    </option>
+
+                    <option value="AB-">
+                        AB-
+                    </option>
+
+                    <option value="O+">
+                        O+
+                    </option>
+
+                    <option value="O-">
+                        O-
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- UNITS -->
+
+            <div class="form-group">
+
+                <label for="requestUnits">
+                    Units Required
+                </label>
+
+                <input
+                    type="number"
+                    id="requestUnits"
+                    min="1"
+                    max="100"
+                    placeholder="Enter units"
+                    required>
+
+            </div>
+
+
+
+            <!-- URGENCY -->
+
+            <div class="form-group">
+
+                <label for="requestUrgency">
+                    Urgency
+                </label>
+
+                <select
+                    id="requestUrgency"
+                    required>
+
+                    <option value="">
+                        Select Urgency
+                    </option>
+
+                    <option value="Emergency">
+                        Emergency
+                    </option>
+
+                    <option value="Urgent">
+                        Urgent
+                    </option>
+
+                    <option value="Normal">
+                        Normal
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- REQUIRED DATE -->
+
+            <div class="form-group">
+
+                <label for="requestDate">
+                    Required Date
+                </label>
+
+                <input
+                    type="date"
+                    id="requestDate"
+                    required>
+
+            </div>
+
+
+
+            <!-- WARD -->
+
+            <div class="form-group">
+
+                <label for="requestWard">
+                    Ward / Department
+                </label>
+
+                <input
+                    type="text"
+                    id="requestWard"
+                    placeholder="e.g. Emergency Ward"
+                    required>
+
+            </div>
+
+
+
+            <!-- CONTACT -->
+
+            <div class="form-group">
+
+                <label for="requestContact">
+                    Contact Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="requestContact"
+                    placeholder="+94 XX XXX XXXX"
+                    required>
+
+            </div>
+
+
+
+            <!-- CASE REFERENCE -->
+
+            <div class="form-group full">
+
+                <label for="requestReference">
+                    Case Reference / Patient ID
+                </label>
+
+                <input
+                    type="text"
+                    id="requestReference"
+                    placeholder="Enter case reference or patient ID">
+
+            </div>
+
+
+
+            <!-- NOTES -->
+
+            <div class="form-group full">
+
+                <label for="requestNotes">
+                    Additional Notes
+                </label>
+
+                <textarea
+                    id="requestNotes"
+                    rows="4"
+                    placeholder="Add any important information about this request"></textarea>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ==================================================
+             BUTTONS
+        ================================================== -->
+
+        <div class="page-form-actions">
+
+            <button
+                type="button"
+                class="cancel-btn"
+                id="cancelRequest">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="submit"
+                class="primary-btn request-submit">
+
+                Create Request
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -2,19 +2,13 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>BloodConnect | Hospital Dashboard</title>
 
-    <link rel="stylesheet"
-          href="hospital-style.css">
-
+    <link rel="stylesheet" href="hospital-style.css">
 </head>
-
 
 <body>
 
@@ -26,16 +20,14 @@
 <header class="header">
 
     <div class="logo">
-
         <img
             src="../../Assets/images/logo.png"
             height="50"
             alt="BloodConnect Logo">
-
     </div>
 
 
-    <!-- PROFILE -->
+    <!-- PROFILE MENU -->
 
     <div class="profile-menu">
 
@@ -44,23 +36,16 @@
             id="profileBtn"
             type="button">
 
-            <span class="profile-avatar">
-                H
-            </span>
+            <span class="profile-avatar">H</span>
 
-            <span class="profile-arrow">
-                ▼
-            </span>
+            <span class="profile-arrow">▼</span>
 
         </button>
 
 
-        <!-- PROFILE DROPDOWN -->
-
         <div
             class="profile-card"
             id="profileCard">
-
 
             <div class="profile-top">
 
@@ -81,9 +66,6 @@
 
             <div class="profile-options">
 
-
-                <!-- YOUR INFORMATION -->
-
                 <button
                     id="informationBtn"
                     type="button">
@@ -93,21 +75,15 @@
                     </span>
 
                     <span>
-
-                        <b>
-                            Your Information
-                        </b>
+                        <b>Your Information</b>
 
                         <small>
-                            View hospital details
+                            View and update hospital details
                         </small>
-
                     </span>
 
                 </button>
 
-
-                <!-- LOGOUT -->
 
                 <button
                     id="logoutBtn"
@@ -118,19 +94,14 @@
                     </span>
 
                     <span>
-
-                        <b>
-                            Logout
-                        </b>
+                        <b>Logout</b>
 
                         <small>
                             Sign out of your account
                         </small>
-
                     </span>
 
                 </button>
-
 
             </div>
 
@@ -143,7 +114,7 @@
 
 
 <!-- ==================================================
-     MAIN
+     MAIN CONTENT
 ================================================== -->
 
 <main>
@@ -151,22 +122,17 @@
     <section class="content">
 
 
-        <!-- ==================================================
-             WELCOME
-        ================================================== -->
+        <!-- WELCOME -->
 
         <div class="welcome">
 
             <div>
 
                 <h1>
-
                     Welcome back,
-
                     <span id="welcomeName">
                         City Hospital!
                     </span>
-
                 </h1>
 
                 <p>
@@ -186,7 +152,7 @@
 
 
         <!-- ==================================================
-             STATS
+             STATISTICS
         ================================================== -->
 
         <div class="stats">
@@ -213,6 +179,7 @@
             </article>
 
 
+
             <article>
 
                 <b class="ico green">
@@ -234,6 +201,7 @@
             </article>
 
 
+
             <article>
 
                 <b class="ico blue">
@@ -253,6 +221,7 @@
                 </small>
 
             </article>
+
 
 
             <article>
@@ -281,45 +250,54 @@
 
 
         <!-- ==================================================
-             BLOOD REQUESTS
+             CURRENT REQUESTS
         ================================================== -->
 
-        <div class="columns">
-
-            <section class="panel">
-
-                <header>
-
-                    <div>
-
-                        <h2>
-                            Current Blood Requests
-                        </h2>
-
-                        <small>
-                            Verified requests from the hospital.
-                        </small>
-
-                    </div>
-
-                    <a href="#">
-                        View All →
-                    </a>
-
-                </header>
+        <section class="panel">
 
 
-                <div id="requests">
+            <header>
 
-                    <p class="empty">
-                        No current blood requests.
-                    </p>
+                <div>
+
+                    <h2>
+                        Current Blood Requests
+                    </h2>
+
+                    <small>
+                        Verified requests from the hospital.
+                    </small>
 
                 </div>
 
-            </section>
 
-        </div>
+                <button
+                    class="text-action"
+                    id="createRequestBtn"
+                    type="button">
+
+                    Create Request →
+
+                </button>
+
+            </header>
+
+
+            <div id="requests">
+
+                <!--
+                    Real requests will come from backend later.
+                    No fake requests are displayed.
+                -->
+
+                <p class="empty">
+                    No current blood requests.
+                </p>
+
+            </div>
+
+
+        </section>
 
 
 
@@ -337,13 +315,13 @@
             <div class="actions">
 
 
-                <!-- YOUR INFORMATION -->
+                <button
+                    type="button"
+                    id="quickInformationBtn">
 
-                <a
-                    href="#"
-                    id="quickUpdateProfile">
-
-                    🏥
+                    <span class="action-icon">
+                        🏥
+                    </span>
 
                     <span>
 
@@ -355,16 +333,23 @@
 
                     </span>
 
-                </a>
+                </button>
 
 
-                <!-- CREATE BLOOD REQUEST -->
 
+<<<<<<< Updated upstream
                 <a
                     href="blood-request.html"
                     id="createRequestBtn">
+=======
+                <button
+                    type="button"
+                    id="quickCreateRequestBtn">
+>>>>>>> Stashed changes
 
-                    +
+                    <span class="action-icon">
+                        +
+                    </span>
 
                     <span>
 
@@ -376,14 +361,15 @@
 
                     </span>
 
-                </a>
+                </button>
 
 
-                <!-- VIEW REQUESTS -->
 
                 <a href="#">
 
-                    ▣
+                    <span class="action-icon">
+                        ▣
+                    </span>
 
                     <span>
 
@@ -410,16 +396,14 @@
 
 
 <!-- ==================================================
-     YOUR INFORMATION MODAL
+     INFORMATION POPUP
 ================================================== -->
 
 <div
     class="modal-overlay"
     id="informationModal">
 
-
-    <div class="modal information-modal">
-
+    <div class="modal-box information-box">
 
         <button
             class="modal-close"
@@ -431,16 +415,11 @@
         </button>
 
 
-
-        <!-- TITLE -->
-
-        <div class="modal-title">
-
+        <div class="modal-header">
 
             <div class="modal-avatar">
                 🏥
             </div>
-
 
             <div>
 
@@ -454,35 +433,23 @@
 
             </div>
 
-
         </div>
 
 
-
-        <!-- STATUS -->
-
-        <div class="info-status">
-
-            <span>
-                ✓
-            </span>
-
+        <div class="information-status">
+            <span>✓</span>
             Hospital Account
-
         </div>
 
-
-
-        <!-- INFORMATION -->
 
         <div class="information-grid">
 
 
-            <div class="info-item">
+            <div class="information-item">
 
-                <small>
+                <span>
                     Hospital Name
-                </small>
+                </span>
 
                 <strong id="infoName">
                     City Hospital
@@ -491,11 +458,11 @@
             </div>
 
 
-            <div class="info-item">
+            <div class="information-item">
 
-                <small>
+                <span>
                     Email
-                </small>
+                </span>
 
                 <strong id="infoEmail">
                     hospital@example.com
@@ -504,11 +471,11 @@
             </div>
 
 
-            <div class="info-item">
+            <div class="information-item">
 
-                <small>
+                <span>
                     Phone
-                </small>
+                </span>
 
                 <strong id="infoPhone">
                     +94 11 234 5678
@@ -517,11 +484,11 @@
             </div>
 
 
-            <div class="info-item">
+            <div class="information-item">
 
-                <small>
+                <span>
                     Location
-                </small>
+                </span>
 
                 <strong id="infoLocation">
                     Colombo
@@ -530,11 +497,11 @@
             </div>
 
 
-            <div class="info-item">
+            <div class="information-item">
 
-                <small>
+                <span>
                     Registration Number
-                </small>
+                </span>
 
                 <strong id="infoRegistration">
                     HSP-001
@@ -543,11 +510,11 @@
             </div>
 
 
-            <div class="info-item">
+            <div class="information-item">
 
-                <small>
+                <span>
                     Hospital Type
-                </small>
+                </span>
 
                 <strong id="infoType">
                     General Hospital
@@ -556,11 +523,11 @@
             </div>
 
 
-            <div class="info-item full">
+            <div class="information-item full">
 
-                <small>
+                <span>
                     Address
-                </small>
+                </span>
 
                 <strong id="infoAddress">
                     123 Main Street, Colombo, Sri Lanka
@@ -569,24 +536,28 @@
             </div>
 
 
-            <div class="info-item">
+            <div class="information-item">
 
-                <small>
+                <span>
                     Blood Bank
-                </small>
+                </span>
 
-                <strong id="infoBloodBank">
+                <strong
+                    id="infoBloodBank"
+                    class="available-text">
+
                     Available
+
                 </strong>
 
             </div>
 
 
-            <div class="info-item">
+            <div class="information-item">
 
-                <small>
+                <span>
                     Emergency Contact
-                </small>
+                </span>
 
                 <strong id="infoEmergency">
                     +94 77 123 4567
@@ -598,10 +569,17 @@
         </div>
 
 
-
-        <!-- UPDATE BUTTON -->
-
         <div class="modal-actions">
+
+            <button
+                class="cancel-btn"
+                id="closeInformationBtn"
+                type="button">
+
+                Close
+
+            </button>
+
 
             <button
                 class="primary-btn"
@@ -614,7 +592,6 @@
 
         </div>
 
-
     </div>
 
 </div>
@@ -622,16 +599,14 @@
 
 
 <!-- ==================================================
-     UPDATE PROFILE MODAL
+     UPDATE PROFILE POPUP
 ================================================== -->
 
 <div
     class="modal-overlay"
     id="updateModal">
 
-
-    <div class="modal update-modal">
-
+    <div class="modal-box update-box">
 
         <button
             class="modal-close"
@@ -643,242 +618,14 @@
         </button>
 
 
+        <div id="updateContent">
 
-        <!-- TITLE -->
-
-        <div class="modal-title">
-
-
-            <div class="modal-avatar">
-                ✎
-            </div>
-
-
-            <div>
-
-                <h2>
-                    Update Profile
-                </h2>
-
-                <p>
-                    Update your hospital information
-                </p>
-
-            </div>
-
+            <!--
+                hospital-update-profile.html
+                will be loaded here.
+            -->
 
         </div>
-
-
-
-        <!-- UPDATE FORM -->
-
-        <form id="updateForm">
-
-
-            <div class="form-grid">
-
-
-                <!-- HOSPITAL NAME -->
-
-                <div class="form-group">
-
-                    <label for="hospitalName">
-                        Hospital Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="hospitalName"
-                        required>
-
-                </div>
-
-
-                <!-- EMAIL -->
-
-                <div class="form-group">
-
-                    <label for="hospitalEmail">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        id="hospitalEmail"
-                        required>
-
-                </div>
-
-
-                <!-- PHONE -->
-
-                <div class="form-group">
-
-                    <label for="hospitalPhone">
-                        Phone
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="hospitalPhone"
-                        required>
-
-                </div>
-
-
-                <!-- LOCATION -->
-
-                <div class="form-group">
-
-                    <label for="hospitalLocation">
-                        Location
-                    </label>
-
-                    <input
-                        type="text"
-                        id="hospitalLocation"
-                        required>
-
-                </div>
-
-
-                <!-- REGISTRATION -->
-
-                <div class="form-group">
-
-                    <label for="registrationNumber">
-                        Registration Number
-                    </label>
-
-                    <input
-                        type="text"
-                        id="registrationNumber"
-                        required>
-
-                </div>
-
-
-                <!-- TYPE -->
-
-                <div class="form-group">
-
-                    <label for="hospitalType">
-                        Hospital Type
-                    </label>
-
-                    <select id="hospitalType">
-
-                        <option>
-                            General Hospital
-                        </option>
-
-                        <option>
-                            Teaching Hospital
-                        </option>
-
-                        <option>
-                            District Hospital
-                        </option>
-
-                        <option>
-                            Private Hospital
-                        </option>
-
-                        <option>
-                            Specialized Hospital
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- ADDRESS -->
-
-                <div class="form-group full">
-
-                    <label for="hospitalAddress">
-                        Address
-                    </label>
-
-                    <textarea
-                        id="hospitalAddress"
-                        rows="3"
-                        required></textarea>
-
-                </div>
-
-
-                <!-- BLOOD BANK -->
-
-                <div class="form-group">
-
-                    <label for="bloodBank">
-                        Blood Bank
-                    </label>
-
-                    <select id="bloodBank">
-
-                        <option>
-                            Available
-                        </option>
-
-                        <option>
-                            Not Available
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- EMERGENCY -->
-
-                <div class="form-group">
-
-                    <label for="emergencyContact">
-                        Emergency Contact
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="emergencyContact"
-                        required>
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- BUTTONS -->
-
-            <div class="modal-actions form-actions">
-
-                <button
-                    type="button"
-                    class="cancel-btn"
-                    id="cancelUpdate">
-
-                    Cancel
-
-                </button>
-
-
-                <button
-                    type="submit"
-                    class="primary-btn">
-
-                    Save Changes
-
-                </button>
-
-            </div>
-
-
-        </form>
 
     </div>
 
@@ -887,11 +634,48 @@
 
 
 <!-- ==================================================
+<<<<<<< Updated upstream
+=======
+     CREATE BLOOD REQUEST POPUP
+================================================== -->
+
+<div
+    class="modal-overlay"
+    id="requestModal">
+
+    <div class="modal-box request-box">
+
+        <button
+            class="modal-close"
+            id="closeRequest"
+            type="button">
+
+            ×
+
+        </button>
+
+
+        <div id="requestContent">
+
+            <!--
+                create-blood-request.html
+                will be loaded here.
+            -->
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+>>>>>>> Stashed changes
      FOOTER
 ================================================== -->
 
 <footer class="footer">
-
 
     <div class="footer-center-name">
         Community Blood Donation Center
@@ -900,31 +684,25 @@
 
     <ul class="contact-details">
 
-
         <li>
             📍 123 Main Street, Colombo, Sri Lanka
         </li>
-
 
         <li>
             📞 Hotline: +94 11 234 5678
         </li>
 
-
         <li>
             📱 Emergency: +94 77 123 4567
         </li>
-
 
         <li>
             ✉️ Email: support@blooddonation.org
         </li>
 
-
         <li>
             🌐 Website: www.blooddonation.org
         </li>
-
 
     </ul>
 
@@ -933,7 +711,6 @@
         &copy; 2026 Community Blood Donation Management System
         | All Rights Reserved
     </p>
-
 
 </footer>
 

@@ -1,5 +1,5 @@
 /* ==================================================
-   BASIC
+   RESET
 ================================================== */
 
 * {
@@ -19,13 +19,11 @@
 
     --slate: #71869a;
 
-
     --blue: #1565c0;
 
     --blue-dark: #124f91;
 
     --blue-light: #e4f0fc;
-
 
     --green: #16a34a;
 
@@ -33,16 +31,11 @@
 
     --green-light: #eaf8f0;
 
-
     --red: #d62828;
 
     --red-light: #fff0f0;
 
-
     --border: #dce7ed;
-
-
-    --radius: 14px;
 
 }
 
@@ -58,21 +51,28 @@ body {
 }
 
 
-a {
-
-    text-decoration: none;
-
-    color: inherit;
-
-}
-
-
 button,
 input,
 select,
 textarea {
 
     font-family: inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+a {
+
+    text-decoration: none;
+
+    color: inherit;
 
 }
 
@@ -102,7 +102,7 @@ textarea {
 
     top: 0;
 
-    z-index: 50;
+    z-index: 100;
 
 }
 
@@ -116,7 +116,7 @@ textarea {
 
 
 /* ==================================================
-   PROFILE DROPDOWN
+   PROFILE MENU
 ================================================== */
 
 .profile-menu {
@@ -138,13 +138,14 @@ textarea {
 
     gap: 8px;
 
-    cursor: pointer;
-
 }
 
 
-.profile-avatar,
-.large-avatar {
+.profile-avatar {
+
+    width: 42px;
+
+    height: 42px;
 
     display: grid;
 
@@ -157,15 +158,6 @@ textarea {
     color: white;
 
     font-weight: bold;
-
-}
-
-
-.profile-avatar {
-
-    width: 42px;
-
-    height: 42px;
 
 }
 
@@ -195,11 +187,13 @@ textarea {
 
     border-radius: 15px;
 
-    box-shadow: 0 15px 35px rgba(20,60,90,.15);
+    box-shadow: 0 15px 35px rgba(20, 60, 90, .15);
 
     display: none;
 
     overflow: hidden;
+
+    z-index: 200;
 
 }
 
@@ -228,7 +222,21 @@ textarea {
 
     height: 58px;
 
+    display: grid;
+
+    place-items: center;
+
     margin: auto;
+
+    border-radius: 50%;
+
+    background: var(--blue);
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 20px;
 
 }
 
@@ -271,8 +279,6 @@ textarea {
 
     text-align: left;
 
-    cursor: pointer;
-
 }
 
 
@@ -290,15 +296,9 @@ textarea {
 }
 
 
-.profile-options b,
-.profile-options small {
+.profile-options b {
 
     display: block;
-
-}
-
-
-.profile-options b {
 
     font-size: 13px;
 
@@ -306,6 +306,8 @@ textarea {
 
 
 .profile-options small {
+
+    display: block;
 
     color: var(--slate);
 
@@ -362,7 +364,7 @@ textarea {
 
     border-radius: 18px;
 
-    box-shadow: 0 8px 25px rgba(20,70,110,.06);
+    box-shadow: 0 8px 25px rgba(20, 70, 110, .06);
 
 }
 
@@ -443,7 +445,7 @@ textarea {
 
     border-radius: 15px;
 
-    box-shadow: 0 5px 18px rgba(20,60,90,.05);
+    box-shadow: 0 5px 18px rgba(20, 60, 90, .05);
 
     transition: .2s;
 
@@ -537,15 +539,6 @@ textarea {
    PANELS
 ================================================== */
 
-.columns {
-
-    display: grid;
-
-    gap: 18px;
-
-}
-
-
 .panel {
 
     background: white;
@@ -556,12 +549,12 @@ textarea {
 
     padding: 22px;
 
-    box-shadow: 0 5px 18px rgba(20,60,90,.05);
+    box-shadow: 0 5px 18px rgba(20, 60, 90, .05);
 
 }
 
 
-.panel header {
+.panel > header {
 
     display: flex;
 
@@ -597,7 +590,11 @@ textarea {
 }
 
 
-.panel header a {
+.text-action {
+
+    border: 0;
+
+    background: transparent;
 
     color: var(--blue);
 
@@ -650,7 +647,12 @@ textarea {
 }
 
 
+.actions button,
 .actions a {
+
+    border: 0;
+
+    background: transparent;
 
     display: flex;
 
@@ -664,9 +666,17 @@ textarea {
 
     color: var(--green);
 
-    font-size: 20px;
+    text-align: left;
 
-    transition: .2s;
+}
+
+
+.actions button:hover,
+.actions a:hover {
+
+    background: #f5fbf7;
+
+    border-radius: 10px;
 
 }
 
@@ -678,16 +688,14 @@ textarea {
 }
 
 
-.actions a:hover {
+.action-icon {
 
-    background: #f5fbf7;
-
-    border-radius: 10px;
+    font-size: 20px;
 
 }
 
 
-.actions span {
+.actions span:last-child {
 
     color: #183b5a;
 
@@ -724,7 +732,7 @@ textarea {
 
     inset: 0;
 
-    background: rgba(16,42,67,.48);
+    background: rgba(16, 42, 67, .48);
 
     display: none;
 
@@ -734,7 +742,9 @@ textarea {
 
     padding: 20px;
 
-    z-index: 100;
+    z-index: 500;
+
+    backdrop-filter: blur(3px);
 
 }
 
@@ -748,14 +758,14 @@ textarea {
 
 
 /* ==================================================
-   MODAL
+   MODAL BOX
 ================================================== */
 
-.modal {
+.modal-box {
 
     width: 100%;
 
-    max-width: 650px;
+    max-width: 700px;
 
     max-height: 90vh;
 
@@ -765,24 +775,47 @@ textarea {
 
     border-radius: 18px;
 
-    padding: 30px;
+    border: 1px solid var(--border);
+
+    box-shadow: 0 25px 70px rgba(10, 40, 65, .25);
 
     position: relative;
 
-    box-shadow: 0 20px 55px rgba(0,0,0,.20);
+    padding: 30px;
 
-    animation: modalOpen .2s ease;
+    animation: popupOpen .2s ease;
 
 }
 
 
-@keyframes modalOpen {
+.information-box {
+
+    max-width: 720px;
+
+}
+
+
+.update-box {
+
+    max-width: 850px;
+
+}
+
+
+.request-box {
+
+    max-width: 850px;
+
+}
+
+
+@keyframes popupOpen {
 
     from {
 
         opacity: 0;
 
-        transform: translateY(12px) scale(.98);
+        transform: translateY(15px) scale(.98);
 
     }
 
@@ -797,40 +830,52 @@ textarea {
 }
 
 
+
+/* ==================================================
+   MODAL CLOSE
+================================================== */
+
 .modal-close {
 
     position: absolute;
 
-    top: 14px;
+    top: 15px;
 
     right: 18px;
 
+    width: 32px;
+
+    height: 32px;
+
     border: 0;
 
-    background: none;
+    border-radius: 50%;
 
-    color: var(--slate);
+    background: #edf2f5;
 
-    font-size: 27px;
+    color: #526b7d;
 
-    cursor: pointer;
+    font-size: 22px;
+
+    line-height: 1;
 
 }
 
 
 .modal-close:hover {
 
-    color: var(--red);
+    background: #e1e8ed;
 
 }
 
 
 
 /* ==================================================
-   MODAL TITLE
+   MODAL HEADER
 ================================================== */
 
-.modal-title {
+.modal-header,
+.profile-page-header {
 
     display: flex;
 
@@ -843,11 +888,33 @@ textarea {
 }
 
 
+.modal-header h2,
+.profile-page-header h2 {
+
+    font-size: 21px;
+
+    margin-bottom: 4px;
+
+}
+
+
+.modal-header p,
+.profile-page-header p {
+
+    color: var(--slate);
+
+    font-size: 11px;
+
+}
+
+
 .modal-avatar {
 
-    width: 48px;
+    width: 58px;
 
-    height: 48px;
+    height: 58px;
+
+    flex-shrink: 0;
 
     display: grid;
 
@@ -859,35 +926,26 @@ textarea {
 
     color: var(--blue);
 
-    font-size: 21px;
+    font-size: 24px;
 
 }
 
 
-.modal-title h2 {
+.request-avatar {
 
-    font-size: 21px;
+    background: var(--green-light);
 
-    margin-bottom: 3px;
-
-}
-
-
-.modal-title p {
-
-    color: var(--slate);
-
-    font-size: 11px;
+    color: var(--green);
 
 }
 
 
 
 /* ==================================================
-   INFORMATION MODAL
+   STATUS
 ================================================== */
 
-.info-status {
+.information-status {
 
     display: inline-flex;
 
@@ -907,10 +965,22 @@ textarea {
 
     font-weight: bold;
 
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 
 }
 
+
+.information-status span {
+
+    font-weight: bold;
+
+}
+
+
+
+/* ==================================================
+   INFORMATION GRID
+================================================== */
 
 .information-grid {
 
@@ -918,55 +988,97 @@ textarea {
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 10px;
+    gap: 12px;
 
 }
 
 
-.info-item {
+.information-item {
+
+    padding: 14px;
 
     background: #f8fbfd;
 
-    border: 1px solid #edf2f5;
+    border: 1px solid #e6eef3;
 
-    border-radius: 9px;
-
-    padding: 13px;
+    border-radius: 10px;
 
 }
 
 
-.info-item.full {
+.information-item.full {
 
     grid-column: 1 / -1;
 
 }
 
 
-.info-item small,
-.info-item strong {
+.information-item span {
 
     display: block;
 
-}
-
-
-.info-item small {
-
     color: var(--slate);
 
-    font-size: 9px;
+    font-size: 10px;
 
     margin-bottom: 5px;
 
 }
 
 
-.info-item strong {
+.information-item strong {
+
+    display: block;
+
+    color: var(--text);
 
     font-size: 12px;
 
     word-break: break-word;
+
+}
+
+
+.available-text {
+
+    color: var(--green) !important;
+
+}
+
+
+
+/* ==================================================
+   REQUEST NOTICE
+================================================== */
+
+.request-notice {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 12px;
+
+    margin-bottom: 20px;
+
+    border-radius: 8px;
+
+    background: #f5f9fd;
+
+    border: 1px solid var(--border);
+
+    color: var(--slate);
+
+    font-size: 10px;
+
+}
+
+
+.request-notice span {
+
+    color: var(--red);
 
 }
 
@@ -982,7 +1094,7 @@ textarea {
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 15px;
+    gap: 16px;
 
 }
 
@@ -1026,7 +1138,7 @@ textarea {
 
     border-radius: 8px;
 
-    padding: 11px 12px;
+    padding: 12px;
 
     background: white;
 
@@ -1043,6 +1155,8 @@ textarea {
 
     resize: vertical;
 
+    min-height: 90px;
+
 }
 
 
@@ -1052,7 +1166,15 @@ textarea {
 
     border-color: var(--blue);
 
-    box-shadow: 0 0 0 3px rgba(21,101,192,.08);
+    box-shadow:
+        0 0 0 3px rgba(21, 101, 192, .08);
+
+}
+
+
+#requestUrgency option[value="Emergency"] {
+
+    color: var(--red);
 
 }
 
@@ -1062,15 +1184,22 @@ textarea {
    MODAL BUTTONS
 ================================================== */
 
-.modal-actions {
+.modal-actions,
+.page-form-actions {
 
     display: flex;
 
     justify-content: flex-end;
 
+    align-items: center;
+
     gap: 10px;
 
-    margin-top: 22px;
+    margin-top: 24px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #edf2f5;
 
 }
 
@@ -1078,9 +1207,15 @@ textarea {
 .primary-btn,
 .cancel-btn {
 
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     border: 0;
 
-    padding: 11px 18px;
+    padding: 11px 19px;
 
     border-radius: 8px;
 
@@ -1121,50 +1256,6 @@ textarea {
 .cancel-btn:hover {
 
     background: #e1e8ed;
-
-}
-
-
-
-/* ==================================================
-   CREATE BLOOD REQUEST
-================================================== */
-
-.request-modal {
-
-    max-width: 720px;
-
-}
-
-
-.request-avatar {
-
-    background: var(--green-light);
-
-    color: var(--green);
-
-}
-
-
-.request-modal .form-grid {
-
-    margin-top: 5px;
-
-}
-
-
-#requestUrgency option[value="Emergency"] {
-
-    color: var(--red);
-
-}
-
-
-.request-modal textarea {
-
-    min-height: 100px;
-
-    resize: vertical;
 
 }
 
@@ -1264,6 +1355,25 @@ textarea {
 
 
 /* ==================================================
+   DIRECT PAGE SUPPORT
+================================================== */
+
+.popup-page-content {
+
+    width: 100%;
+
+}
+
+
+.popup-page-content .profile-page-header {
+
+    padding-right: 25px;
+
+}
+
+
+
+/* ==================================================
    RESPONSIVE
 ================================================== */
 
@@ -1275,6 +1385,10 @@ textarea {
 
     }
 
+}
+
+
+@media (max-width: 700px) {
 
     .form-grid {
 
@@ -1282,15 +1396,25 @@ textarea {
 
     }
 
-
     .form-group.full {
 
         grid-column: auto;
 
     }
 
-}
+    .information-grid {
 
+        grid-template-columns: 1fr;
+
+    }
+
+    .information-item.full {
+
+        grid-column: auto;
+
+    }
+
+}
 
 
 @media (max-width: 650px) {
@@ -1348,6 +1472,7 @@ textarea {
     }
 
 
+    .actions button,
     .actions a {
 
         border-right: 0;
@@ -1364,7 +1489,7 @@ textarea {
     }
 
 
-    .modal {
+    .modal-box {
 
         padding: 22px;
 
@@ -1373,49 +1498,34 @@ textarea {
     }
 
 
-    .information-grid {
-
-        grid-template-columns: 1fr;
-
-    }
-
-
-    .info-item.full {
-
-        grid-column: auto;
-
-    }
-
-
-    .modal-actions {
+    .modal-actions,
+    .page-form-actions {
 
         flex-direction: column-reverse;
 
     }
 
 
-    .modal-actions button {
+    .modal-actions button,
+    .page-form-actions button {
 
         width: 100%;
 
     }
 
 
-    .request-modal {
+    .profile-card {
 
-        width: 94%;
+        right: -5px;
 
     }
 
 }
 
 
-
 @media (max-width: 450px) {
 
     .profile-card {
-
-        right: -5px;
 
         width: 260px;
 
@@ -1439,6 +1549,14 @@ textarea {
     .hospital-icon {
 
         display: none;
+
+    }
+
+
+    .modal-header,
+    .profile-page-header {
+
+        align-items: flex-start;
 
     }
 

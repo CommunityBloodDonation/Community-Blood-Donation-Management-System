@@ -1,8 +1,8 @@
 /* ==================================================
-   HOSPITAL PROFILE DATA
+   HOSPITAL DATA
 ================================================== */
 
-let hospitalData = {
+const defaultHospitalData = {
 
     name: "City Hospital",
 
@@ -27,7 +27,82 @@ let hospitalData = {
 
 
 /* ==================================================
-   GET ELEMENTS
+   LOAD HOSPITAL DATA
+================================================== */
+
+let hospitalData =
+    JSON.parse(
+        localStorage.getItem("hospitalData")
+    );
+
+
+if (!hospitalData) {
+
+    hospitalData = {
+        ...defaultHospitalData
+    };
+
+    localStorage.setItem(
+        "hospitalData",
+        JSON.stringify(hospitalData)
+    );
+
+}
+
+
+
+/* ==================================================
+   SAVE HOSPITAL DATA
+================================================== */
+
+function saveHospitalData() {
+
+    localStorage.setItem(
+        "hospitalData",
+        JSON.stringify(hospitalData)
+    );
+
+}
+
+
+
+/* ==================================================
+   UPDATE DASHBOARD NAME
+================================================== */
+
+function updateHospitalNames() {
+
+    const welcomeName =
+        document.getElementById("welcomeName");
+
+    const menuHospitalName =
+        document.getElementById("menuHospitalName");
+
+
+    if (welcomeName) {
+
+        welcomeName.textContent =
+            hospitalData.name + "!";
+
+    }
+
+
+    if (menuHospitalName) {
+
+        menuHospitalName.textContent =
+            hospitalData.name;
+
+    }
+
+}
+
+
+updateHospitalNames();
+
+
+
+/* ==================================================
+   PROFILE DROPDOWN
 ================================================== */
 
 const profileBtn =
@@ -36,8 +111,47 @@ const profileBtn =
 const profileCard =
     document.getElementById("profileCard");
 
-const informationBtn =
-    document.getElementById("informationBtn");
+
+if (profileBtn && profileCard) {
+
+    profileBtn.addEventListener(
+        "click",
+        function(event) {
+
+            event.stopPropagation();
+
+            profileCard.classList.toggle("show");
+
+        }
+    );
+
+
+    profileCard.addEventListener(
+        "click",
+        function(event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function() {
+
+            profileCard.classList.remove("show");
+
+        }
+    );
+
+}
+
+
+
+/* ==================================================
+   MODALS
+================================================== */
 
 const informationModal =
     document.getElementById("informationModal");
@@ -45,84 +159,8 @@ const informationModal =
 const updateModal =
     document.getElementById("updateModal");
 
-const openUpdateBtn =
-    document.getElementById("openUpdateBtn");
-
-const quickUpdateProfile =
-    document.getElementById("quickUpdateProfile");
-
-const closeInformation =
-    document.getElementById("closeInformation");
-
-const closeUpdate =
-    document.getElementById("closeUpdate");
-
-const cancelUpdate =
-    document.getElementById("cancelUpdate");
-
-const updateForm =
-    document.getElementById("updateForm");
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
-
-
-
-/* ==================================================
-   CREATE REQUEST ELEMENTS
-================================================== */
-
-const createRequestBtn =
-    document.getElementById("createRequestBtn");
-
 const requestModal =
     document.getElementById("requestModal");
-
-const closeRequest =
-    document.getElementById("closeRequest");
-
-const cancelRequest =
-    document.getElementById("cancelRequest");
-
-const requestForm =
-    document.getElementById("requestForm");
-
-
-
-/* ==================================================
-   PROFILE DROPDOWN
-================================================== */
-
-profileBtn.addEventListener(
-    "click",
-    function (event) {
-
-        event.stopPropagation();
-
-        profileCard.classList.toggle("show");
-
-    }
-);
-
-
-profileCard.addEventListener(
-    "click",
-    function (event) {
-
-        event.stopPropagation();
-
-    }
-);
-
-
-document.addEventListener(
-    "click",
-    function () {
-
-        profileCard.classList.remove("show");
-
-    }
-);
 
 
 
@@ -130,450 +168,684 @@ document.addEventListener(
    OPEN INFORMATION MODAL
 ================================================== */
 
-function openInformation() {
+function openInformationModal() {
 
-    profileCard.classList.remove("show");
+    if (!informationModal) {
+        return;
+    }
 
-    updateInformationDisplay();
+
+    updateInformationPopup();
+
+
+    if (profileCard) {
+
+        profileCard.classList.remove("show");
+
+    }
+
 
     informationModal.classList.add("show");
 
 }
 
 
-informationBtn.addEventListener(
-    "click",
-    openInformation
-);
+const informationBtn =
+    document.getElementById("informationBtn");
+
+const quickInformationBtn =
+    document.getElementById("quickInformationBtn");
+
+
+if (informationBtn) {
+
+    informationBtn.addEventListener(
+        "click",
+        openInformationModal
+    );
+
+}
+
+
+if (quickInformationBtn) {
+
+    quickInformationBtn.addEventListener(
+        "click",
+        openInformationModal
+    );
+
+}
 
 
 
 /* ==================================================
-   QUICK INFORMATION
+   UPDATE INFORMATION POPUP
 ================================================== */
 
-quickUpdateProfile.addEventListener(
-    "click",
-    function (event) {
+function updateInformationPopup() {
 
-        event.preventDefault();
+    const infoName =
+        document.getElementById("infoName");
 
-        openInformation();
+    const infoEmail =
+        document.getElementById("infoEmail");
+
+    const infoPhone =
+        document.getElementById("infoPhone");
+
+    const infoLocation =
+        document.getElementById("infoLocation");
+
+    const infoRegistration =
+        document.getElementById("infoRegistration");
+
+    const infoType =
+        document.getElementById("infoType");
+
+    const infoAddress =
+        document.getElementById("infoAddress");
+
+    const infoBloodBank =
+        document.getElementById("infoBloodBank");
+
+    const infoEmergency =
+        document.getElementById("infoEmergency");
+
+
+    if (infoName) {
+
+        infoName.textContent =
+            hospitalData.name;
 
     }
-);
+
+
+    if (infoEmail) {
+
+        infoEmail.textContent =
+            hospitalData.email;
+
+    }
+
+
+    if (infoPhone) {
+
+        infoPhone.textContent =
+            hospitalData.phone;
+
+    }
+
+
+    if (infoLocation) {
+
+        infoLocation.textContent =
+            hospitalData.location;
+
+    }
+
+
+    if (infoRegistration) {
+
+        infoRegistration.textContent =
+            hospitalData.registration;
+
+    }
+
+
+    if (infoType) {
+
+        infoType.textContent =
+            hospitalData.type;
+
+    }
+
+
+    if (infoAddress) {
+
+        infoAddress.textContent =
+            hospitalData.address;
+
+    }
+
+
+    if (infoBloodBank) {
+
+        infoBloodBank.textContent =
+            hospitalData.bloodBank;
+
+    }
+
+
+    if (infoEmergency) {
+
+        infoEmergency.textContent =
+            hospitalData.emergency;
+
+    }
+
+}
 
 
 
 /* ==================================================
-   CLOSE INFORMATION
+   CLOSE INFORMATION MODAL
 ================================================== */
 
-closeInformation.addEventListener(
-    "click",
-    function () {
+function closeInformationModal() {
+
+    if (informationModal) {
 
         informationModal.classList.remove("show");
 
     }
-);
-
-
-
-/* ==================================================
-   OPEN UPDATE PROFILE
-================================================== */
-
-function openUpdate() {
-
-
-    document.getElementById(
-        "hospitalName"
-    ).value =
-        hospitalData.name;
-
-
-    document.getElementById(
-        "hospitalEmail"
-    ).value =
-        hospitalData.email;
-
-
-    document.getElementById(
-        "hospitalPhone"
-    ).value =
-        hospitalData.phone;
-
-
-    document.getElementById(
-        "hospitalLocation"
-    ).value =
-        hospitalData.location;
-
-
-    document.getElementById(
-        "registrationNumber"
-    ).value =
-        hospitalData.registration;
-
-
-    document.getElementById(
-        "hospitalType"
-    ).value =
-        hospitalData.type;
-
-
-    document.getElementById(
-        "hospitalAddress"
-    ).value =
-        hospitalData.address;
-
-
-    document.getElementById(
-        "bloodBank"
-    ).value =
-        hospitalData.bloodBank;
-
-
-    document.getElementById(
-        "emergencyContact"
-    ).value =
-        hospitalData.emergency;
-
-
-    informationModal.classList.remove("show");
-
-    updateModal.classList.add("show");
 
 }
 
 
-openUpdateBtn.addEventListener(
-    "click",
-    openUpdate
-);
+const closeInformation =
+    document.getElementById("closeInformation");
+
+const closeInformationBtn =
+    document.getElementById("closeInformationBtn");
 
 
+if (closeInformation) {
 
-/* ==================================================
-   CANCEL PROFILE UPDATE
-================================================== */
-
-function cancelProfileUpdate() {
-
-    /*
-       Do not change hospitalData.
-    */
-
-    updateModal.classList.remove("show");
-
-    informationModal.classList.add("show");
+    closeInformation.addEventListener(
+        "click",
+        closeInformationModal
+    );
 
 }
 
 
-cancelUpdate.addEventListener(
-    "click",
-    cancelProfileUpdate
-);
+if (closeInformationBtn) {
 
+    closeInformationBtn.addEventListener(
+        "click",
+        closeInformationModal
+    );
 
-closeUpdate.addEventListener(
-    "click",
-    cancelProfileUpdate
-);
+}
 
 
 
 /* ==================================================
-   SAVE PROFILE
+   LOAD UPDATE PROFILE HTML
 ================================================== */
 
-updateForm.addEventListener(
-    "submit",
-    function (event) {
+async function openUpdateModal() {
 
-        event.preventDefault();
-
-
-        const name =
-            document.getElementById(
-                "hospitalName"
-            ).value.trim();
+    if (!updateModal) {
+        return;
+    }
 
 
-        const email =
-            document.getElementById(
-                "hospitalEmail"
-            ).value.trim();
+    try {
 
-
-        const phone =
-            document.getElementById(
-                "hospitalPhone"
-            ).value.trim();
-
-
-        const location =
-            document.getElementById(
-                "hospitalLocation"
-            ).value.trim();
-
-
-        const registration =
-            document.getElementById(
-                "registrationNumber"
-            ).value.trim();
-
-
-        const type =
-            document.getElementById(
-                "hospitalType"
-            ).value;
-
-
-        const address =
-            document.getElementById(
-                "hospitalAddress"
-            ).value.trim();
-
-
-        const bloodBank =
-            document.getElementById(
-                "bloodBank"
-            ).value;
-
-
-        const emergency =
-            document.getElementById(
-                "emergencyContact"
-            ).value.trim();
-
-
-
-        /* VALIDATION */
-
-        if (
-            !name ||
-            !email ||
-            !phone ||
-            !location ||
-            !registration ||
-            !address ||
-            !emergency
-        ) {
-
-            alert(
-                "Please complete all required fields."
+        const response =
+            await fetch(
+                "hospital-update-profile.html"
             );
 
-            return;
 
-        }
+        if (!response.ok) {
 
-
-
-        /* UPDATE DATA */
-
-        hospitalData = {
-
-            name: name,
-
-            email: email,
-
-            phone: phone,
-
-            location: location,
-
-            registration: registration,
-
-            type: type,
-
-            address: address,
-
-            bloodBank: bloodBank,
-
-            emergency: emergency
-
-        };
-
-
-
-        /* UPDATE DASHBOARD */
-
-        document.getElementById(
-            "welcomeName"
-        ).textContent =
-            hospitalData.name + "!";
-
-
-        document.getElementById(
-            "menuHospitalName"
-        ).textContent =
-            hospitalData.name;
-
-
-
-        /* CLOSE UPDATE */
-
-        updateModal.classList.remove("show");
-
-
-        /* REFRESH INFORMATION */
-
-        updateInformationDisplay();
-
-
-        /* OPEN INFORMATION */
-
-        informationModal.classList.add("show");
-
-
-        console.log(
-            "Hospital profile updated."
-        );
-
-    }
-);
-
-
-
-/* ==================================================
-   UPDATE INFORMATION DISPLAY
-================================================== */
-
-function updateInformationDisplay() {
-
-    document.getElementById(
-        "infoName"
-    ).textContent =
-        hospitalData.name;
-
-
-    document.getElementById(
-        "infoEmail"
-    ).textContent =
-        hospitalData.email;
-
-
-    document.getElementById(
-        "infoPhone"
-    ).textContent =
-        hospitalData.phone;
-
-
-    document.getElementById(
-        "infoLocation"
-    ).textContent =
-        hospitalData.location;
-
-
-    document.getElementById(
-        "infoRegistration"
-    ).textContent =
-        hospitalData.registration;
-
-
-    document.getElementById(
-        "infoType"
-    ).textContent =
-        hospitalData.type;
-
-
-    document.getElementById(
-        "infoAddress"
-    ).textContent =
-        hospitalData.address;
-
-
-    document.getElementById(
-        "infoBloodBank"
-    ).textContent =
-        hospitalData.bloodBank;
-
-
-    document.getElementById(
-        "infoEmergency"
-    ).textContent =
-        hospitalData.emergency;
-
-}
-
-
-
-/* ==================================================
-   CLOSE INFORMATION OUTSIDE
-================================================== */
-
-informationModal.addEventListener(
-    "click",
-    function (event) {
-
-        if (
-            event.target === informationModal
-        ) {
-
-            informationModal.classList.remove(
-                "show"
+            throw new Error(
+                "Unable to load update profile."
             );
 
         }
 
-    }
-);
+
+        const html =
+            await response.text();
 
 
+        const parser =
+            new DOMParser();
 
-/* ==================================================
-   CLOSE UPDATE OUTSIDE
-================================================== */
 
-updateModal.addEventListener(
-    "click",
-    function (event) {
+        const documentData =
+            parser.parseFromString(
+                html,
+                "text/html"
+            );
 
-        if (
-            event.target === updateModal
-        ) {
 
-            cancelProfileUpdate();
+        const content =
+            documentData.querySelector(
+                ".popup-page-content"
+            );
+
+
+        if (!content) {
+
+            throw new Error(
+                "Update profile content not found."
+            );
 
         }
 
-    }
-);
+
+        document.getElementById(
+            "updateContent"
+        ).innerHTML =
+            content.innerHTML;
 
 
-
-/* ==================================================
-   CREATE BLOOD REQUEST
-================================================== */
-
-
-/* OPEN REQUEST MODAL */
-
-createRequestBtn.addEventListener(
-    "click",
-    function (event) {
-
-        event.preventDefault();
-
-
-        /* CLOSE PROFILE DROPDOWN */
-
-        profileCard.classList.remove(
+        informationModal.classList.remove(
             "show"
         );
 
 
-        /* OPEN REQUEST */
+        updateModal.classList.add(
+            "show"
+        );
+
+
+        setupUpdateForm();
+
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to open the Update Profile popup. " +
+            "Please make sure you are using VS Code Live Server."
+        );
+
+    }
+
+}
+
+
+
+const openUpdateBtn =
+    document.getElementById("openUpdateBtn");
+
+
+if (openUpdateBtn) {
+
+    openUpdateBtn.addEventListener(
+        "click",
+        openUpdateModal
+    );
+
+}
+
+
+
+/* ==================================================
+   SETUP UPDATE FORM
+================================================== */
+
+function setupUpdateForm() {
+
+    const updateForm =
+        document.getElementById("updateForm");
+
+
+    if (!updateForm) {
+        return;
+    }
+
+
+    const hospitalName =
+        document.getElementById("hospitalName");
+
+    const hospitalEmail =
+        document.getElementById("hospitalEmail");
+
+    const hospitalPhone =
+        document.getElementById("hospitalPhone");
+
+    const hospitalLocation =
+        document.getElementById("hospitalLocation");
+
+    const registrationNumber =
+        document.getElementById("registrationNumber");
+
+    const hospitalType =
+        document.getElementById("hospitalType");
+
+    const hospitalAddress =
+        document.getElementById("hospitalAddress");
+
+    const bloodBank =
+        document.getElementById("bloodBank");
+
+    const emergencyContact =
+        document.getElementById("emergencyContact");
+
+
+
+    /* ----------------------------------------------
+       LOAD EXISTING DATA
+    ---------------------------------------------- */
+
+    hospitalName.value =
+        hospitalData.name;
+
+    hospitalEmail.value =
+        hospitalData.email;
+
+    hospitalPhone.value =
+        hospitalData.phone;
+
+    hospitalLocation.value =
+        hospitalData.location;
+
+    registrationNumber.value =
+        hospitalData.registration;
+
+    hospitalType.value =
+        hospitalData.type;
+
+    hospitalAddress.value =
+        hospitalData.address;
+
+    bloodBank.value =
+        hospitalData.bloodBank;
+
+    emergencyContact.value =
+        hospitalData.emergency;
+
+
+
+    /* ----------------------------------------------
+       SAVE FORM
+    ---------------------------------------------- */
+
+    updateForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                hospitalName.value.trim();
+
+            const email =
+                hospitalEmail.value.trim();
+
+            const phone =
+                hospitalPhone.value.trim();
+
+            const location =
+                hospitalLocation.value.trim();
+
+            const registration =
+                registrationNumber.value.trim();
+
+            const type =
+                hospitalType.value;
+
+            const address =
+                hospitalAddress.value.trim();
+
+            const bank =
+                bloodBank.value;
+
+            const emergency =
+                emergencyContact.value.trim();
+
+
+            if (
+                !name ||
+                !email ||
+                !phone ||
+                !location ||
+                !registration ||
+                !address ||
+                !emergency
+            ) {
+
+                alert(
+                    "Please complete all required fields."
+                );
+
+                return;
+
+            }
+
+
+            hospitalData = {
+
+                name: name,
+
+                email: email,
+
+                phone: phone,
+
+                location: location,
+
+                registration: registration,
+
+                type: type,
+
+                address: address,
+
+                bloodBank: bank,
+
+                emergency: emergency
+
+            };
+
+
+            saveHospitalData();
+
+
+            updateHospitalNames();
+
+            updateInformationPopup();
+
+
+            updateModal.classList.remove(
+                "show"
+            );
+
+
+            informationModal.classList.add(
+                "show"
+            );
+
+
+            alert(
+                "Hospital profile updated successfully."
+            );
+
+        }
+    );
+
+
+
+    /* ----------------------------------------------
+       CANCEL UPDATE
+    ---------------------------------------------- */
+
+    const cancelUpdate =
+        document.getElementById("cancelUpdate");
+
+
+    if (cancelUpdate) {
+
+        cancelUpdate.addEventListener(
+            "click",
+            function() {
+
+                updateModal.classList.remove(
+                    "show"
+                );
+
+
+                informationModal.classList.add(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+
+/* ==================================================
+   CLOSE UPDATE MODAL
+================================================== */
+
+const closeUpdate =
+    document.getElementById("closeUpdate");
+
+
+if (closeUpdate) {
+
+    closeUpdate.addEventListener(
+        "click",
+        function() {
+
+            updateModal.classList.remove(
+                "show"
+            );
+
+
+            informationModal.classList.add(
+                "show"
+            );
+
+        }
+    );
+
+}
+
+
+
+/* ==================================================
+   CREATE BLOOD REQUEST POPUP
+================================================== */
+
+async function openRequestModal() {
+
+    if (!requestModal) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "create-blood-request.html"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load blood request."
+            );
+
+        }
+
+
+        const html =
+            await response.text();
+
+
+        const parser =
+            new DOMParser();
+
+
+        const documentData =
+            parser.parseFromString(
+                html,
+                "text/html"
+            );
+
+
+        const content =
+            documentData.querySelector(
+                ".popup-page-content"
+            );
+
+
+        if (!content) {
+
+            throw new Error(
+                "Blood request content not found."
+            );
+
+        }
+
+
+        document.getElementById(
+            "requestContent"
+        ).innerHTML =
+            content.innerHTML;
+
 
         requestModal.classList.add(
             "show"
         );
 
+
+        setupRequestForm();
+
+
     }
-);
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to open the Blood Request popup. " +
+            "Please make sure you are using VS Code Live Server."
+        );
+
+    }
+
+}
+
+
+
+/* ==================================================
+   REQUEST BUTTONS
+================================================== */
+
+const createRequestBtn =
+    document.getElementById(
+        "createRequestBtn"
+    );
+
+const quickCreateRequestBtn =
+    document.getElementById(
+        "quickCreateRequestBtn"
+    );
+
+
+if (createRequestBtn) {
+
+    createRequestBtn.addEventListener(
+        "click",
+        openRequestModal
+    );
+
+}
+
+
+if (quickCreateRequestBtn) {
+
+    quickCreateRequestBtn.addEventListener(
+        "click",
+        openRequestModal
+    );
+
+}
 
 
 
@@ -581,130 +853,298 @@ createRequestBtn.addEventListener(
    CLOSE REQUEST MODAL
 ================================================== */
 
-function closeRequestModal() {
+const closeRequest =
+    document.getElementById("closeRequest");
 
-    requestModal.classList.remove(
-        "show"
+
+if (closeRequest) {
+
+    closeRequest.addEventListener(
+        "click",
+        function() {
+
+            requestModal.classList.remove(
+                "show"
+            );
+
+        }
     );
-
-
-    requestForm.reset();
 
 }
 
 
-closeRequest.addEventListener(
-    "click",
-    closeRequestModal
-);
-
-
-cancelRequest.addEventListener(
-    "click",
-    closeRequestModal
-);
-
-
 
 /* ==================================================
-   CLOSE REQUEST WHEN CLICKING OUTSIDE
+   SETUP REQUEST FORM
 ================================================== */
 
-requestModal.addEventListener(
-    "click",
-    function (event) {
+function setupRequestForm() {
 
-        if (
-            event.target === requestModal
-        ) {
+    const requestForm =
+        document.getElementById(
+            "requestForm"
+        );
 
-            closeRequestModal();
 
-        }
-
+    if (!requestForm) {
+        return;
     }
-);
 
 
 
-/* ==================================================
-   CREATE REQUEST FORM
-================================================== */
+    requestForm.addEventListener(
+        "submit",
+        function(event) {
 
-requestForm.addEventListener(
-    "submit",
-    function (event) {
-
-        event.preventDefault();
+            event.preventDefault();
 
 
-
-        /* GET VALUES */
-
-        const bloodGroup =
-            document.getElementById(
-                "requestBloodGroup"
-            ).value;
+            const bloodGroup =
+                document.getElementById(
+                    "requestBloodGroup"
+                ).value;
 
 
-        const units =
-            document.getElementById(
-                "requestUnits"
-            ).value;
+            const units =
+                document.getElementById(
+                    "requestUnits"
+                ).value;
 
 
-        const urgency =
-            document.getElementById(
-                "requestUrgency"
-            ).value;
+            const urgency =
+                document.getElementById(
+                    "requestUrgency"
+                ).value;
 
 
-        const requiredDate =
-            document.getElementById(
-                "requestDate"
-            ).value;
+            const requiredDate =
+                document.getElementById(
+                    "requestDate"
+                ).value;
 
 
-        const ward =
-            document.getElementById(
-                "requestWard"
-            ).value.trim();
+            const ward =
+                document.getElementById(
+                    "requestWard"
+                ).value.trim();
 
 
-        const contact =
-            document.getElementById(
-                "requestContact"
-            ).value.trim();
+            const contact =
+                document.getElementById(
+                    "requestContact"
+                ).value.trim();
 
 
-        const reference =
-            document.getElementById(
-                "requestReference"
-            ).value.trim();
+            const reference =
+                document.getElementById(
+                    "requestReference"
+                ).value.trim();
 
 
-        const notes =
-            document.getElementById(
-                "requestNotes"
-            ).value.trim();
+            const notes =
+                document.getElementById(
+                    "requestNotes"
+                ).value.trim();
 
 
 
-        /* ==================================================
-           VALIDATION
-        ================================================== */
+            /* ------------------------------------------
+               VALIDATION
+            ------------------------------------------ */
 
-        if (
-            !bloodGroup ||
-            !units ||
-            !urgency ||
-            !requiredDate ||
-            !ward ||
-            !contact
-        ) {
+            if (
+                !bloodGroup ||
+                !units ||
+                !urgency ||
+                !requiredDate ||
+                !ward ||
+                !contact
+            ) {
+
+                alert(
+                    "Please complete all required fields."
+                );
+
+                return;
+
+            }
+
+
+
+            /* ------------------------------------------
+               CREATE REQUEST OBJECT
+            ------------------------------------------ */
+
+            const bloodRequest = {
+
+                hospitalName:
+                    hospitalData.name,
+
+                hospitalRegistration:
+                    hospitalData.registration,
+
+                bloodGroup:
+                    bloodGroup,
+
+                unitsRequired:
+                    Number(units),
+
+                urgency:
+                    urgency,
+
+                requiredDate:
+                    requiredDate,
+
+                ward:
+                    ward,
+
+                contact:
+                    contact,
+
+                reference:
+                    reference,
+
+                notes:
+                    notes,
+
+                createdAt:
+                    new Date().toISOString()
+
+            };
+
+
+
+            /* ------------------------------------------
+               FRONTEND TEST
+            ------------------------------------------ */
+
+            console.log(
+                "Blood Request:",
+                bloodRequest
+            );
+
+
+            /*
+                IMPORTANT:
+
+                This is NOT saved to MySQL yet.
+
+                Later, when your Node.js backend is ready,
+                this object will be sent using fetch():
+
+                fetch("/api/blood-requests", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body:
+                        JSON.stringify(bloodRequest)
+                });
+            */
+
+
 
             alert(
-                "Please complete all required fields."
+                "Blood request details validated successfully."
+            );
+
+
+            requestForm.reset();
+
+
+            requestModal.classList.remove(
+                "show"
+            );
+
+        }
+    );
+
+
+
+    /* ------------------------------------------
+       CANCEL REQUEST
+    ------------------------------------------ */
+
+    const cancelRequest =
+        document.getElementById(
+            "cancelRequest"
+        );
+
+
+    if (cancelRequest) {
+
+        cancelRequest.addEventListener(
+            "click",
+            function() {
+
+                requestModal.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+
+/* ==================================================
+   LOGOUT
+================================================== */
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+        "click",
+        function() {
+
+            const confirmLogout =
+                confirm(
+                    "Do you want to logout?"
+                );
+
+
+            if (confirmLogout) {
+
+                window.location.href =
+                    "../../Public Interfaces/Home/Home.html";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* ==================================================
+   ESCAPE KEY
+================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key !== "Escape") {
+            return;
+        }
+
+
+        if (
+            requestModal &&
+            requestModal.classList.contains("show")
+        ) {
+
+            requestModal.classList.remove(
+                "show"
             );
 
             return;
@@ -712,152 +1152,31 @@ requestForm.addEventListener(
         }
 
 
-
-        /* ==================================================
-           REQUEST DATA
-        ================================================== */
-
-        const bloodRequest = {
-
-            hospitalName:
-                hospitalData.name,
-
-            hospitalRegistration:
-                hospitalData.registration,
-
-            bloodGroup:
-                bloodGroup,
-
-            unitsRequired:
-                Number(units),
-
-            urgency:
-                urgency,
-
-            requiredDate:
-                requiredDate,
-
-            ward:
-                ward,
-
-            contact:
-                contact,
-
-            reference:
-                reference,
-
-            notes:
-                notes
-
-        };
-
-
-
-        /* ==================================================
-           TEMPORARY FRONTEND TEST
-        ================================================== */
-
-        console.log(
-            "Blood request created:",
-            bloodRequest
-        );
-
-
-
-        /*
-           ==================================================
-           BACKEND CONNECTION
-           ==================================================
-
-           Later, when your Node.js / MySQL backend
-           is connected, replace the temporary section
-           above with your API request.
-
-           Example:
-
-           fetch("/api/blood-requests", {
-
-               method: "POST",
-
-               headers: {
-                   "Content-Type": "application/json"
-               },
-
-               body: JSON.stringify(bloodRequest)
-
-           });
-
-        */
-
-
-
-        alert(
-            "Blood request form completed successfully."
-        );
-
-
-        closeRequestModal();
-
-    }
-);
-
-
-
-/* ==================================================
-   ESC KEY
-================================================== */
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-
-        if (event.key !== "Escape") {
-
-            return;
-
-        }
-
-
-
-        /* REQUEST */
-
         if (
-            requestModal.classList.contains(
-                "show"
-            )
+            updateModal &&
+            updateModal.classList.contains("show")
         ) {
 
-            closeRequestModal();
+            updateModal.classList.remove(
+                "show"
+            );
+
+            if (informationModal) {
+
+                informationModal.classList.add(
+                    "show"
+                );
+
+            }
 
             return;
 
         }
 
 
-
-        /* UPDATE */
-
         if (
-            updateModal.classList.contains(
-                "show"
-            )
-        ) {
-
-            cancelProfileUpdate();
-
-            return;
-
-        }
-
-
-
-        /* INFORMATION */
-
-        if (
-            informationModal.classList.contains(
-                "show"
-            )
+            informationModal &&
+            informationModal.classList.contains("show")
         ) {
 
             informationModal.classList.remove(
@@ -866,27 +1185,12 @@ document.addEventListener(
 
         }
 
-    }
-);
 
+        if (profileCard) {
 
-
-/* ==================================================
-   LOGOUT
-================================================== */
-
-logoutBtn.addEventListener(
-    "click",
-    function () {
-
-        if (
-            confirm(
-                "Do you want to logout?"
-            )
-        ) {
-
-            window.location.href =
-                "../../Public Interfaces/Home/Home.html";
+            profileCard.classList.remove(
+                "show"
+            );
 
         }
 
@@ -896,7 +1200,78 @@ logoutBtn.addEventListener(
 
 
 /* ==================================================
-   INITIAL DISPLAY
+   CLICK OUTSIDE MODAL
 ================================================== */
 
-updateInformationDisplay();
+if (informationModal) {
+
+    informationModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                informationModal
+            ) {
+
+                informationModal.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+if (updateModal) {
+
+    updateModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                updateModal
+            ) {
+
+                updateModal.classList.remove(
+                    "show"
+                );
+
+
+                informationModal.classList.add(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+if (requestModal) {
+
+    requestModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                requestModal
+            ) {
+
+                requestModal.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
