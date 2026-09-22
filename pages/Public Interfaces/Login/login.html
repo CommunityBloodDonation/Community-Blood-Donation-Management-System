@@ -513,10 +513,10 @@
     <script>
 
         const SUPABASE_URL =
-            "https://egkfscgkpgbqcvxkxwdn.supabase.co/rest/v1/";
+            "https://ayrcawqhhgpmllwvkjjr.supabase.co";
 
         const SUPABASE_KEY =
-            "sb_publishable_RwlYoQ4ihEG9v15fzYg0Cw_8IrOr--q";
+            "sb_publishable_XNMDU8mTvE42rJ4LOwkKKA_tcTopl1-";
 
 
         const supabaseClient =
@@ -798,7 +798,16 @@
 
                         email: email,
 
-                        password: password
+                        password: password,
+
+                        options: {
+                            data: {
+                                account_type: "donor",
+                                full_name: fullName,
+                                blood_group: bloodGroup,
+                                district: district
+                            }
+                        }
 
                     });
 
@@ -834,61 +843,12 @@
 
 
 
-                const userId =
-                    data.user.id;
-
-
-
-                // Insert donor profile
-
-                const {
-                    error: profileError
-                } =
-                    await supabaseClient
-                        .from("donor_profiles")
-                        .insert({
-
-                            id: userId,
-
-                            full_name: fullName,
-
-                            email: email,
-
-                            blood_group: bloodGroup,
-
-                            district: district
-
-                        });
-
-
-
-                if (profileError) {
-
-                    console.error(
-                        "Profile error:",
-                        profileError
-                    );
-
-                    alert(
-                        "Account was created, but donor profile could not be saved: " +
-                        profileError.message
-                    );
-
-                    return;
-
-                }
-
-
-
                 alert(
-                    "Donor account created successfully!"
+                    "Account created. Check your email, confirm your account, then log in."
                 );
 
 
-
-                // Go to donor dashboard
-                window.location.href =
-                    "../../Doner Interfaces/donor/donor-dashboard.html";
+                switchAuthTab("login");
 
 
             }
@@ -913,6 +873,35 @@
         // ==================================================
         // DONOR LOGIN
         // ==================================================
+
+        async function hasRegisteredProfile(tableName, userId) {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                    .from(tableName)
+                    .select("id")
+                    .eq("id", userId)
+                    .maybeSingle();
+
+
+            if (error) {
+
+                console.error(
+                    "Profile verification error:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            return Boolean(data);
+
+        }
 
         async function loginDonor(event) {
 
@@ -989,6 +978,26 @@
 
                     alert(
                         "Unable to log in."
+                    );
+
+                    return;
+
+                }
+
+
+                const isRegisteredDonor =
+                    await hasRegisteredProfile(
+                        "donor_profiles",
+                        data.user.id
+                    );
+
+
+                if (!isRegisteredDonor) {
+
+                    await supabaseClient.auth.signOut();
+
+                    alert(
+                        "This account is not registered as a donor. Please use Register first."
                     );
 
                     return;
@@ -1101,7 +1110,16 @@
 
                         email: email,
 
-                        password: password
+                        password: password,
+
+                        options: {
+                            data: {
+                                account_type: "staff",
+                                full_name: fullName,
+                                hospital_name: hospitalName,
+                                employee_id: employeeId
+                            }
+                        }
 
                     });
 
@@ -1137,60 +1155,12 @@
 
 
 
-                const userId =
-                    data.user.id;
-
-
-
-                // Insert staff profile
-
-                const {
-                    error: profileError
-                } =
-                    await supabaseClient
-                        .from("staff_profiles")
-                        .insert({
-
-                            id: userId,
-
-                            full_name: fullName,
-
-                            email: email,
-
-                            hospital_name: hospitalName,
-
-                            employee_id: employeeId
-
-                        });
-
-
-
-                if (profileError) {
-
-                    console.error(
-                        "Staff profile error:",
-                        profileError
-                    );
-
-                    alert(
-                        "Account was created, but staff profile could not be saved: " +
-                        profileError.message
-                    );
-
-                    return;
-
-                }
-
-
-
                 alert(
-                    "Hospital staff account created successfully!"
+                    "Account created. Check your email, confirm your account, then log in."
                 );
 
 
-
-                window.location.href =
-                    "../../hospital/hospital-dashboard.html";
+                switchAuthTab("login");
 
 
             }
@@ -1291,6 +1261,26 @@
 
                     alert(
                         "Unable to log in."
+                    );
+
+                    return;
+
+                }
+
+
+                const isRegisteredStaff =
+                    await hasRegisteredProfile(
+                        "staff_profiles",
+                        data.user.id
+                    );
+
+
+                if (!isRegisteredStaff) {
+
+                    await supabaseClient.auth.signOut();
+
+                    alert(
+                        "This account is not registered as hospital staff. Please use Register first."
                     );
 
                     return;
