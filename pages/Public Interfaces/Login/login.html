@@ -903,6 +903,126 @@
 
         }
 
+
+        async function ensureDonorProfile(user) {
+
+            const isRegistered =
+                await hasRegisteredProfile(
+                    "donor_profiles",
+                    user.id
+                );
+
+
+            if (isRegistered) {
+                return true;
+            }
+
+
+            const metadata =
+                user.user_metadata || {};
+
+
+            if (
+                metadata.account_type !== "donor" ||
+                !metadata.full_name ||
+                !metadata.blood_group ||
+                !metadata.district
+            ) {
+                return false;
+            }
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("donor_profiles")
+                    .insert({
+                        id: user.id,
+                        full_name: metadata.full_name,
+                        email: user.email,
+                        blood_group: metadata.blood_group,
+                        district: metadata.district
+                    });
+
+
+            if (error && error.code !== "23505") {
+                console.error(
+                    "Donor profile repair error:",
+                    error
+                );
+
+                throw error;
+            }
+
+
+            return await hasRegisteredProfile(
+                "donor_profiles",
+                user.id
+            );
+
+        }
+
+
+        async function ensureStaffProfile(user) {
+
+            const isRegistered =
+                await hasRegisteredProfile(
+                    "staff_profiles",
+                    user.id
+                );
+
+
+            if (isRegistered) {
+                return true;
+            }
+
+
+            const metadata =
+                user.user_metadata || {};
+
+
+            if (
+                metadata.account_type !== "staff" ||
+                !metadata.full_name ||
+                !metadata.hospital_name ||
+                !metadata.employee_id
+            ) {
+                return false;
+            }
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("staff_profiles")
+                    .insert({
+                        id: user.id,
+                        full_name: metadata.full_name,
+                        email: user.email,
+                        hospital_name: metadata.hospital_name,
+                        employee_id: metadata.employee_id
+                    });
+
+
+            if (error && error.code !== "23505") {
+                console.error(
+                    "Staff profile repair error:",
+                    error
+                );
+
+                throw error;
+            }
+
+
+            return await hasRegisteredProfile(
+                "staff_profiles",
+                user.id
+            );
+
+        }
+
         async function loginDonor(event) {
 
             event.preventDefault();
@@ -986,10 +1106,7 @@
 
 
                 const isRegisteredDonor =
-                    await hasRegisteredProfile(
-                        "donor_profiles",
-                        data.user.id
-                    );
+                    await ensureDonorProfile(data.user);
 
 
                 if (!isRegisteredDonor) {
@@ -1269,10 +1386,7 @@
 
 
                 const isRegisteredStaff =
-                    await hasRegisteredProfile(
-                        "staff_profiles",
-                        data.user.id
-                    );
+                    await ensureStaffProfile(data.user);
 
 
                 if (!isRegisteredStaff) {
