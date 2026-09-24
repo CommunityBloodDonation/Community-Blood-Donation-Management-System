@@ -1,363 +1,293 @@
-document.addEventListener("DOMContentLoaded", function () {
 
-    /* ================= PROFILE MENU ================= */
-
+document.addEventListener("DOMContentLoaded", () => {
     const profileBtn = document.getElementById("profileBtn");
     const profileCard = document.getElementById("profileCard");
 
-    profileBtn.addEventListener("click", function (e) {
+    const informationBtn = document.getElementById("informationBtn");
+    const quickInformationBtn = document.getElementById("quickInformationBtn");
+    const bloodDetailsBtn = document.getElementById("bloodDetailsBtn");
 
-        e.stopPropagation();
-
-        profileCard.classList.toggle("show");
-
-    });
-
-
-    profileCard.addEventListener("click", function (e) {
-        e.stopPropagation();
-    });
-
-
-    document.addEventListener("click", function () {
-
-        profileCard.classList.remove("show");
-
-    });
-
-
-    /* ================= POPUPS ================= */
-
-    const infoBtn = document.getElementById("infoBtn");
-
-    const infoModal = document.getElementById("infoModal");
+    const informationModal = document.getElementById("informationModal");
     const updateModal = document.getElementById("updateModal");
 
-    const openUpdate = document.getElementById("openUpdate");
+    const informationContent = document.getElementById("informationContent");
+    const updateContent = document.getElementById("updateContent");
 
-    const closeInfo = document.getElementById("closeInfo");
+    const closeInformation = document.getElementById("closeInformation");
     const closeUpdate = document.getElementById("closeUpdate");
+    const logoutBtn = document.getElementById("logoutBtn");
 
-    const cancelUpdate = document.getElementById("cancelUpdate");
+    const STORAGE_KEY = "bloodConnectDonorProfile";
 
-    const updateForm = document.getElementById("updateForm");
-
-
-    /* ================= DEFAULT DONOR DATA ================= */
-
-    const defaultData = {
-
-        name: "Donor",
-        email: "donor@example.com",
-        phone: "+94 77 123 4567",
-        blood: "O+",
-        dob: "1998-01-01",
-        gender: "Male",
-        address: "Colombo",
-        city: "Colombo",
-        lastDonation: "Not recorded",
-        eligibility: "Not checked"
-
+    const defaultDonor = {
+        name: "",
+        email: "",
+        phone: "",
+        bloodGroup: "",
+        dob: "",
+        gender: "",
+        city: "",
+        address: "",
+        lastDonation: "",
+        eligibility: "Not verified",
+        eligibleDate: "",
+        totalDonations: ""
     };
 
+    let donor = loadDonor();
 
-    /* ================= LOAD DATA ================= */
-
-    function getDonorData() {
-
-        const saved =
-            localStorage.getItem("bloodConnectDonor");
-
-        if (saved) {
-            return JSON.parse(saved);
+    function loadDonor() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            return saved ? { ...defaultDonor, ...JSON.parse(saved) } : { ...defaultDonor };
+        } catch (error) {
+            console.error("Could not load donor profile:", error);
+            return { ...defaultDonor };
         }
-
-        return defaultData;
     }
 
-
-    /* ================= UPDATE PAGE ================= */
-
-    function updatePage(data) {
-
-        const firstLetter =
-            data.name.charAt(0).toUpperCase();
-
-
-        /* Header */
-
-        document.getElementById("avatarLetter").textContent =
-            firstLetter;
-
-        document.getElementById("largeAvatar").textContent =
-            firstLetter;
-
-        document.getElementById("menuName").textContent =
-            data.name;
-
-
-        /* Welcome */
-
-        document.getElementById("welcomeName").textContent =
-            data.name + "!";
-
-
-        /* Stats */
-
-        document.getElementById("bloodGroup").textContent =
-            data.blood;
-
-        document.getElementById("lastDonation").textContent =
-            data.lastDonation;
-
-        document.getElementById("eligibility").textContent =
-            data.eligibility;
-
-
-        /* Information popup */
-
-        document.getElementById("infoAvatar").textContent =
-            firstLetter;
-
-        document.getElementById("infoName").textContent =
-            data.name;
-
-        document.getElementById("infoEmail").textContent =
-            data.email;
-
-        document.getElementById("infoPhone").textContent =
-            data.phone;
-
-        document.getElementById("infoBlood").textContent =
-            data.blood;
-
-        document.getElementById("infoDob").textContent =
-            data.dob;
-
-        document.getElementById("infoGender").textContent =
-            data.gender;
-
-        document.getElementById("infoAddress").textContent =
-            data.address;
-
-        document.getElementById("infoCity").textContent =
-            data.city;
-
-        document.getElementById("infoLastDonation").textContent =
-            data.lastDonation;
-
-        document.getElementById("infoEligibility").textContent =
-            data.eligibility;
-
+    function saveDonor() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(donor));
     }
 
-
-    /* ================= LOAD FORM ================= */
-
-    function loadForm(data) {
-
-        document.getElementById("formName").value =
-            data.name;
-
-        document.getElementById("formEmail").value =
-            data.email;
-
-        document.getElementById("formPhone").value =
-            data.phone;
-
-        document.getElementById("formBlood").value =
-            data.blood;
-
-        document.getElementById("formDob").value =
-            data.dob;
-
-        document.getElementById("formGender").value =
-            data.gender;
-
-        document.getElementById("formAddress").value =
-            data.address;
-
-        document.getElementById("formCity").value =
-            data.city;
-
+    function displayValue(value) {
+        return value && String(value).trim() ? String(value) : "Not provided";
     }
 
-
-    /* ================= OPEN INFORMATION ================= */
-
-    infoBtn.addEventListener("click", function () {
-
-        profileCard.classList.remove("show");
-
-        updatePage(getDonorData());
-
-        infoModal.classList.add("show");
-
-    });
-
-
-    /* ================= OPEN UPDATE ================= */
-
-    openUpdate.addEventListener("click", function () {
-
-        const data = getDonorData();
-
-        loadForm(data);
-
-        infoModal.classList.remove("show");
-
-        updateModal.classList.add("show");
-
-    });
-
-
-    /* ================= CLOSE INFORMATION ================= */
-
-    closeInfo.addEventListener("click", function () {
-
-        infoModal.classList.remove("show");
-
-    });
-
-
-    /* ================= CANCEL UPDATE ================= */
-
-    cancelUpdate.addEventListener("click", function () {
-
-        updateModal.classList.remove("show");
-
-        updatePage(getDonorData());
-
-        infoModal.classList.add("show");
-
-    });
-
-
-    /* ================= SAVE CHANGES ================= */
-
-    updateForm.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-
-        const oldData = getDonorData();
-
-
-        const newData = {
-
-            name:
-                document.getElementById("formName").value.trim(),
-
-            email:
-                document.getElementById("formEmail").value.trim(),
-
-            phone:
-                document.getElementById("formPhone").value.trim(),
-
-            blood:
-                document.getElementById("formBlood").value,
-
-            dob:
-                document.getElementById("formDob").value,
-
-            gender:
-                document.getElementById("formGender").value,
-
-            address:
-                document.getElementById("formAddress").value.trim(),
-
-            city:
-                document.getElementById("formCity").value.trim(),
-
-            lastDonation:
-                oldData.lastDonation,
-
-            eligibility:
-                oldData.eligibility
-
-        };
-
-
-        /* SAVE TO BROWSER */
-
-        localStorage.setItem(
-            "bloodConnectDonor",
-            JSON.stringify(newData)
-        );
-
-
-        /* UPDATE PAGE */
-
-        updatePage(newData);
-
-
-        /* CLOSE UPDATE */
-
-        updateModal.classList.remove("show");
-
-
-        /* SHOW INFORMATION */
-
-        infoModal.classList.add("show");
-
-    });
-
-
-    /* ================= CLOSE UPDATE ================= */
-
-    closeUpdate.addEventListener("click", function () {
-
-        updateModal.classList.remove("show");
-
-        updatePage(getDonorData());
-
-        infoModal.classList.add("show");
-
-    });
-
-
-    /* ================= OUTSIDE CLICK ================= */
-
-    infoModal.addEventListener("click", function (e) {
-
-        if (e.target === infoModal) {
-            infoModal.classList.remove("show");
-        }
-
-    });
-
-
-    updateModal.addEventListener("click", function (e) {
-
-        if (e.target === updateModal) {
-            updateModal.classList.remove("show");
-        }
-
-    });
-
-
-    /* ================= LOGOUT ================= */
-
-    document.getElementById("logoutBtn")
-        .addEventListener("click", function () {
-
-            const confirmLogout =
-                confirm("Do you want to logout?");
-
-            if (confirmLogout) {
-
-                localStorage.removeItem("bloodConnectDonor");
-
-                window.location.href =
-                    "../../Public Interfaces/Home/Home.html";
-
-            }
-
+    function formatDate(value) {
+        if (!value) return "Not provided";
+
+        const date = new Date(value + "T00:00:00");
+        if (Number.isNaN(date.getTime())) return value;
+
+        return date.toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        });
+    }
+
+    function updateDashboard() {
+        const firstName = donor.name.trim().split(/\s+/)[0] || "Donor";
+        const initial = firstName.charAt(0).toUpperCase() || "D";
+
+        document.getElementById("welcomeName").textContent = firstName;
+        document.getElementById("menuDonorName").textContent = firstName;
+        document.getElementById("menuDonorName2").textContent = firstName;
+
+        document.querySelectorAll(".avatar").forEach(avatar => {
+            avatar.textContent = initial;
         });
 
+        document.getElementById("bloodGroup").textContent =
+            displayValue(donor.bloodGroup);
 
-    /* ================= INITIAL DATA ================= */
+        document.getElementById("eligibility").textContent =
+            displayValue(donor.eligibility);
 
-    updatePage(getDonorData());
+        document.getElementById("eligibleDate").textContent =
+            donor.eligibleDate ? formatDate(donor.eligibleDate) : "Not available";
 
+        document.getElementById("lastDonation").textContent =
+            donor.lastDonation ? formatDate(donor.lastDonation) : "Not provided";
+
+        document.getElementById("lastDonationAgo").textContent =
+            donor.lastDonation ? "Last recorded donation" : "Donation history unavailable";
+
+        document.getElementById("totalDonations").textContent =
+            displayValue(donor.totalDonations);
+    }
+
+    function openInformationModal() {
+        profileCard.classList.remove("show");
+        profileBtn.setAttribute("aria-expanded", "false");
+        informationModal.classList.add("show");
+        document.body.style.overflow = "hidden";
+        loadInformationContent();
+    }
+
+    function openUpdateModal() {
+        informationModal.classList.remove("show");
+        updateModal.classList.add("show");
+        loadUpdateContent();
+    }
+
+    function closeAllModals() {
+        informationModal.classList.remove("show");
+        updateModal.classList.remove("show");
+        document.body.style.overflow = "";
+    }
+
+    async function loadInformationContent() {
+        try {
+            const response = await fetch("donor-information.html");
+            if (!response.ok) throw new Error("Could not load information page.");
+
+            informationContent.innerHTML = await response.text();
+            populateInformation();
+
+            document.getElementById("openUpdateBtn")
+                .addEventListener("click", openUpdateModal);
+        } catch (error) {
+            informationContent.innerHTML = `
+                <p class="loading-message">
+                    Unable to load donor information. Please run this page using
+                    VS Code Live Server and check that donor-information.html exists.
+                </p>`;
+            console.error(error);
+        }
+    }
+
+    function populateInformation() {
+        const fields = {
+            infoName: displayValue(donor.name),
+            infoFullName: displayValue(donor.name),
+            infoEmail: displayValue(donor.email),
+            infoPhone: displayValue(donor.phone),
+            infoBloodGroup: displayValue(donor.bloodGroup),
+            infoDob: formatDate(donor.dob),
+            infoGender: displayValue(donor.gender),
+            infoCity: displayValue(donor.city),
+            infoAddress: displayValue(donor.address),
+            infoLastDonation: formatDate(donor.lastDonation),
+            infoEligibility: displayValue(donor.eligibility)
+        };
+
+        Object.entries(fields).forEach(([id, value]) => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = value;
+        });
+
+        const initial = (donor.name.trim().charAt(0) || "D").toUpperCase();
+        const infoInitial = document.getElementById("infoInitial");
+        if (infoInitial) infoInitial.textContent = initial;
+    }
+
+    async function loadUpdateContent() {
+        try {
+            const response = await fetch("donor-update-profile.html");
+            if (!response.ok) throw new Error("Could not load update form.");
+
+            updateContent.innerHTML = await response.text();
+            populateUpdateForm();
+
+            document.getElementById("updateForm")
+                .addEventListener("submit", handleUpdateSubmit);
+
+            document.getElementById("cancelUpdate")
+                .addEventListener("click", returnToInformation);
+
+        } catch (error) {
+            updateContent.innerHTML = `
+                <p class="loading-message">
+                    Unable to load the update form. Please run this page using
+                    VS Code Live Server and check that donor-update-profile.html exists.
+                </p>`;
+            console.error(error);
+        }
+    }
+
+    function populateUpdateForm() {
+        const formFields = {
+            donorName: donor.name,
+            donorEmail: donor.email,
+            donorPhone: donor.phone,
+            donorBloodGroup: donor.bloodGroup,
+            donorDob: donor.dob,
+            donorGender: donor.gender,
+            donorCity: donor.city,
+            donorAddress: donor.address,
+            donorLastDonation: donor.lastDonation
+        };
+
+        Object.entries(formFields).forEach(([id, value]) => {
+            const element = document.getElementById(id);
+            if (element) element.value = value || "";
+        });
+    }
+
+    function handleUpdateSubmit(event) {
+        event.preventDefault();
+
+        donor = {
+            ...donor,
+            name: document.getElementById("donorName").value.trim(),
+            email: document.getElementById("donorEmail").value.trim(),
+            phone: document.getElementById("donorPhone").value.trim(),
+            bloodGroup: document.getElementById("donorBloodGroup").value,
+            dob: document.getElementById("donorDob").value,
+            gender: document.getElementById("donorGender").value,
+            city: document.getElementById("donorCity").value.trim(),
+            address: document.getElementById("donorAddress").value.trim(),
+            lastDonation: document.getElementById("donorLastDonation").value
+        };
+
+        try {
+            saveDonor();
+            updateDashboard();
+            returnToInformation();
+        } catch (error) {
+            alert("Unable to save your profile in this browser.");
+            console.error(error);
+        }
+    }
+
+    function returnToInformation() {
+        updateModal.classList.remove("show");
+        informationModal.classList.add("show");
+        document.body.style.overflow = "hidden";
+        loadInformationContent();
+    }
+
+    // Dropdown toggle
+    profileBtn.addEventListener("click", event => {
+        event.stopPropagation();
+        const isOpen = profileCard.classList.toggle("show");
+        profileBtn.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("click", event => {
+        if (!profileCard.contains(event.target) && !profileBtn.contains(event.target)) {
+            profileCard.classList.remove("show");
+            profileBtn.setAttribute("aria-expanded", "false");
+        }
+    });
+
+    // Open information modal
+    informationBtn.addEventListener("click", openInformationModal);
+    quickInformationBtn.addEventListener("click", openInformationModal);
+    bloodDetailsBtn.addEventListener("click", openInformationModal);
+
+    // Close modals
+    closeInformation.addEventListener("click", closeAllModals);
+    closeUpdate.addEventListener("click", returnToInformation);
+
+    informationModal.addEventListener("click", event => {
+        if (event.target === informationModal) closeAllModals();
+    });
+
+    updateModal.addEventListener("click", event => {
+        if (event.target === updateModal) returnToInformation();
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            if (updateModal.classList.contains("show")) {
+                returnToInformation();
+            } else {
+                closeAllModals();
+            }
+        }
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", () => {
+        const confirmed = confirm("Are you sure you want to log out?");
+        if (confirmed) {
+            window.location.href = "../../Public Interfaces/Home/Home.html";
+        }
+    });
+
+    // Initial dashboard render
+    updateDashboard();
 });
