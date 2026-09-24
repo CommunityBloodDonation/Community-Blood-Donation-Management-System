@@ -1,470 +1,219 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BloodConnect | Donor Dashboard</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodConnect | Donor Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
+    <!-- HEADER -->
+    <header class="header">
+        <a href="#" class="brand">
+            <img src="../../Assets/images/logo.png" alt="BloodConnect Logo">
+            <span>COMMUNITY BLOOD DONATION NETWORK</span>
+        </a>
 
-<header class="header">
+        <div class="profile-menu">
+            <button class="profile-btn" id="profileBtn" aria-expanded="false">
+                <span class="avatar">D</span>
+                <span class="profile-label">
+                    <strong id="menuDonorName">Donor</strong>
+                    <small>Blood Donor</small>
+                </span>
+                <span class="arrow">▼</span>
+            </button>
 
-    <div class="logo">
-        <img src="../../Assets/images/logo.png" height="50">
-    </div>
-
-    <div class="profile-menu">
-
-        <button class="profile-btn" id="profileBtn" type="button">
-            <span class="profile-avatar" id="avatarLetter">D</span>
-            <span class="profile-arrow">▼</span>
-        </button>
-
-        <!-- PROFILE DROPDOWN -->
-
-        <div class="profile-card" id="profileCard">
-
-            <div class="profile-top">
-                <div class="large-avatar" id="largeAvatar">D</div>
-                <h3 id="menuName">Donor</h3>
-                <p>Blood Donor</p>
-            </div>
-
-            <div class="profile-options">
-
-                <button type="button" id="infoBtn">
-                    <span class="option-icon">👤</span>
-                    <span>
-                        <b>Your Information</b>
-                        <small>View your donor information</small>
-                    </span>
-                </button>
-
-                <button type="button" id="logoutBtn">
-                    <span class="option-icon logout-icon">↪</span>
-                    <span>
-                        <b>Logout</b>
-                        <small>Sign out of your account</small>
-                    </span>
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- ================= MAIN ================= -->
-
-<main>
-
-<section class="content">
-
-    <!-- WELCOME -->
-
-    <div class="welcome">
-
-        <div>
-            <h1>
-                Welcome back,
-                <span id="welcomeName">Donor!</span>
-            </h1>
-
-            <p>
-                Thank you for being a life saver.
-                Your donation can make a real difference.
-            </p>
-        </div>
-
-        <div class="drop">♥</div>
-
-    </div>
-
-
-    <!-- STATS -->
-
-    <div class="stats">
-
-        <article>
-            <b class="ico red">♥</b>
-            <p>Blood Group</p>
-            <h2 id="bloodGroup">—</h2>
-            <a href="#">View Details →</a>
-        </article>
-
-        <article>
-            <b class="ico green">✓</b>
-            <p>Eligibility Status</p>
-            <h2 id="eligibility">—</h2>
-            <small id="eligibleDate">—</small>
-        </article>
-
-        <article>
-            <b class="ico blue">▣</b>
-            <p>Last Donation</p>
-            <h2 id="lastDonation">—</h2>
-            <small id="lastDonationAgo">—</small>
-        </article>
-
-        <article>
-            <b class="ico green">♥</b>
-            <p>Total Donations</p>
-            <h2 id="totalDonations">—</h2>
-            <small>Recorded donations</small>
-        </article>
-
-    </div>
-
-
-    <!-- EMERGENCY REQUESTS -->
-
-    <div class="columns">
-
-        <section class="panel">
-
-            <header>
-                <div>
-                    <h2>Current Emergency Requests</h2>
-                    <small>
-                        Verified requests from the system.
-                    </small>
+            <div class="profile-card" id="profileCard">
+                <div class="profile-card-heading">
+                    <span class="avatar large-avatar">D</span>
+                    <div>
+                        <strong id="menuDonorName2">Donor</strong>
+                        <small>Blood Donor</small>
+                    </div>
                 </div>
 
-                <a href="donation-requests.html">
-                    View All →
-                </a>
-            </header>
+                <button class="dropdown-option" id="informationBtn">
+                    <span>👤</span> Your Information
+                </button>
 
-            <div id="requests">
-                <p class="empty">
-                    Loading requests...
+                <button class="dropdown-option logout-option" id="logoutBtn">
+                    <span>↪</span> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <section class="welcome">
+            <div>
+                <span class="eyebrow">DONOR DASHBOARD</span>
+                <h1>Welcome back, <span id="welcomeName">Donor</span>!</h1>
+                <p>
+                    Thank you for being a life saver. Your donation can make
+                    a real difference.
                 </p>
             </div>
+            <div class="welcome-icon">♥</div>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon blue-icon">🩸</span>
+                    <span class="stat-label">Blood Group</span>
+                </div>
+                <h2 id="bloodGroup">Not provided</h2>
+                <button class="text-link" id="bloodDetailsBtn">View Details →</button>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon green-icon">✓</span>
+                    <span class="stat-label">Eligibility Status</span>
+                </div>
+                <h2 id="eligibility">Not verified</h2>
+                <p class="stat-description">
+                    Eligible date: <strong id="eligibleDate">Not available</strong>
+                </p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon purple-icon">📅</span>
+                    <span class="stat-label">Last Donation</span>
+                </div>
+                <h2 id="lastDonation">Not provided</h2>
+                <p class="stat-description" id="lastDonationAgo">
+                    Donation history unavailable
+                </p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span class="stat-icon orange-icon">♥</span>
+                    <span class="stat-label">Total Donations</span>
+                </div>
+                <h2 id="totalDonations">—</h2>
+                <p class="stat-description">Recorded donations</p>
+            </article>
 
         </section>
 
-    </div>
-
-
-    <!-- QUICK ACTIONS -->
-
-    <section class="panel quick">
-
-        <h2>Quick Actions</h2>
-
-        <div class="actions">
-
-            <a href="#">
-                ♙
-                <span>
-                    Update Profile
-                    <small>Edit your information</small>
-                </span>
-            </a>
-
-            <a href="health.html">
-                ✓
-                <span>
-                    Check Eligibility
-                    <small>Check eligibility</small>
-                </span>
-            </a>
-
-            <a href="donation-history.html">
-                ▣
-                <span>
-                    View History
-                    <small>Donation history</small>
-                </span>
-            </a>
-
-        </div>
-
-    </section>
-
-</section>
-
-</main>
-
-
-<!-- ================= YOUR INFORMATION POPUP ================= -->
-
-<div class="modal" id="infoModal">
-
-    <div class="info-box">
-
-        <button class="close-btn" id="closeInfo">
-            ×
-        </button>
-
-        <div class="modal-heading">
-
-            <div class="modal-avatar" id="infoAvatar">
-                D
-            </div>
-
-            <div>
-                <h2>Your Information</h2>
-                <p>Your registered donor information</p>
-            </div>
-
-        </div>
-
-
-        <div class="info-grid">
-
-            <div>
-                <label>Full Name</label>
-                <p id="infoName">—</p>
-            </div>
-
-            <div>
-                <label>Email</label>
-                <p id="infoEmail">—</p>
-            </div>
-
-            <div>
-                <label>Phone Number</label>
-                <p id="infoPhone">—</p>
-            </div>
-
-            <div>
-                <label>Blood Group</label>
-                <p id="infoBlood">—</p>
-            </div>
-
-            <div>
-                <label>Date of Birth</label>
-                <p id="infoDob">—</p>
-            </div>
-
-            <div>
-                <label>Gender</label>
-                <p id="infoGender">—</p>
-            </div>
-
-            <div>
-                <label>Address</label>
-                <p id="infoAddress">—</p>
-            </div>
-
-            <div>
-                <label>City</label>
-                <p id="infoCity">—</p>
-            </div>
-
-            <div>
-                <label>Last Donation</label>
-                <p id="infoLastDonation">—</p>
-            </div>
-
-            <div>
-                <label>Eligibility Status</label>
-                <p id="infoEligibility">—</p>
-            </div>
-
-        </div>
-
-
-        <div class="modal-footer">
-
-            <button class="update-btn" id="openUpdate">
-                Update Profile
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= UPDATE PROFILE POPUP ================= -->
-
-<div class="modal" id="updateModal">
-
-    <div class="update-box">
-
-        <button class="close-btn" id="closeUpdate">
-            ×
-        </button>
-
-        <div class="modal-heading">
-
-            <div class="modal-avatar">
-                ✎
-            </div>
-
-            <div>
-                <h2>Update Profile</h2>
-                <p>Update your donor information</p>
-            </div>
-
-        </div>
-
-
-        <form id="updateForm">
-
-            <div class="form-grid">
-
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input
-                        type="text"
-                        id="formName"
-                        required>
+        <!-- EMERGENCY REQUESTS -->
+        <section class="panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">HELP SAVE LIVES</span>
+                    <h2>Current Emergency Requests</h2>
                 </div>
-
-                <div class="form-group">
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        id="formEmail"
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input
-                        type="tel"
-                        id="formPhone"
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label>Blood Group</label>
-
-                    <select id="formBlood" required>
-                        <option value="">Select</option>
-                        <option>A+</option>
-                        <option>A-</option>
-                        <option>B+</option>
-                        <option>B-</option>
-                        <option>AB+</option>
-                        <option>AB-</option>
-                        <option>O+</option>
-                        <option>O-</option>
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-                    <label>Date of Birth</label>
-
-                    <input
-                        type="date"
-                        id="formDob"
-                        required>
-
-                </div>
-
-                <div class="form-group">
-                    <label>Gender</label>
-
-                    <select id="formGender" required>
-                        <option value="">Select</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
-                    </select>
-
-                </div>
-
-                <div class="form-group full">
-                    <label>Address</label>
-
-                    <input
-                        type="text"
-                        id="formAddress"
-                        required>
-
-                </div>
-
-                <div class="form-group">
-                    <label>City</label>
-
-                    <input
-                        type="text"
-                        id="formCity"
-                        required>
-
-                </div>
-
+                <a href="donation-requests.html" class="outline-btn">View All</a>
             </div>
 
+            <div class="empty-state" id="requests">
+                <div class="empty-icon">🩸</div>
+                <h3>No request information loaded</h3>
+                <p>
+                    Emergency requests will appear here when connected to
+                    the system backend.
+                </p>
+            </div>
+        </section>
 
-            <div class="form-buttons">
+        <!-- QUICK ACTIONS -->
+        <section class="panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">YOUR ACCOUNT</span>
+                    <h2>Quick Actions</h2>
+                </div>
+            </div>
 
-                <button
-                    type="button"
-                    class="cancel-btn"
-                    id="cancelUpdate">
-                    Cancel
+            <div class="actions-grid">
+                <button class="action-card" id="quickInformationBtn">
+                    <span class="action-icon blue-icon">👤</span>
+                    <strong>Your Information</strong>
+                    <small>View your donor details</small>
+                    <span class="action-arrow">→</span>
                 </button>
 
-                <button
-                    type="submit"
-                    class="save-btn">
-                    Save Changes
-                </button>
+                <a href="health.html" class="action-card">
+                    <span class="action-icon green-icon">✓</span>
+                    <strong>Check Eligibility</strong>
+                    <small>Review donation eligibility</small>
+                    <span class="action-arrow">→</span>
+                </a>
 
+                <a href="donation-history.html" class="action-card">
+                    <span class="action-icon purple-icon">📋</span>
+                    <strong>View History</strong>
+                    <small>Review previous donations</small>
+                    <span class="action-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INFORMATION MODAL -->
+    <div class="modal-overlay" id="informationModal">
+        <section class="modal modal-medium" role="dialog"
+                 aria-modal="true" aria-labelledby="informationTitle">
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">DONOR ACCOUNT</span>
+                    <h2 id="informationTitle">Your Information</h2>
+                </div>
+                <button class="modal-close" id="closeInformation" aria-label="Close">
+                    &times;
+                </button>
             </div>
 
-        </form>
-
+            <div class="modal-content" id="informationContent">
+                <p class="loading-message">Loading donor information...</p>
+            </div>
+        </section>
     </div>
 
-</div>
+    <!-- UPDATE PROFILE MODAL -->
+    <div class="modal-overlay" id="updateModal">
+        <section class="modal modal-medium" role="dialog"
+                 aria-modal="true" aria-labelledby="updateTitle">
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">ACCOUNT SETTINGS</span>
+                    <h2 id="updateTitle">Update Profile</h2>
+                </div>
+                <button class="modal-close" id="closeUpdate" aria-label="Close">
+                    &times;
+                </button>
+            </div>
 
-
-<!-- ================= FOOTER ================= -->
-
-<footer class="footer">
-
-    <div class="footer-center-name">
-        Community Blood Donation Center
+            <div class="modal-content" id="updateContent">
+                <p class="loading-message">Loading update form...</p>
+            </div>
+        </section>
     </div>
 
-    <ul class="contact-details">
+    <!-- FOOTER -->
+    <footer class="footer">
+        <h3>Community Blood Donation Center</h3>
+        <p>123 Main Street, Colombo, Sri Lanka</p>
+        <p>Hotline: +94 11 234 5678</p>
+        <p>Emergency: +94 77 123 4567</p>
+        <p>support@blooddonation.org</p>
+        <p>www.blooddonation.org</p>
+        <div class="footer-bottom">
+            © 2026 Community Blood Donation Management System | All Rights Reserved
+        </div>
+    </footer>
 
-        <li>
-            📍 123 Main Street, Colombo, Sri Lanka
-        </li>
-
-        <li>
-            📞 Hotline: +94 11 234 5678
-        </li>
-
-        <li>
-            📱 Emergency: +94 77 123 4567
-        </li>
-
-        <li>
-            ✉️ Email: support@blooddonation.org
-        </li>
-
-        <li>
-            🌐 Website: www.blooddonation.org
-        </li>
-
-    </ul>
-
-    <p>
-        &copy; 2026 Community Blood Donation Management System
-        | All Rights Reserved
-    </p>
-
-</footer>
-
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
