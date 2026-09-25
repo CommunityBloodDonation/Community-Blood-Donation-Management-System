@@ -33,10 +33,13 @@
             </h3>
 
             <div class="logo">
-                <img src="../../assets/images/logo.png"
+
+                <img
+                    src="../../assets/images/logo.png"
                     height="120"
                     alt="Community Blood Donation Network Logo"
                 >
+
             </div>
 
         </div>
@@ -137,6 +140,7 @@
                         id="donorLoginEmail"
                         class="form-input"
                         placeholder="donor@example.com"
+                        autocomplete="email"
                         required
                     >
 
@@ -154,6 +158,7 @@
                         id="donorLoginPassword"
                         class="form-input"
                         placeholder="••••••••"
+                        autocomplete="current-password"
                         required
                     >
 
@@ -207,6 +212,7 @@
                         id="donorName"
                         class="form-input"
                         placeholder="John Doe"
+                        autocomplete="name"
                         required
                     >
 
@@ -224,6 +230,7 @@
                         id="donorEmail"
                         class="form-input"
                         placeholder="donor@example.com"
+                        autocomplete="email"
                         required
                     >
 
@@ -242,6 +249,7 @@
                         class="form-input"
                         placeholder="••••••••"
                         minlength="6"
+                        autocomplete="new-password"
                         required
                     >
 
@@ -337,6 +345,7 @@
                         id="staffLoginEmail"
                         class="form-input"
                         placeholder="staff@hospital.com"
+                        autocomplete="email"
                         required
                     >
 
@@ -354,6 +363,7 @@
                         id="staffLoginPassword"
                         class="form-input"
                         placeholder="••••••••"
+                        autocomplete="current-password"
                         required
                     >
 
@@ -407,6 +417,7 @@
                         id="staffName"
                         class="form-input"
                         placeholder="John Doe"
+                        autocomplete="name"
                         required
                     >
 
@@ -424,6 +435,7 @@
                         id="staffEmail"
                         class="form-input"
                         placeholder="staff@hospital.com"
+                        autocomplete="email"
                         required
                     >
 
@@ -442,6 +454,7 @@
                         class="form-input"
                         placeholder="••••••••"
                         minlength="6"
+                        autocomplete="new-password"
                         required
                     >
 
@@ -524,7 +537,6 @@
                 SUPABASE_URL,
                 SUPABASE_KEY
             );
-
 
     </script>
 
@@ -657,8 +669,6 @@
             ];
 
 
-            // Hide all forms
-
             forms.forEach(function(formId) {
 
                 document
@@ -667,7 +677,7 @@
 
             });
 
- 
+
             let selectedForm;
 
 
@@ -681,7 +691,6 @@
 
             }
 
-
             else if (
                 currentMode === "donor" &&
                 currentAuth === "register"
@@ -692,7 +701,6 @@
 
             }
 
-
             else if (
                 currentMode === "staff" &&
                 currentAuth === "login"
@@ -702,7 +710,6 @@
                     "staff-login";
 
             }
-
 
             else {
 
@@ -721,6 +728,452 @@
 
 
         // ==================================================
+        // SHOW LOADING STATE
+        // ==================================================
+
+        function setButtonLoading(button, loadingText) {
+
+            if (!button) {
+                return;
+            }
+
+            button.dataset.originalText =
+                button.innerText;
+
+            button.innerText =
+                loadingText;
+
+            button.disabled = true;
+
+        }
+
+
+
+        function restoreButton(button) {
+
+            if (!button) {
+                return;
+            }
+
+            button.innerText =
+                button.dataset.originalText ||
+                button.innerText;
+
+            button.disabled = false;
+
+        }
+
+
+
+        // ==================================================
+        // GET PROFILE
+        // ==================================================
+
+        async function getProfile(tableName, userId) {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                    .from(tableName)
+                    .select("*")
+                    .eq("id", userId)
+                    .maybeSingle();
+
+
+            if (error) {
+
+                console.error(
+                    `${tableName} lookup error:`,
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            return data;
+
+        }
+
+
+
+        // ==================================================
+        // CHECK PROFILE
+        // ==================================================
+
+        async function hasRegisteredProfile(
+            tableName,
+            userId
+        ) {
+
+            const profile =
+                await getProfile(
+                    tableName,
+                    userId
+                );
+
+
+            return Boolean(profile);
+
+        }
+
+
+
+        // ==================================================
+        // CREATE / REPAIR DONOR PROFILE
+        // ==================================================
+
+        async function ensureDonorProfile(user) {
+
+            console.log(
+                "Checking donor profile for:",
+                user.id
+            );
+
+
+            // ------------------------------------------------
+            // STEP 1
+            // Check whether profile already exists
+            // ------------------------------------------------
+
+            const existingProfile =
+                await getProfile(
+                    "donor_profiles",
+                    user.id
+                );
+
+
+            if (existingProfile) {
+
+                console.log(
+                    "Existing donor profile found."
+                );
+
+                return true;
+
+            }
+
+
+
+            // ------------------------------------------------
+            // STEP 2
+            // Get metadata from Auth user
+            // ------------------------------------------------
+
+            const metadata =
+                user.user_metadata || {};
+
+
+            console.log(
+                "User metadata:",
+                metadata
+            );
+
+
+            // ------------------------------------------------
+            // STEP 3
+            // Make sure this is actually a donor
+            // ------------------------------------------------
+
+            if (
+                metadata.account_type &&
+                metadata.account_type !== "donor"
+            ) {
+
+                console.error(
+                    "This Auth account belongs to another account type."
+                );
+
+                return false;
+
+            }
+
+
+
+            // ------------------------------------------------
+            // STEP 4
+            // Required donor data
+            // ------------------------------------------------
+
+            const fullName =
+                metadata.full_name || "";
+
+            const bloodGroup =
+                metadata.blood_group || "";
+
+            const district =
+                metadata.district || "";
+
+
+            if (
+                !fullName ||
+                !bloodGroup ||
+                !district
+            ) {
+
+                console.error(
+                    "Donor profile metadata is incomplete.",
+                    metadata
+                );
+
+                return false;
+
+            }
+
+
+
+            // ------------------------------------------------
+            // STEP 5
+            // Try creating missing profile
+            // ------------------------------------------------
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("donor_profiles")
+                    .insert({
+
+                        id: user.id,
+
+                        full_name: fullName,
+
+                        email: user.email,
+
+                        blood_group: bloodGroup,
+
+                        district: district
+
+                    });
+
+
+            // ------------------------------------------------
+            // Duplicate means another process already created
+            // it, so continue.
+            // ------------------------------------------------
+
+            if (
+                error &&
+                error.code !== "23505"
+            ) {
+
+                console.error(
+                    "Donor profile creation failed:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+
+            // ------------------------------------------------
+            // STEP 6
+            // Verify profile again
+            // ------------------------------------------------
+
+            const repairedProfile =
+                await getProfile(
+                    "donor_profiles",
+                    user.id
+                );
+
+
+            if (repairedProfile) {
+
+                console.log(
+                    "Donor profile successfully verified."
+                );
+
+                return true;
+
+            }
+
+
+            return false;
+
+        }
+
+
+
+        // ==================================================
+        // CREATE / REPAIR STAFF PROFILE
+        // ==================================================
+
+        async function ensureStaffProfile(user) {
+
+            console.log(
+                "Checking staff profile for:",
+                user.id
+            );
+
+
+            // ------------------------------------------------
+            // STEP 1
+            // Check existing profile
+            // ------------------------------------------------
+
+            const existingProfile =
+                await getProfile(
+                    "staff_profiles",
+                    user.id
+                );
+
+
+            if (existingProfile) {
+
+                console.log(
+                    "Existing staff profile found."
+                );
+
+                return true;
+
+            }
+
+
+
+            // ------------------------------------------------
+            // STEP 2
+            // Read Auth metadata
+            // ------------------------------------------------
+
+            const metadata =
+                user.user_metadata || {};
+
+
+            console.log(
+                "Staff metadata:",
+                metadata
+            );
+
+
+            // ------------------------------------------------
+            // STEP 3
+            // Verify account type
+            // ------------------------------------------------
+
+            if (
+                metadata.account_type &&
+                metadata.account_type !== "staff"
+            ) {
+
+                console.error(
+                    "This Auth account belongs to another account type."
+                );
+
+                return false;
+
+            }
+
+
+
+            // ------------------------------------------------
+            // STEP 4
+            // Required information
+            // ------------------------------------------------
+
+            const fullName =
+                metadata.full_name || "";
+
+            const hospitalName =
+                metadata.hospital_name || "";
+
+            const employeeId =
+                metadata.employee_id || "";
+
+
+            if (
+                !fullName ||
+                !hospitalName ||
+                !employeeId
+            ) {
+
+                console.error(
+                    "Staff profile metadata is incomplete.",
+                    metadata
+                );
+
+                return false;
+
+            }
+
+
+
+            // ------------------------------------------------
+            // STEP 5
+            // Create missing profile
+            // ------------------------------------------------
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("staff_profiles")
+                    .insert({
+
+                        id: user.id,
+
+                        full_name: fullName,
+
+                        email: user.email,
+
+                        hospital_name: hospitalName,
+
+                        employee_id: employeeId
+
+                    });
+
+
+            if (
+                error &&
+                error.code !== "23505"
+            ) {
+
+                console.error(
+                    "Staff profile creation failed:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+
+            // ------------------------------------------------
+            // STEP 6
+            // Verify again
+            // ------------------------------------------------
+
+            const repairedProfile =
+                await getProfile(
+                    "staff_profiles",
+                    user.id
+                );
+
+
+            if (repairedProfile) {
+
+                console.log(
+                    "Staff profile successfully verified."
+                );
+
+                return true;
+
+            }
+
+
+            return false;
+
+        }
+
+
+
+        // ==================================================
         // DONOR REGISTRATION
         // ==================================================
 
@@ -729,7 +1182,22 @@
             event.preventDefault();
 
 
-            // Get form values
+            const button =
+                event.target.querySelector(
+                    "button[type='submit']"
+                );
+
+
+            setButtonLoading(
+                button,
+                "Creating Account..."
+            );
+
+
+
+            // ------------------------------------------------
+            // Get values
+            // ------------------------------------------------
 
             const fullName =
                 document
@@ -742,7 +1210,8 @@
                 document
                     .getElementById("donorEmail")
                     .value
-                    .trim();
+                    .trim()
+                    .toLowerCase();
 
 
             const password =
@@ -765,7 +1234,9 @@
 
 
 
-            // Basic validation
+            // ------------------------------------------------
+            // Validation
+            // ------------------------------------------------
 
             if (
                 !fullName ||
@@ -774,6 +1245,8 @@
                 !bloodGroup ||
                 !district
             ) {
+
+                restoreButton(button);
 
                 alert(
                     "Please fill in all required fields."
@@ -785,10 +1258,30 @@
 
 
 
+            if (password.length < 6) {
+
+                restoreButton(button);
+
+                alert(
+                    "Password must contain at least 6 characters."
+                );
+
+                return;
+
+            }
+
+
+
             try {
 
+                console.log(
+                    "Starting donor registration..."
+                );
 
+
+                // ------------------------------------------------
                 // Create Supabase Auth account
+                // ------------------------------------------------
 
                 const {
                     data,
@@ -801,12 +1294,23 @@
                         password: password,
 
                         options: {
+
                             data: {
-                                account_type: "donor",
-                                full_name: fullName,
-                                blood_group: bloodGroup,
-                                district: district
+
+                                account_type:
+                                    "donor",
+
+                                full_name:
+                                    fullName,
+
+                                blood_group:
+                                    bloodGroup,
+
+                                district:
+                                    district
+
                             }
+
                         }
 
                     });
@@ -816,13 +1320,54 @@
                 if (error) {
 
                     console.error(
-                        "Registration error:",
+                        "Donor registration error:",
                         error
                     );
 
+
+                    // More useful message for already-existing
+                    // accounts.
+
+                    const message =
+                        error.message || "";
+
+
+                    if (
+                        message
+                            .toLowerCase()
+                            .includes("already")
+                    ) {
+
+                        alert(
+                            "This email is already registered in Supabase. Please use the Login tab instead."
+                        );
+
+                    }
+
+                    else {
+
+                        alert(
+                            "Registration failed: " +
+                            message
+                        );
+
+                    }
+
+
+                    restoreButton(button);
+
+                    return;
+
+                }
+
+
+
+                if (!data || !data.user) {
+
+                    restoreButton(button);
+
                     alert(
-                        "Registration failed: " +
-                        error.message
+                        "Account could not be created. Please try again."
                     );
 
                     return;
@@ -831,24 +1376,79 @@
 
 
 
-                if (!data.user) {
-
-                    alert(
-                        "Account creation failed. Please try again."
-                    );
-
-                    return;
-
-                }
-
-
-
-                alert(
-                    "Account created. Check your email, confirm your account, then log in."
+                console.log(
+                    "Donor Auth account created:",
+                    data.user.id
                 );
 
 
+
+                // ------------------------------------------------
+                // IMPORTANT
+                //
+                // If email confirmation is disabled, a session
+                // may already exist and we can create the profile
+                // immediately.
+                //
+                // If email confirmation is enabled, the database
+                // trigger should create the profile.
+                // ------------------------------------------------
+
+                if (data.session) {
+
+                    try {
+
+                        await ensureDonorProfile(
+                            data.user
+                        );
+
+                    }
+
+                    catch (profileError) {
+
+                        console.error(
+                            "Profile creation after registration failed:",
+                            profileError
+                        );
+
+                    }
+
+                }
+
+
+
+                restoreButton(button);
+
+
+                if (data.session) {
+
+                    alert(
+                        "Donor account created successfully. You can now log in."
+                    );
+
+                }
+
+                else {
+
+                    alert(
+                        "Donor account created successfully. Please check your email and confirm your account before logging in."
+                    );
+
+                }
+
+
+                // Go to login
+
                 switchAuthTab("login");
+
+
+                // Clear password
+
+                document
+                    .getElementById(
+                        "donorPassword"
+                    )
+                    .value = "";
 
 
             }
@@ -856,12 +1456,20 @@
             catch (error) {
 
                 console.error(
-                    "Unexpected error:",
+                    "Unexpected donor registration error:",
                     error
                 );
 
+
+                restoreButton(button);
+
+
                 alert(
-                    "Something went wrong. Please try again."
+                    "Something went wrong during registration.\n\n" +
+                    (
+                        error.message ||
+                        "Please try again."
+                    )
                 );
 
             }
@@ -874,158 +1482,22 @@
         // DONOR LOGIN
         // ==================================================
 
-        async function hasRegisteredProfile(tableName, userId) {
-
-            const {
-                data,
-                error
-            } =
-                await supabaseClient
-                    .from(tableName)
-                    .select("id")
-                    .eq("id", userId)
-                    .maybeSingle();
-
-
-            if (error) {
-
-                console.error(
-                    "Profile verification error:",
-                    error
-                );
-
-                throw error;
-
-            }
-
-
-            return Boolean(data);
-
-        }
-
-
-        async function ensureDonorProfile(user) {
-
-            const isRegistered =
-                await hasRegisteredProfile(
-                    "donor_profiles",
-                    user.id
-                );
-
-
-            if (isRegistered) {
-                return true;
-            }
-
-
-            const metadata =
-                user.user_metadata || {};
-
-
-            if (
-                metadata.account_type !== "donor" ||
-                !metadata.full_name ||
-                !metadata.blood_group ||
-                !metadata.district
-            ) {
-                return false;
-            }
-
-
-            const {
-                error
-            } =
-                await supabaseClient
-                    .from("donor_profiles")
-                    .insert({
-                        id: user.id,
-                        full_name: metadata.full_name,
-                        email: user.email,
-                        blood_group: metadata.blood_group,
-                        district: metadata.district
-                    });
-
-
-            if (error && error.code !== "23505") {
-                console.error(
-                    "Donor profile repair error:",
-                    error
-                );
-
-                throw error;
-            }
-
-
-            return await hasRegisteredProfile(
-                "donor_profiles",
-                user.id
-            );
-
-        }
-
-
-        async function ensureStaffProfile(user) {
-
-            const isRegistered =
-                await hasRegisteredProfile(
-                    "staff_profiles",
-                    user.id
-                );
-
-
-            if (isRegistered) {
-                return true;
-            }
-
-
-            const metadata =
-                user.user_metadata || {};
-
-
-            if (
-                metadata.account_type !== "staff" ||
-                !metadata.full_name ||
-                !metadata.hospital_name ||
-                !metadata.employee_id
-            ) {
-                return false;
-            }
-
-
-            const {
-                error
-            } =
-                await supabaseClient
-                    .from("staff_profiles")
-                    .insert({
-                        id: user.id,
-                        full_name: metadata.full_name,
-                        email: user.email,
-                        hospital_name: metadata.hospital_name,
-                        employee_id: metadata.employee_id
-                    });
-
-
-            if (error && error.code !== "23505") {
-                console.error(
-                    "Staff profile repair error:",
-                    error
-                );
-
-                throw error;
-            }
-
-
-            return await hasRegisteredProfile(
-                "staff_profiles",
-                user.id
-            );
-
-        }
-
         async function loginDonor(event) {
 
             event.preventDefault();
+
+
+            const button =
+                event.target.querySelector(
+                    "button[type='submit']"
+                );
+
+
+            setButtonLoading(
+                button,
+                "Signing In..."
+            );
+
 
 
             const email =
@@ -1034,7 +1506,8 @@
                         "donorLoginEmail"
                     )
                     .value
-                    .trim();
+                    .trim()
+                    .toLowerCase();
 
 
             const password =
@@ -1048,6 +1521,8 @@
 
             if (!email || !password) {
 
+                restoreButton(button);
+
                 alert(
                     "Please enter your email and password."
                 );
@@ -1060,6 +1535,14 @@
 
             try {
 
+                console.log(
+                    "Attempting donor login..."
+                );
+
+
+                // ------------------------------------------------
+                // Login to Supabase Auth
+                // ------------------------------------------------
 
                 const {
                     data,
@@ -1068,9 +1551,11 @@
                     await supabaseClient.auth
                         .signInWithPassword({
 
-                            email: email,
+                            email:
+                                email,
 
-                            password: password
+                            password:
+                                password
 
                         });
 
@@ -1083,6 +1568,10 @@
                         error
                     );
 
+
+                    restoreButton(button);
+
+
                     alert(
                         "Login failed: " +
                         error.message
@@ -1094,10 +1583,12 @@
 
 
 
-                if (!data.user) {
+                if (!data || !data.user) {
+
+                    restoreButton(button);
 
                     alert(
-                        "Unable to log in."
+                        "Unable to log in. Please try again."
                     );
 
                     return;
@@ -1105,22 +1596,77 @@
                 }
 
 
+
+                console.log(
+                    "Auth login successful:",
+                    data.user.id
+                );
+
+
+
+                // ------------------------------------------------
+                // Check account type
+                // ------------------------------------------------
+
+                const metadata =
+                    data.user.user_metadata || {};
+
+
+                if (
+                    metadata.account_type &&
+                    metadata.account_type !== "donor"
+                ) {
+
+                    await supabaseClient.auth.signOut();
+
+                    restoreButton(button);
+
+                    alert(
+                        "This email is registered as another account type, not as a donor."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // ------------------------------------------------
+                // Check / repair donor profile
+                // ------------------------------------------------
+
                 const isRegisteredDonor =
-                    await ensureDonorProfile(data.user);
+                    await ensureDonorProfile(
+                        data.user
+                    );
+
 
 
                 if (!isRegisteredDonor) {
 
                     await supabaseClient.auth.signOut();
 
+                    restoreButton(button);
+
+
                     alert(
-                        "This account is not registered as a donor. Please use Register first."
+                        "Your Supabase Auth account exists, but the donor profile could not be found or created.\n\n" +
+                        "Please check the donor_profiles table and its RLS policies."
                     );
 
                     return;
 
                 }
 
+
+
+                // ------------------------------------------------
+                // Successful login
+                // ------------------------------------------------
+
+                console.log(
+                    "Donor profile verified."
+                );
 
 
                 alert(
@@ -1128,22 +1674,31 @@
                 );
 
 
+                restoreButton(button);
+
 
                 window.location.href =
                     "../../Doner Interfaces/donor/donor-dashboard.html";
-
 
             }
 
             catch (error) {
 
                 console.error(
-                    "Unexpected login error:",
+                    "Unexpected donor login error:",
                     error
                 );
 
+
+                restoreButton(button);
+
+
                 alert(
-                    "Something went wrong. Please try again."
+                    "Something went wrong during login.\n\n" +
+                    (
+                        error.message ||
+                        "Please try again."
+                    )
                 );
 
             }
@@ -1161,6 +1716,19 @@
             event.preventDefault();
 
 
+            const button =
+                event.target.querySelector(
+                    "button[type='submit']"
+                );
+
+
+            setButtonLoading(
+                button,
+                "Creating Account..."
+            );
+
+
+
             const fullName =
                 document
                     .getElementById("staffName")
@@ -1172,7 +1740,8 @@
                 document
                     .getElementById("staffEmail")
                     .value
-                    .trim();
+                    .trim()
+                    .toLowerCase();
 
 
             const password =
@@ -1196,6 +1765,10 @@
 
 
 
+            // ------------------------------------------------
+            // Validation
+            // ------------------------------------------------
+
             if (
                 !fullName ||
                 !email ||
@@ -1203,6 +1776,8 @@
                 !hospitalName ||
                 !employeeId
             ) {
+
+                restoreButton(button);
 
                 alert(
                     "Please fill in all required fields."
@@ -1214,10 +1789,30 @@
 
 
 
+            if (password.length < 6) {
+
+                restoreButton(button);
+
+                alert(
+                    "Password must contain at least 6 characters."
+                );
+
+                return;
+
+            }
+
+
+
             try {
 
+                console.log(
+                    "Starting staff registration..."
+                );
 
-                // Create authentication account
+
+                // ------------------------------------------------
+                // Create Auth account
+                // ------------------------------------------------
 
                 const {
                     data,
@@ -1230,12 +1825,23 @@
                         password: password,
 
                         options: {
+
                             data: {
-                                account_type: "staff",
-                                full_name: fullName,
-                                hospital_name: hospitalName,
-                                employee_id: employeeId
+
+                                account_type:
+                                    "staff",
+
+                                full_name:
+                                    fullName,
+
+                                hospital_name:
+                                    hospitalName,
+
+                                employee_id:
+                                    employeeId
+
                             }
+
                         }
 
                     });
@@ -1249,10 +1855,34 @@
                         error
                     );
 
-                    alert(
-                        "Registration failed: " +
-                        error.message
-                    );
+
+                    const message =
+                        error.message || "";
+
+
+                    if (
+                        message
+                            .toLowerCase()
+                            .includes("already")
+                    ) {
+
+                        alert(
+                            "This email is already registered in Supabase. Please use the Login tab instead."
+                        );
+
+                    }
+
+                    else {
+
+                        alert(
+                            "Registration failed: " +
+                            message
+                        );
+
+                    }
+
+
+                    restoreButton(button);
 
                     return;
 
@@ -1260,7 +1890,9 @@
 
 
 
-                if (!data.user) {
+                if (!data || !data.user) {
+
+                    restoreButton(button);
 
                     alert(
                         "Staff account could not be created."
@@ -1272,13 +1904,69 @@
 
 
 
-                alert(
-                    "Account created. Check your email, confirm your account, then log in."
+                console.log(
+                    "Staff Auth account created:",
+                    data.user.id
                 );
+
+
+
+                // ------------------------------------------------
+                // Create profile immediately when a session
+                // exists.
+                // ------------------------------------------------
+
+                if (data.session) {
+
+                    try {
+
+                        await ensureStaffProfile(
+                            data.user
+                        );
+
+                    }
+
+                    catch (profileError) {
+
+                        console.error(
+                            "Staff profile creation failed:",
+                            profileError
+                        );
+
+                    }
+
+                }
+
+
+
+                restoreButton(button);
+
+
+                if (data.session) {
+
+                    alert(
+                        "Hospital staff account created successfully. You can now log in."
+                    );
+
+                }
+
+                else {
+
+                    alert(
+                        "Hospital staff account created successfully. Please check your email and confirm your account before logging in."
+                    );
+
+                }
 
 
                 switchAuthTab("login");
 
+
+                document
+                    .getElementById(
+                        "staffPassword"
+                    )
+                    .value = "";
 
             }
 
@@ -1289,8 +1977,16 @@
                     error
                 );
 
+
+                restoreButton(button);
+
+
                 alert(
-                    "Something went wrong. Please try again."
+                    "Something went wrong during registration.\n\n" +
+                    (
+                        error.message ||
+                        "Please try again."
+                    )
                 );
 
             }
@@ -1308,13 +2004,27 @@
             event.preventDefault();
 
 
+            const button =
+                event.target.querySelector(
+                    "button[type='submit']"
+                );
+
+
+            setButtonLoading(
+                button,
+                "Signing In..."
+            );
+
+
+
             const email =
                 document
                     .getElementById(
                         "staffLoginEmail"
                     )
                     .value
-                    .trim();
+                    .trim()
+                    .toLowerCase();
 
 
             const password =
@@ -1328,6 +2038,8 @@
 
             if (!email || !password) {
 
+                restoreButton(button);
+
                 alert(
                     "Please enter your email and password."
                 );
@@ -1340,6 +2052,10 @@
 
             try {
 
+                console.log(
+                    "Attempting staff login..."
+                );
+
 
                 const {
                     data,
@@ -1348,9 +2064,11 @@
                     await supabaseClient.auth
                         .signInWithPassword({
 
-                            email: email,
+                            email:
+                                email,
 
-                            password: password
+                            password:
+                                password
 
                         });
 
@@ -1363,6 +2081,10 @@
                         error
                     );
 
+
+                    restoreButton(button);
+
+
                     alert(
                         "Login failed: " +
                         error.message
@@ -1374,10 +2096,12 @@
 
 
 
-                if (!data.user) {
+                if (!data || !data.user) {
+
+                    restoreButton(button);
 
                     alert(
-                        "Unable to log in."
+                        "Unable to log in. Please try again."
                     );
 
                     return;
@@ -1385,16 +2109,62 @@
                 }
 
 
+
+                console.log(
+                    "Staff Auth login successful:",
+                    data.user.id
+                );
+
+
+
+                // ------------------------------------------------
+                // Verify account type
+                // ------------------------------------------------
+
+                const metadata =
+                    data.user.user_metadata || {};
+
+
+                if (
+                    metadata.account_type &&
+                    metadata.account_type !== "staff"
+                ) {
+
+                    await supabaseClient.auth.signOut();
+
+                    restoreButton(button);
+
+                    alert(
+                        "This email is registered as another account type, not as hospital staff."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // ------------------------------------------------
+                // Check / repair staff profile
+                // ------------------------------------------------
+
                 const isRegisteredStaff =
-                    await ensureStaffProfile(data.user);
+                    await ensureStaffProfile(
+                        data.user
+                    );
+
 
 
                 if (!isRegisteredStaff) {
 
                     await supabaseClient.auth.signOut();
 
+                    restoreButton(button);
+
+
                     alert(
-                        "This account is not registered as hospital staff. Please use Register first."
+                        "Your Supabase Auth account exists, but the hospital staff profile could not be found or created.\n\n" +
+                        "Please check the staff_profiles table and its RLS policies."
                     );
 
                     return;
@@ -1403,15 +2173,20 @@
 
 
 
+                // ------------------------------------------------
+                // Successful login
+                // ------------------------------------------------
+
                 alert(
                     "Hospital staff login successful!"
                 );
 
 
+                restoreButton(button);
+
 
                 window.location.href =
                     "../../hospital/hospital-dashboard.html";
-
 
             }
 
@@ -1422,8 +2197,16 @@
                     error
                 );
 
+
+                restoreButton(button);
+
+
                 alert(
-                    "Something went wrong. Please try again."
+                    "Something went wrong during login.\n\n" +
+                    (
+                        error.message ||
+                        "Please try again."
+                    )
                 );
 
             }
