@@ -111,6 +111,46 @@ document.addEventListener("DOMContentLoaded", async () => {
         return value && String(value).trim() ? String(value) : "Not provided";
     }
 
+    function calculateEligibility(lastDonation, dob) {
+        if (!lastDonation || !dob) {
+            return "Not verified";
+        }
+
+        const today = new Date();
+        const birthDate = new Date(dob + "T00:00:00");
+        const donationDate = new Date(lastDonation + "T00:00:00");
+
+        if (Number.isNaN(birthDate.getTime()) || Number.isNaN(donationDate.getTime())) {
+            return "Not verified";
+        }
+
+        const age = today.getFullYear() - birthDate.getFullYear();
+        if (age < 18 || age > 60) {
+            return "Not eligible";
+        }
+
+        const diffTime = today - donationDate;
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+        if (diffDays < 180) {
+            return "Not eligible";
+        }
+
+        return "Eligible";
+    }
+
+    function calculateNextEligibleDate(lastDonation) {
+        if (!lastDonation) return "Not available";
+
+        const date = new Date(lastDonation + "T00:00:00");
+        if (Number.isNaN(date.getTime())) return "Not available";
+
+        const eligibleDate = new Date(date);
+        eligibleDate.setDate(eligibleDate.getDate() + 180);
+
+        return eligibleDate.toISOString().split("T")[0];
+    }
+
     function formatDate(value) {
         if (!value) return "Not provided";
 
@@ -139,11 +179,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("bloodGroup").textContent =
             displayValue(donor.bloodGroup);
 
+        donor.eligibility = calculateEligibility(donor.lastDonation, donor.dob);
+        donor.eligibleDate = donor.lastDonation ? calculateNextEligibleDate(donor.lastDonation) : "";
+
         document.getElementById("eligibility").textContent =
             displayValue(donor.eligibility);
 
         document.getElementById("eligibleDate").textContent =
-            donor.eligibleDate ? formatDate(donor.eligibleDate) : "Not available";
+            donor.eligibleDate && donor.eligibleDate !== "Not available" ? formatDate(donor.eligibleDate) : "Not available";
 
         document.getElementById("lastDonation").textContent =
             donor.lastDonation ? formatDate(donor.lastDonation) : "Not provided";
@@ -278,6 +321,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             address: document.getElementById("donorAddress").value.trim(),
             lastDonation: document.getElementById("donorLastDonation").value
         };
+
+        donor.eligibility = calculateEligibility(donor.lastDonation, donor.dob);
+        donor.eligibleDate = donor.lastDonation ? calculateNextEligibleDate(donor.lastDonation) : "";
 
         try {
             if (supabaseClient && supabaseClient.auth) {

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloodConnect | Emergency Requests</title>
+    <style>
+        :root {
+            --bg: #dfeaf1;
+            --panel: #f4f7f8;
+            --card: #ffffff;
+            --primary: #0d6efd;
+            --primary-dark: #0a58ca;
+            --text: #1b2b3a;
+            --muted: #5d7285;
+            --border: #cfd9df;
+            --danger: #d64545;
+            --danger-soft: #fdeaea;
+            --success: #1d8f5f;
+            --success-soft: #e9f9f1;
+            --warning: #e8972f;
+            --warning-soft: #fff4df;
+            --shadow: 0 10px 28px rgba(25, 39, 51, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .topbar {
+            background: #0b1f2d;
+            color: white;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e53935, #b51f1f);
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 28px auto;
+            padding: 0 20px 40px;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: clamp(2rem, 2.5vw, 2.6rem);
+            color: #12304a;
+        }
+
+        .header-title p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .back-btn {
+            appearance: none;
+            border: none;
+            background: var(--primary);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        .stat-box {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-label {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            font-size: clamp(1.6rem, 2vw, 2.2rem);
+            font-weight: 800;
+            color: #12304a;
+        }
+
+        .request-panel {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: var(--shadow);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .panel-header h2 {
+            margin: 0;
+            color: #12304a;
+            font-size: 1.8rem;
+        }
+
+        .request-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .request-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 8px 18px rgba(17, 35, 53, 0.06);
+        }
+
+        .request-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge.emergency {
+            background: var(--danger-soft);
+            color: var(--danger);
+        }
+
+        .badge.urgent {
+            background: var(--warning-soft);
+            color: var(--warning);
+        }
+
+        .badge.normal {
+            background: var(--success-soft);
+            color: var(--success);
+        }
+
+        .request-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.7rem;
+            color: #12304a;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 0.94rem;
+            margin-bottom: 14px;
+        }
+
+        .detail-list {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 0.96rem;
+            border-bottom: 1px solid #edf1f4;
+            padding-bottom: 8px;
+        }
+
+        .detail-item span {
+            color: var(--muted);
+        }
+
+        .detail-item strong {
+            color: var(--text);
+            text-align: right;
+        }
+
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .date-text {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .reply-btn {
+            appearance: none;
+            border: none;
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .reply-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 46px 14px;
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            color: var(--muted);
+        }
+
+        .empty-state h3 {
+            margin: 0 0 10px;
+            color: var(--text);
+        }
+
+        @media (max-width: 720px) {
+            .header-row,
+            .panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">♥</div>
+            <span>COMMUNITY BLOOD DONATION NETWORK</span>
+        </div>
+    </header>
+
+    <main class="page">
+        <div class="header-row">
+            <div class="header-title">
+                <h1>Emergency Requests</h1>
+                <p>Urgent blood requests from hospitals and emergency units.</p>
+            </div>
+            <a href="donor-dashboard.html" class="back-btn">← Back to Dashboard</a>
+        </div>
+
+        <section class="stats">
+            <div class="stat-box">
+                <span class="stat-label">Open Requests</span>
+                <div class="stat-value" id="openRequests">0</div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Critical</span>
+                <div class="stat-value" id="criticalRequests">0</div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Urgent</span>
+                <div class="stat-value" id="urgentRequests">0</div>
+            </div>
+        </section>
+
+        <section class="request-panel">
+            <div class="panel-header">
+                <h2>Blood Requests</h2>
+            </div>
+
+            <div id="requestList" class="request-grid"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://ayrcawqhhgpmllwvkjjr.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_XNMDU8mTvE42rJ4LOwkKKA_tcTopl1-";
+
+        const supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+        const BLOOD_REQUESTS_TABLE = "blood_requests";
+
+        function formatDate(dateValue) {
+            if (!dateValue) return "Recently";
+
+            const date = new Date(dateValue);
+            if (Number.isNaN(date.getTime())) return "Recently";
+
+            return date.toLocaleDateString(undefined, {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            });
+        }
+
+        function getBadgeClass(urgency) {
+            const value = String(urgency || "").toLowerCase();
+
+            if (value.includes("critical") || value.includes("emergency")) {
+                return "emergency";
+            }
+
+            if (value.includes("urgent")) {
+                return "urgent";
+            }
+
+            return "normal";
+        }
+
+        function renderRequests(data) {
+            const list = document.getElementById("requestList");
+            list.innerHTML = "";
+
+            if (!data || data.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No emergency requests right now</h3>
+                        <p>Please check again later for urgent blood needs.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            data.forEach((request) => {
+                const card = document.createElement("article");
+                card.className = "request-card";
+
+                const urgency = request.urgency || "Emergency";
+                const bloodGroup = request.blood_group || "N/A";
+                const hospitalName = request.hospital_name || "Hospital";
+                const location = request.location || "Location";
+                const units = request.units || 1;
+                const dateText = formatDate(request.created_at);
+
+                card.innerHTML = `
+                    <div class="request-top">
+                        <span class="badge ${getBadgeClass(urgency)}">${urgency}</span>
+                    </div>
+
+                    <h3>${bloodGroup}</h3>
+                    <div class="meta">${hospitalName}</div>
+
+                    <div class="detail-list">
+                        <div class="detail-item">
+                            <span>Location</span>
+                            <strong>${location}</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Units</span>
+                            <strong>${units}</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Needed</span>
+                            <strong>${dateText}</strong>
+                        </div>
+                    </div>
+
+                    <div class="action-row">
+                        <span class="date-text">${dateText}</span>
+                        <button class="reply-btn" type="button">Respond</button>
+                    </div>
+                `;
+
+                card.querySelector(".reply-btn").addEventListener("click", () => {
+                    alert(`You are responding to a ${bloodGroup} blood request from ${hospitalName}.`);
+                });
+
+                list.appendChild(card);
+            });
+        }
+
+        async function loadRequests() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from(BLOOD_REQUESTS_TABLE)
+                    .select("*")
+                    .order("created_at", { ascending: false });
+
+                if (error) {
+                    throw error;
+                }
+
+                renderRequests(data);
+
+                const openCount = data ? data.length : 0;
+                const criticalCount = data ? data.filter(item => {
+                    const value = String(item.urgency || "").toLowerCase();
+                    return value.includes("critical") || value.includes("emergency");
+                }).length : 0;
+                const urgentCount = data ? data.filter(item => {
+                    const value = String(item.urgency || "").toLowerCase();
+                    return value.includes("urgent");
+                }).length : 0;
+
+                document.getElementById("openRequests").textContent = openCount;
+                document.getElementById("criticalRequests").textContent = criticalCount;
+                document.getElementById("urgentRequests").textContent = urgentCount;
+            } catch (error) {
+                console.error("Error loading blood requests:", error);
+                document.getElementById("requestList").innerHTML = `
+                    <div class="empty-state">
+                        <h3>Unable to load requests</h3>
+                        <p>Please check your Supabase table and RLS policies.</p>
+                    </div>
+                `;
+            }
+        }
+
+        loadRequests();
+    </script>
+</body>
+</html>

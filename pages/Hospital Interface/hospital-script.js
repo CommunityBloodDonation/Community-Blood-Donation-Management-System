@@ -25,6 +25,23 @@ const defaultHospitalData = {
 };
 
 
+function normalizeHospitalProfile(profile = {}) {
+
+    return {
+        name: profile.hospital_name || profile.name || "Hospital",
+        email: profile.email || "",
+        phone: profile.phone || "",
+        location: profile.location || "",
+        registration: profile.registration_number || profile.registration || "",
+        type: profile.hospital_type || profile.type || "Hospital",
+        address: profile.address || "",
+        bloodBank: profile.blood_bank || profile.bloodBank || "Available",
+        emergency: profile.emergency_contact || profile.emergency || ""
+    };
+
+}
+
+
 
 /* ==================================================
    LOAD HOSPITAL DATA
@@ -48,6 +65,14 @@ if (!hospitalData) {
     );
 
 }
+
+
+hospitalData = normalizeHospitalProfile(hospitalData);
+
+localStorage.setItem(
+    "hospitalData",
+    JSON.stringify(hospitalData)
+);
 
 
 
