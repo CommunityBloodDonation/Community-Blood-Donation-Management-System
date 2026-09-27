@@ -256,6 +256,23 @@
                 </div>
 
 
+                <div class="form-group">
+
+                    <label for="donorPhone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="donorPhone"
+                        class="form-input"
+                        placeholder="0712345678"
+                        autocomplete="tel"
+                    >
+
+                </div>
+
+
                 <div class="form-group grid-2">
 
                     <div>
@@ -278,10 +295,10 @@
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>
                             <option value="B-">B-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
                             <option value="AB+">AB+</option>
                             <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
 
                         </select>
 
@@ -290,19 +307,93 @@
 
                     <div>
 
-                        <label for="district">
-                            District
+                        <label for="donorDob">
+                            Date of Birth
+                        </label>
+
+                        <input
+                            type="date"
+                            id="donorDob"
+                            class="form-input"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group grid-2">
+
+                    <div>
+
+                        <label for="donorGender">
+                            Gender
+                        </label>
+
+                        <select
+                            id="donorGender"
+                            class="form-select"
+                        >
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="donorCity">
+                            City
                         </label>
 
                         <input
                             type="text"
-                            id="district"
+                            id="donorCity"
                             class="form-input"
                             placeholder="Colombo"
-                            required
                         >
 
                     </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="donorAddress">
+                        Address
+                    </label>
+
+                    <input
+                        type="text"
+                        id="donorAddress"
+                        class="form-input"
+                        placeholder="Street address"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="donorLastDonation">
+                        Last Donation Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="donorLastDonation"
+                        class="form-input"
+                    >
 
                 </div>
 
@@ -873,6 +964,26 @@
             );
 
 
+            const cityValue =
+                metadata.city || metadata.district || "";
+
+
+            const phoneValue =
+                metadata.phone || "";
+
+            const dobValue =
+                metadata.dob || "";
+
+            const genderValue =
+                metadata.gender || "";
+
+            const addressValue =
+                metadata.address || "";
+
+            const lastDonationValue =
+                metadata.last_donation || "";
+
+
             // ------------------------------------------------
             // STEP 3
             // Make sure this is actually a donor
@@ -904,14 +1015,14 @@
             const bloodGroup =
                 metadata.blood_group || "";
 
-            const district =
-                metadata.district || "";
+            const cityFromMetadata =
+                metadata.city || metadata.district || "";
 
 
             if (
                 !fullName ||
                 !bloodGroup ||
-                !district
+                !cityFromMetadata
             ) {
 
                 console.error(
@@ -943,9 +1054,19 @@
 
                         email: user.email,
 
+                        phone: phoneValue,
+
                         blood_group: bloodGroup,
 
-                        district: district
+                        dob: dobValue,
+
+                        gender: genderValue,
+
+                        city: cityFromMetadata,
+
+                        address: addressValue,
+
+                        last_donation: lastDonationValue
 
                     });
 
@@ -1220,17 +1341,49 @@
                     .value;
 
 
+            const phone =
+                document
+                    .getElementById("donorPhone")
+                    .value
+                    .trim();
+
+
             const bloodGroup =
                 document
                     .getElementById("bloodGroup")
                     .value;
 
 
-            const district =
+            const dob =
                 document
-                    .getElementById("district")
+                    .getElementById("donorDob")
+                    .value;
+
+
+            const gender =
+                document
+                    .getElementById("donorGender")
+                    .value;
+
+
+            const city =
+                document
+                    .getElementById("donorCity")
                     .value
                     .trim();
+
+
+            const address =
+                document
+                    .getElementById("donorAddress")
+                    .value
+                    .trim();
+
+
+            const lastDonation =
+                document
+                    .getElementById("donorLastDonation")
+                    .value;
 
 
 
@@ -1242,8 +1395,7 @@
                 !fullName ||
                 !email ||
                 !password ||
-                !bloodGroup ||
-                !district
+                !bloodGroup
             ) {
 
                 restoreButton(button);
@@ -1303,11 +1455,29 @@
                                 full_name:
                                     fullName,
 
+                                email:
+                                    email,
+
+                                phone:
+                                    phone,
+
                                 blood_group:
                                     bloodGroup,
 
-                                district:
-                                    district
+                                dob:
+                                    dob,
+
+                                gender:
+                                    gender,
+
+                                city:
+                                    city,
+
+                                address:
+                                    address,
+
+                                last_donation:
+                                    lastDonation
 
                             }
 
@@ -1668,6 +1838,22 @@
                     "Donor profile verified."
                 );
 
+                const donorProfileData = {
+                    name: metadata.full_name || data.user.user_metadata?.full_name || data.user.email?.split("@")[0] || "Donor",
+                    email: data.user.email || "",
+                    phone: metadata.phone || data.user.user_metadata?.phone || "",
+                    bloodGroup: metadata.blood_group || data.user.user_metadata?.blood_group || "",
+                    dob: metadata.dob || data.user.user_metadata?.dob || "",
+                    gender: metadata.gender || data.user.user_metadata?.gender || "",
+                    city: metadata.city || metadata.district || data.user.user_metadata?.city || data.user.user_metadata?.district || "",
+                    address: metadata.address || data.user.user_metadata?.address || "",
+                    lastDonation: metadata.last_donation || data.user.user_metadata?.last_donation || "",
+                    eligibility: "Not verified",
+                    eligibleDate: "",
+                    totalDonations: ""
+                };
+
+                localStorage.setItem("bloodConnectDonorProfile", JSON.stringify(donorProfileData));
 
                 alert(
                     "Donor login successful!"

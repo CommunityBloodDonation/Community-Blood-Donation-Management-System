@@ -1,5 +1,62 @@
 
-document.addEventListener("DOMContentLoaded", () => {
+async function loadDonorProfileFromSupabase() {
+    if (!window.supabase || !supabaseClient) {
+        console.warn("Supabase client is unavailable.");
+        return null;
+    }
+
+    try {
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+            console.warn("No authenticated donor session was found.", authError);
+            return null;
+        }
+
+        const { data, error } = await supabaseClient
+            .from("donor_profiles")
+            .select("*")
+            .eq("id", user.id)
+            .maybeSingle();
+
+        if (error) {
+            console.error("Error loading donor profile from Supabase:", error);
+            return null;
+        }
+
+        if (!data) {
+            console.warn("No donor profile exists for the current authenticated user.");
+            return null;
+        }
+
+        const donorProfile = {
+            name: data.full_name || user.user_metadata?.full_name || "Donor",
+            email: data.email || user.email || "",
+            phone: data.phone || user.user_metadata?.phone || "",
+            bloodGroup: data.blood_group || user.user_metadata?.blood_group || "",
+            dob: data.dob || user.user_metadata?.dob || "",
+            gender: data.gender || user.user_metadata?.gender || "",
+            city: data.city || data.district || user.user_metadata?.city || user.user_metadata?.district || "",
+            address: data.address || user.user_metadata?.address || "",
+            lastDonation: data.last_donation || user.user_metadata?.last_donation || "",
+            eligibility: "Not verified",
+            eligibleDate: "",
+            totalDonations: ""
+        };
+
+        localStorage.setItem("bloodConnectDonorProfile", JSON.stringify(donorProfile));
+        return donorProfile;
+    } catch (error) {
+        console.error("Failed to sync donor profile from Supabase:", error);
+        return null;
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", async () => {
     const profileBtn = document.getElementById("profileBtn");
     const profileCard = document.getElementById("profileCard");
 
@@ -206,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function handleUpdateSubmit(event) {
+    async function handleUpdateSubmit(event) {
         event.preventDefault();
 
         donor = {
@@ -223,11 +280,44 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
+            if (supabaseClient && supabaseClient.auth) {
+                const {
+                    data: { user },
+                    error: userError
+                } = await supabaseClient.auth.getUser();
+
+                if (userError || !user) {
+                    throw new Error("User session not found. Please log in again.");
+                }
+
+                const { error: dbError } = await supabaseClient
+                    .from("donor_profiles")
+                    .upsert({
+                        id: user.id,
+                        full_name: donor.name,
+                        email: donor.email,
+                        phone: donor.phone,
+                        blood_group: donor.bloodGroup,
+                        dob: donor.dob || null,
+                        gender: donor.gender || null,
+                        city: donor.city || null,
+                        address: donor.address || null,
+                        last_donation: donor.lastDonation || null
+                    }, {
+                        onConflict: "id"
+                    });
+
+                if (dbError) {
+                    console.error("Supabase donor profile update failed:", dbError);
+                    throw dbError;
+                }
+            }
+
             saveDonor();
             updateDashboard();
             returnToInformation();
         } catch (error) {
-            alert("Unable to save your profile in this browser.");
+            alert("Unable to save your profile. Please check your Supabase table and RLS policies.");
             console.error(error);
         }
     }
@@ -281,13 +371,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Logout
-    logoutBtn.addEventListener("click", () => {
+    logoutBtn.addEventListener("click", async () => {
         const confirmed = confirm("Are you sure you want to log out?");
-        if (confirmed) {
-            window.location.href = "../../Public Interfaces/Home/Home.html";
+        if (!confirmed) return;
+
+        if (supabaseClient && supabaseClient.auth) {
+            await supabaseClient.auth.signOut();
         }
+
+        localStorage.removeItem("bloodConnectDonorProfile");
+        window.location.href = "../../Public Interfaces/Home/Home.html";
     });
 
     // Initial dashboard render
+    const syncedProfile = await loadDonorProfileFromSupabase();
+    if (syncedProfile) {
+        donor = { ...defaultDonor, ...syncedProfile };
+    }
+
     updateDashboard();
 });
