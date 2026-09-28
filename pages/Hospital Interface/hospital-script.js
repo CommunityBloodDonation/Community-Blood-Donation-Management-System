@@ -75,6 +75,130 @@ localStorage.setItem(
 );
 
 
+async function loadHospitalRequests() {
+    const requestsContainer =
+        document.getElementById("requests");
+
+    if (!requestsContainer || !window.supabase || !supabaseClient) {
+        return;
+    }
+
+    try {
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+            throw new Error("No authenticated hospital session found.");
+        }
+
+        const { data, error } = await supabaseClient
+            .from("blood_requests")
+            .select("*")
+            .eq("hospital_id", user.id)
+            .order("created_at", { ascending: false });
+
+        if (error) {
+            throw error;
+        }
+
+        const activeCount = data.filter(request => request.status === "open").length;
+        const completedCount = data.filter(request => request.status === "fulfilled").length;
+        const totalUnits = data.reduce(
+            (total, request) => total + Number(request.units || 0),
+            0
+        );
+
+        document.getElementById("activeRequests").textContent = activeCount;
+        document.getElementById("completedRequests").textContent = completedCount;
+        document.getElementById("bloodUnits").textContent = totalUnits;
+
+        requestsContainer.innerHTML = "";
+
+        if (!data.length) {
+            const emptyMessage = document.createElement("p");
+            emptyMessage.className = "empty";
+            emptyMessage.textContent = "No current blood requests.";
+            requestsContainer.appendChild(emptyMessage);
+            return;
+        }
+
+        data.forEach(request => {
+            const card = document.createElement("article");
+            card.className = "hospital-request";
+
+            const details = document.createElement("div");
+            details.className = "hospital-request-details";
+
+            const title = document.createElement("strong");
+            title.textContent = `${request.blood_group} - ${request.units} unit${request.units === 1 ? "" : "s"}`;
+
+            const metadata = document.createElement("small");
+            metadata.textContent = `${request.urgency} | ${request.ward} | Required: ${request.required_date}`;
+
+            const status = document.createElement("span");
+            status.className = `request-status ${request.status}`;
+            status.textContent = request.status;
+
+            details.append(title, metadata, status);
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "delete-request-btn";
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", () =>
+                deleteHospitalRequest(request.id)
+            );
+
+            card.append(details, deleteButton);
+            requestsContainer.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error loading hospital blood requests:", error);
+        requestsContainer.innerHTML = "";
+
+        const errorMessage = document.createElement("p");
+        errorMessage.className = "empty";
+        errorMessage.textContent = "Unable to load your blood requests.";
+        requestsContainer.appendChild(errorMessage);
+    }
+}
+
+
+async function deleteHospitalRequest(requestId) {
+    if (!confirm("Delete this blood request? This action cannot be undone.")) {
+        return;
+    }
+
+    try {
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+            throw new Error("No authenticated hospital session found.");
+        }
+
+        const { error } = await supabaseClient
+            .from("blood_requests")
+            .delete()
+            .eq("id", requestId)
+            .eq("hospital_id", user.id);
+
+        if (error) {
+            throw error;
+        }
+
+        await loadHospitalRequests();
+    } catch (error) {
+        console.error("Error deleting hospital blood request:", error);
+        alert("Unable to delete the blood request: " + error.message);
+    }
+}
+
+
 
 /* ==================================================
    SAVE HOSPITAL DATA
@@ -123,6 +247,7 @@ function updateHospitalNames() {
 
 
 updateHospitalNames();
+loadHospitalRequests();
 
 
 
@@ -410,7 +535,7 @@ async function openUpdateModal() {
 
         const response =
             await fetch(
-                "hospital-update-profile.html"
+                "%20hospital-update-profile.html"
             );
 
 
@@ -919,7 +1044,7 @@ function setupRequestForm() {
 
     requestForm.addEventListener(
         "submit",
-        function(event) {
+        async function(event) {
 
             event.preventDefault();
 
@@ -971,6 +1096,11 @@ function setupRequestForm() {
                     "requestNotes"
                 ).value.trim();
 
+            const submitButton =
+                requestForm.querySelector(
+                    "button[type='submit']"
+                );
+
 
 
             /* ------------------------------------------
@@ -996,91 +1126,61 @@ function setupRequestForm() {
 
 
 
-            /* ------------------------------------------
-               CREATE REQUEST OBJECT
-            ------------------------------------------ */
+            if (!window.supabase || !supabaseClient) {
+                alert("Database connection is unavailable.");
+                return;
+            }
 
-            const bloodRequest = {
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = "Saving...";
+            }
 
-                hospitalName:
-                    hospitalData.name,
+            try {
+                const {
+                    data: { user },
+                    error: authError
+                } = await supabaseClient.auth.getUser();
 
-                hospitalRegistration:
-                    hospitalData.registration,
+                if (authError || !user) {
+                    throw new Error("Please log in before creating a blood request.");
+                }
 
-                bloodGroup:
-                    bloodGroup,
+                const { error } = await supabaseClient
+                    .from("blood_requests")
+                    .insert({
+                        hospital_id: user.id,
+                        hospital_name: hospitalData.name,
+                        hospital_registration: hospitalData.registration,
+                        location: hospitalData.location,
+                        blood_group: bloodGroup,
+                        units: Number(units),
+                        urgency: urgency,
+                        required_date: requiredDate,
+                        ward: ward,
+                        contact: contact,
+                        reference: reference || null,
+                        notes: notes || null,
+                        status: "open"
+                    });
 
-                unitsRequired:
-                    Number(units),
+                if (error) {
+                    throw error;
+                }
 
-                urgency:
-                    urgency,
-
-                requiredDate:
-                    requiredDate,
-
-                ward:
-                    ward,
-
-                contact:
-                    contact,
-
-                reference:
-                    reference,
-
-                notes:
-                    notes,
-
-                createdAt:
-                    new Date().toISOString()
-
-            };
-
-
-
-            /* ------------------------------------------
-               FRONTEND TEST
-            ------------------------------------------ */
-
-            console.log(
-                "Blood Request:",
-                bloodRequest
-            );
-
-
-            /*
-                IMPORTANT:
-
-                This is NOT saved to MySQL yet.
-
-                Later, when your Node.js backend is ready,
-                this object will be sent using fetch():
-
-                fetch("/api/blood-requests", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body:
-                        JSON.stringify(bloodRequest)
-                });
-            */
-
-
-
-            alert(
-                "Blood request details validated successfully."
-            );
-
-
-            requestForm.reset();
-
-
-            requestModal.classList.remove(
-                "show"
-            );
+                alert("Blood request created successfully.");
+                requestForm.reset();
+                requestModal.classList.remove("show");
+                await loadHospitalRequests();
+            } catch (error) {
+                console.error("Error saving blood request:", error);
+                alert("Unable to save the blood request: " + error.message);
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = "Create Request";
+                }
+            }
 
         }
     );

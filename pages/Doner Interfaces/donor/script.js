@@ -1,4 +1,25 @@
 
+let donor = {};
+
+
+function formatDonationHistoryDate(value) {
+    if (!value) {
+        return "Not provided";
+    }
+
+    const date = new Date(value + "T00:00:00");
+    if (Number.isNaN(date.getTime())) {
+        return value;
+    }
+
+    return date.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+    });
+}
+
+
 async function loadDonorProfileFromSupabase() {
     if (!window.supabase || !supabaseClient) {
         console.warn("Supabase client is unavailable.");
@@ -56,6 +77,254 @@ async function loadDonorProfileFromSupabase() {
 }
 
 
+async function loadDonorDonationCount(userId) {
+    try {
+        const {
+            count,
+            error
+        } = await supabaseClient
+            .from("donation_history")
+            .select("id", {
+                count: "exact",
+                head: true
+            })
+            .eq("donor_id", userId)
+            .eq("status", "completed");
+
+        if (error) {
+            console.error("Error loading donor donation count:", error);
+            return 0;
+        }
+
+        return count ?? 0;
+    } catch (error) {
+        console.error("Failed to load donor donation count:", error);
+        return 0;
+    }
+}
+
+
+async function loadDonationHistory() {
+    const historyList = document.getElementById("donationHistoryList");
+
+    if (!historyList || !supabaseClient) {
+        return;
+    }
+
+    try {
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+            throw new Error("No authenticated donor session found.");
+        }
+
+        const { data, error } = await supabaseClient
+            .from("donation_history")
+            .select("id, donation_date, hospital_name, units, status")
+            .eq("donor_id", user.id)
+            .order("donation_date", { ascending: false });
+
+        if (error) {
+            throw error;
+        }
+
+        const completedDonations = (data || []).filter(
+            donation => donation.status === "completed"
+        );
+
+        donor.lastDonation = completedDonations[0]?.donation_date || "";
+        donor.totalDonations = completedDonations.length;
+        localStorage.setItem(
+            "bloodConnectDonorProfile",
+            JSON.stringify(donor)
+        );
+
+        historyList.innerHTML = "";
+
+        if (!data || data.length === 0) {
+            historyList.innerHTML = `
+                <div class="empty-state compact-empty">
+                    <h3>No donations recorded yet</h3>
+                    <p>Use Record Donation after you donate blood.</p>
+                </div>
+            `;
+            return;
+        }
+
+        data.slice(0, 3).forEach(donation => {
+            const item = document.createElement("article");
+            item.className = "donation-history-item";
+
+            const details = document.createElement("div");
+            details.className = "donation-history-details";
+
+            const date = document.createElement("strong");
+            date.textContent = formatDonationHistoryDate(donation.donation_date);
+
+            const hospital = document.createElement("small");
+            hospital.textContent = donation.hospital_name || "Donation center not provided";
+
+            const units = document.createElement("span");
+            units.textContent = `${donation.units || 1} unit${donation.units === 1 ? "" : "s"}`;
+
+            details.append(date, hospital);
+            item.append(details, units);
+            historyList.appendChild(item);
+        });
+    } catch (error) {
+        console.error("Error loading donation history:", error);
+        historyList.innerHTML = `
+            <div class="empty-state compact-empty">
+                <h3>Unable to load donation history</h3>
+                <p>Check the donations table and its RLS policies.</p>
+            </div>
+        `;
+    }
+}
+
+
+async function handleDonationSubmit(event) {
+    event.preventDefault();
+
+    const saveButton = document.getElementById("saveDonationBtn");
+    const donationDate = document.getElementById("donationDate").value;
+    const donationUnits = Number(document.getElementById("donationUnits").value);
+    const donationHospital = document.getElementById("donationHospital").value.trim();
+
+    if (saveButton) {
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving...";
+    }
+
+    try {
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+            throw new Error("Please log in again before recording a donation.");
+        }
+
+        const { error } = await supabaseClient
+            .from("donation_history")
+            .insert({
+                donor_id: user.id,
+                hospital_name: donationHospital,
+                donation_date: donationDate,
+                units: donationUnits,
+                status: "completed"
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        const { error: profileError } = await supabaseClient
+            .from("donor_profiles")
+            .update({ last_donation: donationDate })
+            .eq("id", user.id);
+
+        if (profileError) {
+            throw profileError;
+        }
+
+        donor.lastDonation = donationDate;
+        donor.totalDonations = await loadDonorDonationCount(user.id);
+        localStorage.setItem(
+            "bloodConnectDonorProfile",
+            JSON.stringify(donor)
+        );
+        window.location.reload();
+        await loadDonationHistory();
+        document.getElementById("donationForm").reset();
+        document.getElementById("donationModal").classList.remove("show");
+        document.body.style.overflow = "";
+    } catch (error) {
+        console.error("Error saving donation:", error);
+        alert("Unable to save donation: " + error.message);
+    } finally {
+        if (saveButton) {
+            saveButton.disabled = false;
+            saveButton.textContent = "Save Donation";
+        }
+    }
+}
+
+
+async function loadEmergencyRequests() {
+    const requestsContainer = document.getElementById("requests");
+
+    if (!requestsContainer || !supabaseClient) {
+        return;
+    }
+
+    try {
+        const { data, error } = await supabaseClient
+            .from("blood_requests")
+            .select("id, blood_group, hospital_name, location, units, urgency, required_date")
+            .eq("status", "open")
+            .order("created_at", { ascending: false })
+            .limit(3);
+
+        if (error) {
+            throw error;
+        }
+
+        requestsContainer.innerHTML = "";
+
+        if (!data || data.length === 0) {
+            requestsContainer.className = "empty-state";
+            requestsContainer.innerHTML = `
+                <div class="empty-icon">🩸</div>
+                <h3>No current requests</h3>
+                <p>There are no open hospital blood requests right now.</p>
+            `;
+            return;
+        }
+
+        requestsContainer.className = "request-preview-list";
+
+        data.forEach(request => {
+            const card = document.createElement("article");
+            card.className = "request-preview-card";
+
+            const details = document.createElement("div");
+            details.className = "request-preview-details";
+
+            const title = document.createElement("strong");
+            title.textContent = `${request.blood_group || "N/A"} - ${request.units || 0} unit${request.units === 1 ? "" : "s"}`;
+
+            const hospital = document.createElement("span");
+            hospital.textContent = request.hospital_name || "Hospital";
+
+            const location = document.createElement("small");
+            location.textContent = request.location || "Location not specified";
+
+            details.append(title, hospital, location);
+
+            const urgency = document.createElement("span");
+            urgency.className = "request-preview-urgency";
+            urgency.textContent = request.urgency || "Normal";
+
+            card.append(details, urgency);
+            requestsContainer.appendChild(card);
+        });
+    } catch (error) {
+        console.error("Error loading donor emergency requests:", error);
+        requestsContainer.className = "empty-state";
+        requestsContainer.innerHTML = `
+            <div class="empty-icon">🩸</div>
+            <h3>Unable to load requests</h3>
+            <p>Please check the database connection and try again.</p>
+        `;
+    }
+}
+
+
 document.addEventListener("DOMContentLoaded", async () => {
     const profileBtn = document.getElementById("profileBtn");
     const profileCard = document.getElementById("profileCard");
@@ -66,6 +335,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const informationModal = document.getElementById("informationModal");
     const updateModal = document.getElementById("updateModal");
+    const donationModal = document.getElementById("donationModal");
+    const eligibilityModal = document.getElementById("eligibilityModal");
 
     const informationContent = document.getElementById("informationContent");
     const updateContent = document.getElementById("updateContent");
@@ -91,7 +362,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         totalDonations: ""
     };
 
-    let donor = loadDonor();
+    donor = loadDonor();
 
     function loadDonor() {
         try {
@@ -215,6 +486,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     function closeAllModals() {
         informationModal.classList.remove("show");
         updateModal.classList.remove("show");
+        donationModal.classList.remove("show");
+        eligibilityModal.classList.remove("show");
         document.body.style.overflow = "";
     }
 
@@ -357,6 +630,47 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.error("Supabase donor profile update failed:", dbError);
                     throw dbError;
                 }
+
+                if (donor.lastDonation) {
+                    const { data: latestDonation, error: historyLookupError } = await supabaseClient
+                        .from("donation_history")
+                        .select("id")
+                        .eq("donor_id", user.id)
+                        .eq("status", "completed")
+                        .order("donation_date", { ascending: false })
+                        .limit(1)
+                        .maybeSingle();
+
+                    if (historyLookupError) {
+                        throw historyLookupError;
+                    }
+
+                    if (latestDonation) {
+                        const { error: historyUpdateError } = await supabaseClient
+                            .from("donation_history")
+                            .update({ donation_date: donor.lastDonation })
+                            .eq("id", latestDonation.id)
+                            .eq("donor_id", user.id);
+
+                        if (historyUpdateError) {
+                            throw historyUpdateError;
+                        }
+                    } else {
+                        const { error: historyInsertError } = await supabaseClient
+                            .from("donation_history")
+                            .insert({
+                                donor_id: user.id,
+                                donation_date: donor.lastDonation,
+                                units: 1,
+                                status: "completed",
+                                hospital_name: "Updated from donor profile"
+                            });
+
+                        if (historyInsertError) {
+                            throw historyInsertError;
+                        }
+                    }
+                }
             }
 
             saveDonor();
@@ -394,9 +708,41 @@ document.addEventListener("DOMContentLoaded", async () => {
     quickInformationBtn.addEventListener("click", openInformationModal);
     bloodDetailsBtn.addEventListener("click", openInformationModal);
 
+    document.getElementById("checkEligibilityBtn").addEventListener("click", () => {
+        const eligibility = calculateEligibility(donor.lastDonation, donor.dob);
+        const eligibleDate = donor.lastDonation
+            ? calculateNextEligibleDate(donor.lastDonation)
+            : "Not available";
+
+        document.getElementById("eligibilityBloodGroup").textContent =
+            displayValue(donor.bloodGroup);
+        document.getElementById("eligibilityPopupStatus").textContent =
+            displayValue(eligibility);
+        document.getElementById("eligibilityPopupLastDonation").textContent =
+            donor.lastDonation ? formatDate(donor.lastDonation) : "Not provided";
+        document.getElementById("eligibilityPopupDate").textContent =
+            eligibleDate === "Not available" ? eligibleDate : formatDate(eligibleDate);
+
+        eligibilityModal.classList.add("show");
+        document.body.style.overflow = "hidden";
+    });
+
+    document.getElementById("closeEligibility").addEventListener("click", closeAllModals);
+    document.getElementById("closeEligibilityBtn").addEventListener("click", closeAllModals);
+
     // Close modals
     closeInformation.addEventListener("click", closeAllModals);
     closeUpdate.addEventListener("click", returnToInformation);
+
+    document.getElementById("recordDonationBtn").addEventListener("click", () => {
+        document.getElementById("donationDate").value = new Date().toISOString().split("T")[0];
+        donationModal.classList.add("show");
+        document.body.style.overflow = "hidden";
+    });
+
+    document.getElementById("closeDonation").addEventListener("click", closeAllModals);
+    document.getElementById("cancelDonation").addEventListener("click", closeAllModals);
+    document.getElementById("donationForm").addEventListener("submit", handleDonationSubmit);
 
     informationModal.addEventListener("click", event => {
         if (event.target === informationModal) closeAllModals();
@@ -434,6 +780,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (syncedProfile) {
         donor = { ...defaultDonor, ...syncedProfile };
     }
+
+    if (supabaseClient && supabaseClient.auth) {
+        const {
+            data: { user }
+        } = await supabaseClient.auth.getUser();
+
+        if (user) {
+            donor.totalDonations = await loadDonorDonationCount(user.id);
+        }
+    }
+
+    await loadEmergencyRequests();
+    await loadDonationHistory();
 
     updateDashboard();
 });

@@ -375,7 +375,7 @@
         </div>
 
 
-        <a href="blood-requests.html">
+        <a href="../Blood Requests/blood-requests.html">
             View All Requests →
         </a>
 
@@ -542,7 +542,7 @@
     // =========================================================
 
     const SUPABASE_KEY =
-        "ssb_publishable_XNMDU8mTvE42rJ4LOwkKKA_tcTopl1-";
+        "sb_publishable_XNMDU8mTvE42rJ4LOwkKKA_tcTopl1-";
 
     // Create Supabase client
 
@@ -572,13 +572,13 @@
        ========================================================= */
 
     const DONORS_TABLE =
-        "donors";
+        "donor_profiles";
 
     const BLOOD_REQUESTS_TABLE =
         "blood_requests";
 
     const DONATIONS_TABLE =
-        "donations";
+        "donation_history";
 
 
 
@@ -647,12 +647,6 @@
                 });
 
 
-            if (donationError) {
-                throw donationError;
-            }
-
-
-
             // -------------------------------------------------
             // UPDATE HTML
             // -------------------------------------------------
@@ -669,7 +663,7 @@
 
             document.getElementById("totalDonations")
                 .textContent =
-                donationCount ?? 0;
+                donationError ? 0 : (donationCount ?? 0);
 
 
             /*
@@ -682,7 +676,7 @@
 
             document.getElementById("livesSaved")
                 .textContent =
-                donationCount ?? 0;
+                donationError ? 0 : (donationCount ?? 0);
 
 
         } catch (error) {
@@ -869,7 +863,7 @@
 
                         · 📍 ${location}
 
-                        <a href="blood-requests.html">
+                        <a href="../Blood Requests/blood-requests.html">
                             Details
                         </a>
 
@@ -919,7 +913,7 @@
                 error
             } = await supabaseClient
 
-                .from(DONORS_TABLE)
+                .from(BLOOD_REQUESTS_TABLE)
 
                 .select("*", {
                     count: "exact",
@@ -975,17 +969,6 @@
 
         const connected =
             await checkSupabaseConnection();
-
-
-        if (!connected) {
-
-            console.error(
-                "Please check your Supabase URL, key, table names and RLS policies."
-            );
-
-            return;
-
-        }
 
 
         await loadStatistics();

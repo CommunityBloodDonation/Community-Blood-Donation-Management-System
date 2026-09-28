@@ -41,7 +41,12 @@ Backend:
 - To be implemented
 
 Database:
-- To be implemented
+- Supabase
+
+Database setup:
+- Open the Supabase SQL Editor for the configured project.
+- Run `supabase-blood-requests.sql` to create the blood request table, indexes, and RLS policies.
+- Hospital users must be authenticated before creating a request.
 
 Team
 6880 RMTV KARUNARATHNA

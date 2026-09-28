@@ -135,6 +135,83 @@ button {
     color: var(--muted);
 }
 
+
+
+.request-preview-list {
+
+    display: grid;
+
+    gap: 10px;
+
+}
+
+
+.request-preview-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 16px;
+
+    padding: 15px 16px;
+
+    background: #f8fbfd;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+}
+
+
+.request-preview-details {
+
+    display: grid;
+
+    gap: 4px;
+
+}
+
+
+.request-preview-details strong {
+
+    color: var(--text);
+
+    font-size: 14px;
+
+}
+
+
+.request-preview-details span,
+.request-preview-details small {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+.request-preview-urgency {
+
+    padding: 5px 9px;
+
+    color: #b42318;
+
+    background: #fff0f0;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+}
 .profile-card {
     display: none;
     position: absolute;
@@ -368,6 +445,17 @@ button {
     margin-bottom: 22px;
 }
 
+.panel-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.compact-btn {
+    padding: 9px 13px;
+    font-size: 13px;
+}
+
 .panel-heading h2 {
     font-size: 21px;
 }
@@ -412,6 +500,46 @@ button {
     margin: 0 auto;
     color: var(--muted);
     font-size: 13px;
+}
+
+.compact-empty {
+    padding: 20px;
+}
+
+.donation-history-list {
+    display: grid;
+    gap: 10px;
+}
+
+.donation-history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 15px 16px;
+    background: #f8fbfd;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.donation-history-details {
+    display: grid;
+    gap: 4px;
+}
+
+.donation-history-details strong {
+    font-size: 14px;
+}
+
+.donation-history-details small,
+.donation-history-item > span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.donation-history-item > span {
+    color: var(--green-dark);
+    font-weight: 700;
 }
 
 /* QUICK ACTIONS */
@@ -648,6 +776,10 @@ button.action-card {
     gap: 18px;
 }
 
+.full-width {
+    grid-column: 1 / -1;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
@@ -784,6 +916,17 @@ button.action-card {
 
     .panel-heading {
         align-items: flex-start;
+    }
+
+    .panel-actions {
+        align-items: stretch;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .panel-actions a,
+    .panel-actions button {
+        width: 100%;
     }
 
     .panel-heading h2 {

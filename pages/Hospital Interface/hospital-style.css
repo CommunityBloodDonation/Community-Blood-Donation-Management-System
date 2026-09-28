@@ -624,6 +624,112 @@ a {
 }
 
 
+.hospital-request {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 18px;
+
+    padding: 16px;
+
+    margin-top: 10px;
+
+    background: #fafcfe;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+}
+
+
+.hospital-request-details {
+
+    display: grid;
+
+    gap: 5px;
+
+}
+
+
+.hospital-request-details strong {
+
+    font-size: 14px;
+
+}
+
+
+.hospital-request-details small {
+
+    color: var(--slate);
+
+    font-size: 11px;
+
+}
+
+
+.request-status {
+
+    width: fit-content;
+
+    padding: 4px 8px;
+
+    border-radius: 999px;
+
+    background: var(--green-light);
+
+    color: var(--green-dark);
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    text-transform: capitalize;
+
+}
+
+
+.request-status.fulfilled {
+
+    background: var(--blue-light);
+
+    color: var(--blue-dark);
+
+}
+
+
+.delete-request-btn {
+
+    border: 1px solid #f0b4b4;
+
+    border-radius: 7px;
+
+    padding: 8px 12px;
+
+    background: var(--red-light);
+
+    color: var(--red);
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+}
+
+
+.delete-request-btn:hover {
+
+    background: var(--red);
+
+    color: var(--white);
+
+}
+
+
 
 /* ==================================================
    QUICK ACTIONS

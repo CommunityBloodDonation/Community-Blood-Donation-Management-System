@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodConnect | Donation History</title>
+    <style>
+        :root {
+            --ink: #102a43;
+            --muted: #71869a;
+            --blue: #1565c0;
+            --green: #18794e;
+            --background: #f5f9fd;
+            --white: #ffffff;
+            --border: #dce7ed;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--background);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px 6%;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--blue);
+            font-weight: 800;
+            letter-spacing: .04em;
+        }
+
+        .brand img { width: 46px; height: 46px; object-fit: contain; }
+
+        .back-link {
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        main {
+            width: min(900px, 92%);
+            margin: 0 auto;
+            padding: 48px 0 70px;
+        }
+
+        .heading { margin-bottom: 24px; }
+        h1 { margin: 0; font-size: clamp(30px, 5vw, 44px); }
+        .heading p { margin: 10px 0 0; color: var(--muted); }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .summary-card,
+        .history-item,
+        .message {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .summary-card { padding: 18px; }
+        .summary-card span { color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .summary-card strong { display: block; margin-top: 8px; font-size: 28px; }
+
+        #historyList { display: grid; gap: 12px; }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 20px;
+        }
+
+        .history-details { display: grid; gap: 5px; }
+        .history-details strong { font-size: 17px; }
+        .history-details span { color: var(--muted); font-size: 13px; }
+        .history-units { color: var(--green); font-weight: 800; }
+
+        .message { padding: 28px; color: var(--muted); text-align: center; }
+
+        @media (max-width: 600px) {
+            .topbar { align-items: flex-start; flex-direction: column; }
+            .summary { grid-template-columns: 1fr; }
+            .history-item { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <a href="donor-dashboard.html" class="brand">
+            <img src="../../Assets/images/logo.png" alt="BloodConnect Logo">
+            <span>DONATION HISTORY</span>
+        </a>
+        <a href="donor-dashboard.html" class="back-link">Back to Dashboard</a>
+    </header>
+
+    <main>
+        <section class="heading">
+            <h1>Your Donation History</h1>
+            <p>Every recorded donation helps you track your contribution and eligibility.</p>
+        </section>
+
+        <section class="summary">
+            <div class="summary-card">
+                <span>Total donations</span>
+                <strong id="totalDonations">0</strong>
+            </div>
+            <div class="summary-card">
+                <span>Total units</span>
+                <strong id="totalUnits">0</strong>
+            </div>
+        </section>
+
+        <section id="historyList">
+            <p class="message">Loading donation history...</p>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://ayrcawqhhgpmllwvkjjr.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_XNMDU8mTvE42rJ4LOwkKKA_tcTopl1-";
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const historyList = document.getElementById("historyList");
+
+        function formatDate(value) {
+            const date = new Date(value + "T00:00:00");
+            if (Number.isNaN(date.getTime())) return value || "Not specified";
+            return date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+        }
+
+        async function loadHistory() {
+            try {
+                const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+                if (authError || !user) throw new Error("Please log in to view donation history.");
+
+                const { data, error } = await supabaseClient
+                    .from("donation_history")
+                    .select("donation_date, hospital_name, units, status")
+                    .eq("donor_id", user.id)
+                    .order("donation_date", { ascending: false });
+
+                if (error) throw error;
+
+                const donations = data || [];
+                document.getElementById("totalDonations").textContent = donations.filter(item => item.status === "completed").length;
+                document.getElementById("totalUnits").textContent = donations
+                    .filter(item => item.status === "completed")
+                    .reduce((total, item) => total + Number(item.units || 0), 0);
+                historyList.innerHTML = "";
+
+                if (!donations.length) {
+                    historyList.innerHTML = "<p class='message'>No donations recorded yet.</p>";
+                    return;
+                }
+
+                donations.forEach(donation => {
+                    const item = document.createElement("article");
+                    item.className = "history-item";
+                    item.innerHTML = `
+                        <div class="history-details">
+                            <strong>${formatDate(donation.donation_date)}</strong>
+                            <span>${donation.hospital_name || "Donation center not provided"}</span>
+                            <span>${donation.status || "completed"}</span>
+                        </div>
+                        <span class="history-units">${donation.units || 1} unit${donation.units === 1 ? "" : "s"}</span>
+                    `;
+                    historyList.appendChild(item);
+                });
+            } catch (error) {
+                console.error("Error loading donation history:", error);
+                historyList.innerHTML = `<p class="message">${error.message}</p>`;
+            }
+        }
+
+        loadHistory();
+    </script>
+</body>
+</html>

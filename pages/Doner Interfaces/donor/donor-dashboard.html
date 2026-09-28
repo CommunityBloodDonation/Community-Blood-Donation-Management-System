@@ -126,6 +126,24 @@
             </div>
         </section>
 
+        <!-- DONATION HISTORY -->
+        <section class="panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="eyebrow">YOUR CONTRIBUTION</span>
+                    <h2>Donation History</h2>
+                </div>
+                <div class="panel-actions">
+                    <a href="donation-history.html" class="outline-btn">View History</a>
+                    <button type="button" class="primary-btn compact-btn" id="recordDonationBtn">Record Donation</button>
+                </div>
+            </div>
+
+            <div id="donationHistoryList" class="donation-history-list">
+                <p class="loading-message">Loading donation history...</p>
+            </div>
+        </section>
+
         <!-- QUICK ACTIONS -->
         <section class="panel">
             <div class="panel-heading">
@@ -143,12 +161,12 @@
                     <span class="action-arrow">→</span>
                 </button>
 
-                <a href="health.html" class="action-card">
+                <button type="button" class="action-card" id="checkEligibilityBtn">
                     <span class="action-icon green-icon">✓</span>
                     <strong>Check Eligibility</strong>
                     <small>Review donation eligibility</small>
                     <span class="action-arrow">→</span>
-                </a>
+                </button>
 
                 <a href="donation-history.html" class="action-card">
                     <span class="action-icon purple-icon">📋</span>
@@ -160,6 +178,154 @@
         </section>
 
     </main>
+
+    <!-- ELIGIBILITY MODAL -->
+    <div class="modal-overlay" id="eligibilityModal">
+        <section class="modal modal-medium" role="dialog"
+                 aria-modal="true" aria-labelledby="eligibilityTitle">
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">DONATION ELIGIBILITY</span>
+                    <h2 id="eligibilityTitle">Check Eligibility</h2>
+                </div>
+                <button class="modal-close" id="closeEligibility" type="button" aria-label="Close">
+                    &times;
+                </button>
+            </div>
+
+            <div class="modal-content">
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span>Blood Group</span>
+                        <strong id="eligibilityBloodGroup">Not provided</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Eligibility Status</span>
+                        <strong id="eligibilityPopupStatus">Not verified</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Last Donation</span>
+                        <strong id="eligibilityPopupLastDonation">Not provided</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Next Eligible Date</span>
+                        <strong id="eligibilityPopupDate">Not available</strong>
+                    </div>
+                </div>
+
+                <p class="form-note">Eligibility is calculated from your age and most recent donation date. Confirm your eligibility with a healthcare professional before donating.</p>
+
+                <div class="modal-actions">
+                    <button type="button" class="primary-btn" id="closeEligibilityBtn">Close</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- RECORD DONATION MODAL -->
+    <div class="modal-overlay" id="donationModal">
+        <section class="modal modal-medium" role="dialog"
+                 aria-modal="true" aria-labelledby="donationTitle">
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">DONATION RECORD</span>
+                    <h2 id="donationTitle">Record a Blood Donation</h2>
+                </div>
+                <button class="modal-close" id="closeDonation" type="button" aria-label="Close">
+                    &times;
+                </button>
+            </div>
+
+            <form class="modal-content" id="donationForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="donationDate">Donation date</label>
+                        <input type="date" id="donationDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="donationUnits">Units donated</label>
+                        <input type="number" id="donationUnits" min="1" max="5" value="1" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="donationHospital">Hospital or donation center</label>
+                        <input type="text" id="donationHospital" list="sriLankaHospitals" placeholder="Start typing a hospital name" autocomplete="off" required>
+                        <datalist id="sriLankaHospitals">
+                            <option value="Asiri Central Hospital">
+                            <option value="Asiri Hospital Kandy">
+                            <option value="Asiri Hospital Matara">
+                            <option value="Asiri Hospital Medical Campus">
+                            <option value="Asiri Surgical Hospital">
+                            <option value="Base Hospital Akkaraipattu">
+                            <option value="Base Hospital Balangoda">
+                            <option value="Base Hospital Dambadeniya">
+                            <option value="Base Hospital Dambulla">
+                            <option value="Base Hospital Elpitiya">
+                            <option value="Base Hospital Homagama">
+                            <option value="Base Hospital Kamburupitiya">
+                            <option value="Base Hospital Karawanella">
+                            <option value="Base Hospital Kalmunai North">
+                            <option value="Base Hospital Mahiyanganaya">
+                            <option value="Base Hospital Marawila">
+                            <option value="Base Hospital Monaragala">
+                            <option value="Base Hospital Muthur">
+                            <option value="Base Hospital Nikaweratiya">
+                            <option value="Base Hospital Panadura">
+                            <option value="Base Hospital Polonnaruwa">
+                            <option value="Base Hospital Teldeniya">
+                            <option value="Base Hospital Warakapola">
+                            <option value="Ceymed Healthcare Services">
+                            <option value="Colombo South Teaching Hospital">
+                            <option value="Colombo West Hospital">
+                            <option value="Durdans Hospital">
+                            <option value="Golden Key Hospital">
+                            <option value="Hemas Hospital Thalawathugoda">
+                            <option value="Hemas Hospital Wattala">
+                            <option value="Kandy National Hospital">
+                            <option value="Kings Hospital Colombo">
+                            <option value="Lady Ridgeway Hospital for Children">
+                            <option value="Lanka Hospitals Corporation">
+                            <option value="Lanka Hospitals Diagnostics">
+                            <option value="National Cancer Institute Maharagama">
+                            <option value="National Eye Hospital of Sri Lanka">
+                            <option value="National Hospital of Sri Lanka">
+                            <option value="National Institute of Mental Health Angoda">
+                            <option value="National Institute of Nephrology Dialysis and Transplantation">
+                            <option value="Nawaloka Hospital Colombo">
+                            <option value="Neville Fernando Teaching Hospital">
+                            <option value="Ninewells Hospital">
+                            <option value="Ragama Teaching Hospital">
+                            <option value="Royal Hospital Colombo">
+                            <option value="Sethma Hospital">
+                            <option value="Siriwardena Hospital">
+                            <option value="Suwasewana Hospital">
+                            <option value="Teaching Hospital Anuradhapura">
+                            <option value="Teaching Hospital Badulla">
+                            <option value="Teaching Hospital Batticaloa">
+                            <option value="Teaching Hospital Jaffna">
+                            <option value="Teaching Hospital Karapitiya">
+                            <option value="Teaching Hospital Kurunegala">
+                            <option value="Teaching Hospital Mahamodara">
+                            <option value="Teaching Hospital Peradeniya">
+                            <option value="Teaching Hospital Ratnapura">
+                            <option value="The Central Hospital Colombo">
+                            <option value="University Hospital KDU">
+                            <option value="University Hospital Kotelawala Defence University">
+                            <option value="Vijaya Kumaratunga Memorial Hospital">
+                        </datalist>
+                    </div>
+                </div>
+
+                <p class="form-note">Only record a donation that has already taken place. This information updates your donation count and eligibility date.</p>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" id="cancelDonation">Cancel</button>
+                    <button type="submit" class="primary-btn" id="saveDonationBtn">Save Donation</button>
+                </div>
+            </form>
+        </section>
+    </div>
 
     <!-- INFORMATION MODAL -->
     <div class="modal-overlay" id="informationModal">
