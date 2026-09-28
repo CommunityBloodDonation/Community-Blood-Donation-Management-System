@@ -37,9 +37,6 @@ Frontend:
 - CSS
 - JavaScript
 
-Backend:
-- To be implemented
-
 Database:
 - Supabase
 
