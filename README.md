@@ -48,6 +48,14 @@ Database setup:
 - Run `supabase-blood-requests.sql` to create the blood request table, indexes, and RLS policies.
 - Hospital users must be authenticated before creating a request.
 
+Admin setup:
+- Open `pages/Admin Interface/admin-dashboard.html` through Live Server.
+- Create or use an Auth account, then add it to `public.admin_profiles` in Supabase:
+	`INSERT INTO public.admin_profiles (id, email) SELECT id, email FROM auth.users WHERE email = 'admin@example.com';`
+- Run the complete SQL file before using the admin page so the admin policies and `admin_delete_user` function exist.
+- The admin page can view and delete donor profiles, hospital profiles, blood requests, and donation history.
+- New Auth accounts should be created through Supabase Auth or the existing registration page. A service-role key must never be placed in frontend code.
+
 Team
 6880 RMTV KARUNARATHNA
 6882 SADPR SURAWEERA

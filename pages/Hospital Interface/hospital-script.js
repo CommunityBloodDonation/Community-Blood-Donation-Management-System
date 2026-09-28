@@ -97,15 +97,28 @@ async function loadHospitalRequests() {
             .from("blood_requests")
             .select("*")
             .eq("hospital_id", user.id)
+            .eq("status", "open")
             .order("created_at", { ascending: false });
 
         if (error) {
             throw error;
         }
 
-        const activeCount = data.filter(request => request.status === "open").length;
-        const completedCount = data.filter(request => request.status === "fulfilled").length;
+        const { data: completedRequests, error: completedError } = await supabaseClient
+            .from("completed_blood_requests")
+            .select("id, units")
+            .eq("hospital_id", user.id);
+
+        if (completedError) {
+            throw completedError;
+        }
+
+        const activeCount = data.length;
+        const completedCount = completedRequests.length;
         const totalUnits = data.reduce(
+            (total, request) => total + Number(request.units || 0),
+            0
+        ) + completedRequests.reduce(
             (total, request) => total + Number(request.units || 0),
             0
         );
@@ -143,6 +156,17 @@ async function loadHospitalRequests() {
 
             details.append(title, metadata, status);
 
+            const actions = document.createElement("div");
+            actions.className = "request-actions";
+
+            const completeButton = document.createElement("button");
+            completeButton.type = "button";
+            completeButton.className = "complete-request-btn";
+            completeButton.textContent = "Complete";
+            completeButton.addEventListener("click", () =>
+                completeHospitalRequest(request.id)
+            );
+
             const deleteButton = document.createElement("button");
             deleteButton.type = "button";
             deleteButton.className = "delete-request-btn";
@@ -151,7 +175,8 @@ async function loadHospitalRequests() {
                 deleteHospitalRequest(request.id)
             );
 
-            card.append(details, deleteButton);
+            actions.append(completeButton, deleteButton);
+            card.append(details, actions);
             requestsContainer.appendChild(card);
         });
     } catch (error) {
@@ -1413,4 +1438,71 @@ if (requestModal) {
         }
     );
 
+}
+
+
+async function completeHospitalRequest(requestId) {
+    if (!confirm("Mark this blood request as completed?")) {
+        return;
+    }
+
+    try {
+        const {
+            data: { user },
+            error: authError
+        } = await supabaseClient.auth.getUser();
+
+        if (authError || !user) {
+            throw new Error("No authenticated hospital session found.");
+        }
+
+        const { data: request, error: requestError } = await supabaseClient
+            .from("blood_requests")
+            .select("*")
+            .eq("id", requestId)
+            .eq("hospital_id", user.id)
+            .maybeSingle();
+
+        if (requestError || !request) {
+            throw requestError || new Error("Blood request was not found.");
+        }
+
+        const { error: archiveError } = await supabaseClient
+            .from("completed_blood_requests")
+            .insert({
+                id: request.id,
+                hospital_id: request.hospital_id,
+                hospital_name: request.hospital_name,
+                hospital_registration: request.hospital_registration,
+                location: request.location,
+                blood_group: request.blood_group,
+                units: request.units,
+                urgency: request.urgency,
+                required_date: request.required_date,
+                ward: request.ward,
+                contact: request.contact,
+                reference: request.reference,
+                notes: request.notes,
+                created_at: request.created_at
+            });
+
+        if (archiveError) {
+            throw archiveError;
+        }
+
+        const { error: deleteError } = await supabaseClient
+            .from("blood_requests")
+            .delete()
+            .eq("id", requestId)
+            .eq("hospital_id", user.id);
+
+        if (deleteError) {
+            throw deleteError;
+        }
+
+        await loadHospitalRequests();
+    } catch (error) {
+        console.error("Error completing hospital blood request:", error);
+        alert("Unable to complete the blood request: " + error.message);
+    }
 }

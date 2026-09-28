@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodConnect | Administration</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <img src="../Assets/images/logo.png" alt="BloodConnect Logo">
+            <span>ADMINISTRATION</span>
+        </div>
+        <button id="logoutButton" class="logout-btn hidden" type="button">Logout</button>
+    </header>
+
+    <main>
+        <section id="loginView" class="panel login-panel">
+            <h1>Admin Sign In</h1>
+            <p class="subtitle">Use an account listed in the admin_profiles table.</p>
+            <form id="loginForm" class="form-grid">
+                <label>Email<input type="email" id="adminEmail" required autocomplete="username"></label>
+                <label>Password<input type="password" id="adminPassword" required autocomplete="current-password"></label>
+                <button class="primary-btn" type="submit">Sign In</button>
+            </form>
+            <p id="loginError" class="login-error"></p>
+            <p class="notice">Create the Auth account first, then add its user ID to public.admin_profiles in Supabase.</p>
+        </section>
+
+        <section id="adminView" class="hidden">
+            <h1>Administration Dashboard</h1>
+            <p class="subtitle">Manage registered donors, hospital staff, blood requests, and donation history.</p>
+
+            <section class="stats">
+                <div class="stat"><span>Donors</span><strong id="donorCount">0</strong></div>
+                <div class="stat"><span>Hospital staff</span><strong id="staffCount">0</strong></div>
+                <div class="stat"><span>Blood requests</span><strong id="requestCount">0</strong></div>
+                <div class="stat"><span>Donations</span><strong id="historyCount">0</strong></div>
+            </section>
+
+            <section class="panel">
+                <nav class="tabs" aria-label="Admin sections">
+                    <button class="tab active" data-section="donors" type="button">Donors</button>
+                    <button class="tab" data-section="staff" type="button">Hospital Staff</button>
+                    <button class="tab" data-section="requests" type="button">Blood Requests</button>
+                    <button class="tab" data-section="completed" type="button">Completed Requests</button>
+                    <button class="tab" data-section="history" type="button">Donation History</button>
+                </nav>
+                <div class="toolbar">
+                    <h2 id="sectionTitle">Donors</h2>
+                    <input class="search" id="searchInput" type="search" placeholder="Search current list">
+                </div>
+                <div id="tableContainer" class="table-wrap"></div>
+            </section>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
