@@ -1228,7 +1228,7 @@ if (logoutBtn) {
 
     logoutBtn.addEventListener(
         "click",
-        function() {
+        async function() {
 
             const confirmLogout =
                 confirm(
@@ -1237,9 +1237,23 @@ if (logoutBtn) {
 
 
             if (confirmLogout) {
+                logoutBtn.disabled = true;
 
-                window.location.href =
-                    "../../Public Interfaces/Home/Home.html";
+                try {
+                    const { error } = await supabaseClient.auth.signOut();
+
+                    if (error) {
+                        throw error;
+                    }
+
+                    localStorage.removeItem("hospitalData");
+                    window.location.href =
+                        "../Public Interfaces/Home/Home.html";
+                } catch (error) {
+                    console.error("Hospital logout failed:", error);
+                    logoutBtn.disabled = false;
+                    alert("Unable to logout. Please try again.");
+                }
 
             }
 

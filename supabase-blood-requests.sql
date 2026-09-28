@@ -90,6 +90,37 @@ CREATE POLICY "Donors can update their own donation history"
 CREATE INDEX IF NOT EXISTS donation_history_donor_id_idx
     ON public.donation_history (donor_id);
 
+CREATE OR REPLACE FUNCTION public.get_public_donation_summary()
+RETURNS TABLE (
+    donation_count BIGINT,
+    total_units BIGINT
+)
+LANGUAGE SQL
+SECURITY DEFINER
+SET search_path = public
+AS $$
+    SELECT
+        COUNT(*)::BIGINT,
+        COALESCE(SUM(units), 0)::BIGINT
+    FROM public.donation_history
+    WHERE status = 'completed';
+$$;
+
+GRANT EXECUTE ON FUNCTION public.get_public_donation_summary() TO anon, authenticated;
+
+CREATE OR REPLACE FUNCTION public.get_public_donor_count()
+RETURNS BIGINT
+LANGUAGE SQL
+SECURITY DEFINER
+SET search_path = public
+AS $$
+    SELECT COUNT(*)::BIGINT
+    FROM public.donor_profiles;
+$$;
+
+GRANT EXECUTE ON FUNCTION public.get_public_donor_count()
+TO anon, authenticated;
+
 DO $$
 BEGIN
     IF to_regclass('public.donations') IS NOT NULL THEN

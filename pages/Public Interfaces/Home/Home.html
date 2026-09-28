@@ -52,11 +52,11 @@
 
         <div class="left_card">
 
-            <label>● COMMUNITY BLOOD DONATION NETWORK</label>
+            <label>COMMUNITY BLOOD DONATION NETWORK</label>
 
             <h1>
-                Save Lives.<br>
-                <span>Donate Blood.</span>
+                Save Lives<br>
+                <span>Donate Blood</span>
             </h1>
 
             <p>
@@ -595,20 +595,11 @@
             // -------------------------------------------------
 
             const {
-                count: donorCount,
+                data: donorCount,
                 error: donorError
-            } = await supabaseClient
-                .from(DONORS_TABLE)
-                .select("*", {
-                    count: "exact",
-                    head: true
-                });
-
-
-            if (donorError) {
-                throw donorError;
-            }
-
+            } = await supabaseClient.rpc(
+                "get_public_donor_count"
+            );
 
 
             // -------------------------------------------------
@@ -626,25 +617,26 @@
                 });
 
 
-            if (requestError) {
-                throw requestError;
-            }
-
-
-
             // -------------------------------------------------
-            // COUNT DONATIONS
+            // COUNT DONATIONS AND UNITS
             // -------------------------------------------------
 
             const {
-                count: donationCount,
+                data: donationSummary,
                 error: donationError
-            } = await supabaseClient
-                .from(DONATIONS_TABLE)
-                .select("*", {
-                    count: "exact",
-                    head: true
-                });
+            } = await supabaseClient.rpc(
+                "get_public_donation_summary"
+            );
+
+            const summary = Array.isArray(donationSummary)
+                ? donationSummary[0]
+                : donationSummary;
+
+            const donationCount =
+                summary?.donation_count ?? 0;
+
+            const totalUnits =
+                summary?.total_units ?? 0;
 
 
             // -------------------------------------------------
@@ -653,12 +645,12 @@
 
             document.getElementById("totalDonors")
                 .textContent =
-                donorCount ?? 0;
+                donorError ? 0 : (donorCount ?? 0);
 
 
             document.getElementById("totalRequests")
                 .textContent =
-                requestCount ?? 0;
+                requestError ? 0 : (requestCount ?? 0);
 
 
             document.getElementById("totalDonations")
@@ -676,7 +668,7 @@
 
             document.getElementById("livesSaved")
                 .textContent =
-                donationError ? 0 : (donationCount ?? 0);
+                donationError ? 0 : donationCount;
 
 
         } catch (error) {
