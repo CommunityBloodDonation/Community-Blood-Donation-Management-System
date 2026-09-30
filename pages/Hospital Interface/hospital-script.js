@@ -113,6 +113,34 @@ async function loadHospitalRequests() {
             throw completedError;
         }
 
+        let donorResponses = [];
+        let responseTrackingAvailable = true;
+        if (data.length) {
+            const { data: responseRows, error: responseError } = await supabaseClient
+                .from("blood_request_responses")
+                .select("id, request_id, donor_id, response, created_at")
+                .in("request_id", data.map(request => request.id));
+            if (responseError) {
+                // Response tracking was added after the original request schema.
+                // Keep the core hospital request dashboard usable until that migration is applied.
+                responseTrackingAvailable = false;
+                console.warn("Donor response tracking is not available yet:", responseError.message);
+            } else {
+                donorResponses = responseRows || [];
+            }
+        }
+        const registeredDonorsCard = document.getElementById("donorsConnected");
+        if (registeredDonorsCard) {
+            const { data: donorCount, error: donorCountError } = await supabaseClient
+                .rpc("get_public_donor_count");
+            if (donorCountError) {
+                console.warn("Unable to load registered donor count:", donorCountError.message);
+                registeredDonorsCard.textContent = "—";
+            } else {
+                registeredDonorsCard.textContent = Number(donorCount || 0).toLocaleString();
+            }
+        }
+
         const activeCount = data.length;
         const completedCount = completedRequests.length;
         const totalUnits = data.reduce(
@@ -154,7 +182,12 @@ async function loadHospitalRequests() {
             status.className = `request-status ${request.status}`;
             status.textContent = request.status;
 
-            details.append(title, metadata, status);
+            const responseSummary = document.createElement("small");
+            const requestResponses = (donorResponses || []).filter(item => item.request_id === request.id);
+            responseSummary.textContent = responseTrackingAvailable
+                ? `${requestResponses.length} donor response${requestResponses.length === 1 ? "" : "s"}`
+                : "Donor response tracking needs the latest database setup";
+            details.append(title, metadata, status, responseSummary);
 
             const actions = document.createElement("div");
             actions.className = "request-actions";
@@ -167,6 +200,20 @@ async function loadHospitalRequests() {
                 completeHospitalRequest(request.id)
             );
 
+            const editButton = document.createElement("button");
+            editButton.type = "button";
+            editButton.className = "complete-request-btn";
+            editButton.textContent = "Edit";
+            editButton.addEventListener("click", () => editHospitalRequest(request));
+
+            const cancelButton = document.createElement("button");
+            cancelButton.type = "button";
+            cancelButton.className = "delete-request-btn";
+            cancelButton.textContent = "Cancel request";
+            cancelButton.addEventListener("click", () =>
+                cancelHospitalRequest(request.id)
+            );
+
             const deleteButton = document.createElement("button");
             deleteButton.type = "button";
             deleteButton.className = "delete-request-btn";
@@ -175,7 +222,7 @@ async function loadHospitalRequests() {
                 deleteHospitalRequest(request.id)
             );
 
-            actions.append(completeButton, deleteButton);
+            actions.append(editButton, completeButton, cancelButton, deleteButton);
             card.append(details, actions);
             requestsContainer.appendChild(card);
         });
@@ -185,7 +232,7 @@ async function loadHospitalRequests() {
 
         const errorMessage = document.createElement("p");
         errorMessage.className = "empty";
-        errorMessage.textContent = "Unable to load your blood requests.";
+        errorMessage.textContent = `Unable to load your blood requests${error.message ? `: ${error.message}` : "."}`;
         requestsContainer.appendChild(errorMessage);
     }
 }
@@ -336,6 +383,7 @@ const updateModal =
 
 const requestModal =
     document.getElementById("requestModal");
+let editingRequestId = null;
 
 
 
@@ -736,7 +784,7 @@ function setupUpdateForm() {
 
     updateForm.addEventListener(
         "submit",
-        function(event) {
+        async function(event) {
 
             event.preventDefault();
 
@@ -788,7 +836,7 @@ function setupUpdateForm() {
             }
 
 
-            hospitalData = {
+            const updatedProfile = {
 
                 name: name,
 
@@ -811,6 +859,32 @@ function setupUpdateForm() {
             };
 
 
+            const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+            if (authError || !user) {
+                alert("Please sign in again before updating the hospital profile.");
+                return;
+            }
+            const { data: savedProfile, error: saveError } = await supabaseClient
+                .from("staff_profiles")
+                .update({
+                    hospital_name: updatedProfile.name,
+                    email: updatedProfile.email,
+                    phone: updatedProfile.phone,
+                    location: updatedProfile.location,
+                    registration_number: updatedProfile.registration,
+                    hospital_type: updatedProfile.type,
+                    address: updatedProfile.address,
+                    blood_bank: updatedProfile.bloodBank,
+                    emergency_contact: updatedProfile.emergency
+                })
+                .eq("id", user.id)
+                .select("id")
+                .maybeSingle();
+            if (saveError || !savedProfile) {
+                alert("Unable to save the hospital profile to Supabase. Check the staff_profiles update policy." + (saveError ? ` ${saveError.message}` : ""));
+                return;
+            }
+            hospitalData = updatedProfile;
             saveHospitalData();
 
 
@@ -910,6 +984,8 @@ async function openRequestModal() {
         return;
     }
 
+    editingRequestId = null;
+
 
     try {
 
@@ -991,6 +1067,28 @@ async function openRequestModal() {
 /* ==================================================
    REQUEST BUTTONS
 ================================================== */
+
+async function editHospitalRequest(request) {
+    await openRequestModal();
+    if (!document.getElementById("requestForm")) return;
+    editingRequestId = request.id;
+    const fields = {
+        requestBloodGroup: request.blood_group,
+        requestUnits: request.units,
+        requestUrgency: request.urgency,
+        requestDate: request.required_date,
+        requestWard: request.ward,
+        requestContact: request.contact,
+        requestReference: request.reference || "",
+        requestNotes: request.notes || ""
+    };
+    Object.entries(fields).forEach(([id, value]) => {
+        const input = document.getElementById(id);
+        if (input) input.value = value;
+    });
+    const submitButton = document.querySelector("#requestForm button[type='submit']");
+    if (submitButton) submitButton.textContent = "Save Changes";
+}
 
 const createRequestBtn =
     document.getElementById(
@@ -1171,31 +1269,32 @@ function setupRequestForm() {
                     throw new Error("Please log in before creating a blood request.");
                 }
 
-                const { error } = await supabaseClient
-                    .from("blood_requests")
-                    .insert({
-                        hospital_id: user.id,
-                        hospital_name: hospitalData.name,
-                        hospital_registration: hospitalData.registration,
-                        location: hospitalData.location,
-                        blood_group: bloodGroup,
-                        units: Number(units),
-                        urgency: urgency,
-                        required_date: requiredDate,
-                        ward: ward,
-                        contact: contact,
-                        reference: reference || null,
-                        notes: notes || null,
-                        status: "open"
-                    });
+                const requestValues = {
+                    hospital_name: hospitalData.name,
+                    hospital_registration: hospitalData.registration,
+                    location: hospitalData.location,
+                    blood_group: bloodGroup,
+                    units: Number(units),
+                    urgency,
+                    required_date: requiredDate,
+                    ward,
+                    contact,
+                    reference: reference || null,
+                    notes: notes || null
+                };
+                const result = editingRequestId
+                    ? await supabaseClient.from("blood_requests").update(requestValues).eq("id", editingRequestId).eq("hospital_id", user.id)
+                    : await supabaseClient.from("blood_requests").insert({ ...requestValues, hospital_id: user.id, status: "open" });
+                const { error } = result;
 
                 if (error) {
                     throw error;
                 }
 
-                alert("Blood request created successfully.");
+                alert(editingRequestId ? "Blood request updated successfully." : "Blood request created successfully.");
                 requestForm.reset();
                 requestModal.classList.remove("show");
+                editingRequestId = null;
                 await loadHospitalRequests();
             } catch (error) {
                 console.error("Error saving blood request:", error);
@@ -1504,5 +1603,21 @@ async function completeHospitalRequest(requestId) {
     } catch (error) {
         console.error("Error completing hospital blood request:", error);
         alert("Unable to complete the blood request: " + error.message);
+    }
+}
+
+async function cancelHospitalRequest(requestId) {
+    if (!confirm("Cancel this blood request? It will no longer appear as open.")) return;
+    try {
+        const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+        if (authError || !user) throw new Error("No authenticated hospital session found.");
+        const { error } = await supabaseClient.from("blood_requests")
+            .update({ status: "cancelled" })
+            .eq("id", requestId).eq("hospital_id", user.id);
+        if (error) throw error;
+        await loadHospitalRequests();
+    } catch (error) {
+        console.error("Error cancelling hospital blood request:", error);
+        alert("Unable to cancel the blood request: " + error.message);
     }
 }

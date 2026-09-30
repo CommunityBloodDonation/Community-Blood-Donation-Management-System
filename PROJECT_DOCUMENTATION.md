@@ -282,7 +282,7 @@ The directory UI supports:
 - Donor cards.
 - Donor detail popup.
 
-At present, the JavaScript uses three temporary hardcoded donor records. It is therefore a working UI prototype rather than a live Supabase donor search. The contact button is also a visual control and does not currently implement a communication service.
+The directory now reads consenting, available donors from the `available_donor_directory` view and supports blood-group, name, and city filtering. Donors can change availability and consent from the page. Contact details are not exposed and the system does not send donor messages.
 
 ## 7. Hospital Features
 
@@ -591,7 +591,7 @@ For a complete presentation demonstration:
 6. Return to the public request view and donor dashboard to show the request preview.
 7. Complete or delete the hospital request and show the completed-request result.
 8. Log in as the administrator and demonstrate counts, search, tabs, and controlled deletion.
-9. Explain that password recovery and donor directory data are currently prototype-level integrations.
+9. Explain that directory availability, request responses, and password recovery require the updated SQL and Supabase redirect configuration.
 
 ## 17. Testing Checklist
 
@@ -644,29 +644,25 @@ For a complete presentation demonstration:
 
 The following points should be stated honestly in a project presentation:
 
-- The donor directory uses hardcoded temporary records instead of querying `donor_profiles`.
-- The password recovery pages are UI demonstrations; real Supabase reset-password and OTP integration is still required.
-- The hospital dashboard includes a donors-connected display area, but there is no complete donor-request response/matching workflow yet.
-- The contact-donor action is visual and does not yet send a message or notification.
+- The donor directory now queries the consent-filtered `available_donor_directory` view and supports donor-controlled availability and consent. Apply the updated SQL before using it.
+- Donors can respond to open requests through `blood_request_responses`, and hospitals see response counts on their dashboard. Apply the SQL and verify the workflow with real role sessions.
+- Password recovery now calls Supabase Auth. Configure the reset page as an allowed redirect URL and verify the Supabase email template and redirect flow. The old OTP verification page remains a demo screen and is not used by this reset-link flow.
+- The directory does not expose donor contact details or deliver messages; hospital staff should use the request contact details.
 - Emergency notifications are represented through urgency and request previews; push, email, or SMS notifications are not implemented.
-- The hospital profile interface currently relies heavily on local storage for its display model and should be fully synchronized with `staff_profiles`.
+- Hospital profile edits now update `staff_profiles` and cache the result in local storage. Apply the profile update RLS policy and verify against the configured database.
 - Eligibility is a simplified client-side estimate and is not a medical decision.
 - Input rendering and output escaping should be reviewed further wherever dynamic HTML templates are used.
 - A separate patient account and patient dashboard are not implemented.
 - Automated unit, integration, and end-to-end tests are not included in the repository.
 
-Recommended future work:
+Remaining work:
 
-1. Replace hardcoded donor data with a Supabase donor search query.
-2. Add donor availability and consent controls.
-3. Build request-to-donor matching and response tracking.
-4. Add real email/password recovery through Supabase Auth.
-5. Add real notification delivery for emergency requests.
-6. Synchronize hospital profile updates directly with Supabase.
-7. Add server-side or database-backed eligibility rules reviewed by healthcare professionals.
-8. Add audit logs for administrator actions.
-9. Add automated tests and deployment configuration.
-10. Add a patient/requester account if the project requirements require one.
+1. Add email, SMS, or in-app notification delivery for emergency requests and donor responses.
+2. Add admin charts/reports and audit logs for protected actions.
+3. Review loading, empty, and error states, responsive layouts, dynamic output escaping, and remaining public page coverage.
+4. Verify all RLS behavior and workflows with anon, donor, hospital, and admin sessions.
+5. Add automated tests and deployment configuration.
+6. Add a patient/requester account if the project requirements require one.
 
 ## 19. Team
 
@@ -679,4 +675,4 @@ Recommended future work:
 
 The project provides a functional foundation for a community blood donation network. Its strongest completed areas are role-based authentication, donor and hospital dashboards, Supabase-backed donation history, hospital blood-request management, public request visibility, and administrator data management with RLS protection.
 
-The remaining prototype areas are isolated and clearly identifiable. With live donor directory queries, real password recovery, notifications, and a complete donor-request response workflow, the system can be extended into a more complete production-ready blood donation coordination platform.
+The directory, donor request responses, hospital response counts, hospital profile persistence, hospital request editing/cancellation, and Supabase password recovery are now wired in code. The database SQL and Supabase redirect configuration still need to be applied and verified. Notifications, admin reports/audit logging, and automated tests remain future work.

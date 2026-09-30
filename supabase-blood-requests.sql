@@ -233,6 +233,92 @@ CREATE POLICY "Admins can manage staff profiles"
     USING (public.is_admin())
     WITH CHECK (public.is_admin());
 
+ALTER TABLE public.staff_profiles ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Hospitals can update their own profile" ON public.staff_profiles;
+CREATE POLICY "Hospitals can update their own profile"
+    ON public.staff_profiles FOR UPDATE TO authenticated
+    USING (auth.uid() = id)
+    WITH CHECK (auth.uid() = id);
+
+-- Donors control whether their profile can appear in the public directory.
+ALTER TABLE public.donor_profiles
+    ADD COLUMN IF NOT EXISTS is_available BOOLEAN NOT NULL DEFAULT FALSE,
+    ADD COLUMN IF NOT EXISTS contact_consent BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE public.donor_profiles ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Public can view consenting available donors" ON public.donor_profiles;
+CREATE POLICY "Public can view consenting available donors"
+    ON public.donor_profiles FOR SELECT TO anon, authenticated
+    USING (is_available = TRUE AND contact_consent = TRUE);
+GRANT SELECT (id, full_name, blood_group, city, last_donation, is_available, contact_consent)
+    ON public.donor_profiles TO anon, authenticated;
+GRANT UPDATE (is_available, contact_consent)
+    ON public.donor_profiles TO authenticated;
+
+DROP POLICY IF EXISTS "Donors can update their own directory preferences" ON public.donor_profiles;
+CREATE POLICY "Donors can update their own directory preferences"
+    ON public.donor_profiles FOR UPDATE TO authenticated
+    USING (auth.uid() = id)
+    WITH CHECK (auth.uid() = id);
+
+CREATE OR REPLACE VIEW public.available_donor_directory
+WITH (security_invoker = true)
+AS
+    SELECT id, full_name, blood_group, city, last_donation, is_available
+    FROM public.donor_profiles
+    WHERE is_available = TRUE AND contact_consent = TRUE;
+
+GRANT SELECT ON public.available_donor_directory TO anon, authenticated;
+
+CREATE TABLE IF NOT EXISTS public.blood_request_responses (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    request_id UUID NOT NULL REFERENCES public.blood_requests(id) ON DELETE CASCADE,
+    donor_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    response TEXT NOT NULL DEFAULT 'interested' CHECK (response IN ('interested', 'withdrawn', 'accepted', 'declined')),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (request_id, donor_id)
+);
+
+ALTER TABLE public.blood_request_responses ENABLE ROW LEVEL SECURITY;
+GRANT SELECT, INSERT, UPDATE ON public.blood_request_responses TO authenticated;
+DROP POLICY IF EXISTS "Donors can view their own request responses" ON public.blood_request_responses;
+CREATE POLICY "Donors can view their own request responses"
+    ON public.blood_request_responses FOR SELECT TO authenticated
+    USING (auth.uid() = donor_id);
+DROP POLICY IF EXISTS "Donors can respond to open requests" ON public.blood_request_responses;
+CREATE POLICY "Donors can respond to open requests"
+    ON public.blood_request_responses FOR INSERT TO authenticated
+    WITH CHECK (
+        auth.uid() = donor_id
+        AND EXISTS (
+            SELECT 1 FROM public.donor_profiles d
+            WHERE d.id = auth.uid() AND d.is_available AND d.contact_consent
+        )
+        AND EXISTS (
+            SELECT 1 FROM public.blood_requests r
+            WHERE r.id = request_id AND r.status = 'open'
+        )
+    );
+DROP POLICY IF EXISTS "Donors can update their own responses" ON public.blood_request_responses;
+CREATE POLICY "Donors can update their own responses"
+    ON public.blood_request_responses FOR UPDATE TO authenticated
+    USING (auth.uid() = donor_id)
+    WITH CHECK (auth.uid() = donor_id);
+DROP POLICY IF EXISTS "Hospitals can view responses to their requests" ON public.blood_request_responses;
+CREATE POLICY "Hospitals can view responses to their requests"
+    ON public.blood_request_responses FOR SELECT TO authenticated
+    USING (EXISTS (
+        SELECT 1 FROM public.blood_requests r
+        WHERE r.id = request_id AND r.hospital_id = auth.uid()
+    ));
+CREATE INDEX IF NOT EXISTS blood_request_responses_request_id_idx
+    ON public.blood_request_responses(request_id);
+DROP POLICY IF EXISTS "Admins can manage request responses" ON public.blood_request_responses;
+CREATE POLICY "Admins can manage request responses"
+    ON public.blood_request_responses FOR ALL TO authenticated
+    USING (public.is_admin()) WITH CHECK (public.is_admin());
+
 DROP POLICY IF EXISTS "Admins can manage blood requests" ON public.blood_requests;
 CREATE POLICY "Admins can manage blood requests"
     ON public.blood_requests

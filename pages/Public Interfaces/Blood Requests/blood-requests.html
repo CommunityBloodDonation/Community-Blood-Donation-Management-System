@@ -314,6 +314,10 @@
                         <option value="Normal">Normal</option>
                     </select>
                 </label>
+                <label>
+                    <span class="request-label">Search requests</span>
+                    <input id="requestSearch" type="search" placeholder="Blood group, hospital, or location">
+                </label>
             </div>
             <div id="requestGrid" class="request-grid"></div>
         </section>
@@ -326,6 +330,7 @@
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         const requestGrid = document.getElementById("requestGrid");
         const urgencyFilter = document.getElementById("urgencyFilter");
+        const requestSearch = document.getElementById("requestSearch");
         let requests = [];
 
         function getBadgeClass(urgency) {
@@ -348,9 +353,12 @@
 
         function renderRequests() {
             const selectedUrgency = urgencyFilter.value;
-            const visibleRequests = selectedUrgency === "all"
-                ? requests
-                : requests.filter(request => request.urgency === selectedUrgency);
+            const search = requestSearch.value.trim().toLowerCase();
+            const visibleRequests = requests.filter(request => {
+                const matchesUrgency = selectedUrgency === "all" || request.urgency === selectedUrgency;
+                const searchable = `${request.blood_group || ""} ${request.hospital_name || ""} ${request.location || ""}`.toLowerCase();
+                return matchesUrgency && searchable.includes(search);
+            });
 
             requestGrid.innerHTML = "";
 
@@ -396,8 +404,35 @@
                 const bottom = document.createElement("div");
                 bottom.className = "request-bottom";
                 bottom.innerHTML = `<span class="date">Contact: ${request.contact || "Not specified"}</span><button class="respond-button" type="button">Respond</button>`;
-                bottom.querySelector(".respond-button").addEventListener("click", () => {
-                    alert(`Contact ${request.hospital_name || "the hospital"} at ${request.contact || "the listed contact"}.`);
+                bottom.querySelector(".respond-button").addEventListener("click", async event => {
+                    const button = event.currentTarget;
+                    button.disabled = true;
+                    button.textContent = "Saving…";
+                    try {
+                        const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+                        if (authError || !user) {
+                            alert("Please log in as a donor to respond to this request.");
+                            window.location.href = "../Login/login.html";
+                            return;
+                        }
+                        if (user.user_metadata?.account_type !== "donor") {
+                            throw new Error("Only donor accounts can respond to blood requests.");
+                        }
+                        const { error } = await supabaseClient.from("blood_request_responses").upsert({
+                            request_id: request.id,
+                            donor_id: user.id,
+                            response: "interested",
+                            updated_at: new Date().toISOString()
+                        }, { onConflict: "request_id,donor_id" });
+                        if (error) throw error;
+                        button.textContent = "Response sent";
+                        alert("Your response was sent to the hospital.");
+                    } catch (error) {
+                        console.error("Unable to respond to request:", error);
+                        button.disabled = false;
+                        button.textContent = "Respond";
+                        alert(error.message || "Unable to send your response.");
+                    }
                 });
 
                 card.append(top, title, hospital, location, details, bottom);
@@ -427,6 +462,7 @@
         }
 
         urgencyFilter.addEventListener("change", renderRequests);
+        requestSearch.addEventListener("input", renderRequests);
         loadRequests();
     </script>
 </body>

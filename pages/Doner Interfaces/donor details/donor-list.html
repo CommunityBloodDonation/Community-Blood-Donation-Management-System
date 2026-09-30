@@ -84,6 +84,13 @@
 
         </div>
 
+        <section class="directory-preferences" aria-label="Donor directory preferences">
+            <label><input type="checkbox" id="availableToggle"> Show my donor profile as available</label>
+            <label><input type="checkbox" id="consentToggle"> I consent to my name, blood group, and city appearing publicly</label>
+            <button type="button" id="savePreferences">Save preferences</button>
+            <span id="preferenceMessage" role="status"></span>
+        </section>
+
 
         <!-- SEARCH + FILTER -->
 
@@ -120,7 +127,6 @@
 
                 <option value="">All Status</option>
                 <option value="Available">Available</option>
-                <option value="Unavailable">Unavailable</option>
 
             </select>
 
@@ -213,8 +219,8 @@
         </div>
 
 
-        <button class="contact-btn">
-            Contact Donor
+        <button class="contact-btn" id="viewRequestsBtn" type="button">
+            View Open Requests
         </button>
 
     </div>
@@ -252,6 +258,7 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="donor-list.js"></script>
 
 </body>

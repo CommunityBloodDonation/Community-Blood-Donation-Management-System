@@ -22,7 +22,7 @@ const state = {
 
 const labels = {
     donors: "Donors",
-    staff: "Hospital Staff",
+    staff: "Hospitals",
     requests: "Blood Requests",
     completed: "Completed Requests",
     history: "Donation History"

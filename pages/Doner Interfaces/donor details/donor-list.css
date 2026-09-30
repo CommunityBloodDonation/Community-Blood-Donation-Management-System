@@ -661,3 +661,36 @@ a {
     }
 
 }
+.directory-preferences {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    margin: 18px 0;
+    padding: 16px;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.directory-preferences label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #374151;
+    font-size: 14px;
+}
+
+.directory-preferences button {
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    background: #c62828;
+    cursor: pointer;
+}
+
+.directory-preferences [role="status"] {
+    flex-basis: 100%;
+    color: #374151;
+}

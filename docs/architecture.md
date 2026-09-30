@@ -29,7 +29,7 @@ The public layer contains the home page, public blood-request view, login/regist
 
 ### Donor layer
 
-The donor layer contains the dashboard, profile fragments, donation recording modal, donation history, emergency request preview, and donor directory prototype.
+The donor layer contains the dashboard, profile fragments, donation recording modal, donation history, emergency request preview, and a consent-based live donor directory.
 
 ### Hospital layer
 
@@ -74,6 +74,15 @@ erDiagram
         timestamptz created_at
     }
 
+    BLOOD_REQUEST_RESPONSES {
+        uuid id PK
+        uuid request_id FK
+        uuid donor_id FK
+        text response
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
     DONATION_HISTORY {
         uuid id PK
         uuid donor_id FK
@@ -92,12 +101,12 @@ The repository SQL defines `blood_requests`, `completed_blood_requests`, `donati
 stateDiagram-v2
     [*] --> open: Hospital creates request
     open --> fulfilled: Hospital completes request
-    open --> cancelled: Request is cancelled
+    open --> cancelled: Hospital cancels request
     open --> [*]: Hospital deletes request
     fulfilled --> [*]: Archived in completed_blood_requests
 ```
 
-The current frontend explicitly implements creation, open-list loading, deletion, and completion/archive behavior. The SQL permits the statuses `open`, `fulfilled`, and `cancelled`; a complete cancellation UI is a future enhancement.
+The current frontend implements creation, open-list loading, editing, cancellation, deletion, and completion/archive behavior.
 
 ## 6. Security Boundaries
 
@@ -133,9 +142,9 @@ The application has no build step or server-side application in the repository. 
 ## 9. Current Architecture Risks
 
 - Supabase client configuration is repeated in multiple pages.
-- The donor directory is currently hardcoded demo data.
-- Password recovery is a UI-only prototype.
-- Hospital profile persistence is not as fully synchronized as donor profile persistence.
+- Apply the updated SQL before using donor availability, directory consent, or request response workflows.
+- Configure Supabase's allowed redirect URL and email template before using password recovery.
+- The architecture has no notification service, background job, or server-side application layer.
 - Some dynamic template rendering should receive a consistent escaping review.
 - The architecture has no notification service, background job, or server-side application layer.
 
@@ -144,5 +153,5 @@ The application has no build step or server-side application in the repository. 
 1. Centralize shared Supabase client and authentication utilities.
 2. Add a small backend or Supabase Edge Functions for notifications and privileged workflows.
 3. Replace localStorage profile state with authenticated database reads on protected pages.
-4. Add request-response tables for donor matching.
+4. Extend request-response tracking with in-app or delivered notifications.
 5. Add automated browser tests around role isolation and request lifecycle.
