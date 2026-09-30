@@ -819,3 +819,268 @@ footer p{
         gap:8px;
     }
 }
+
+/* Responsive layout for the complete home page */
+header {
+    position: sticky;
+    left: auto;
+    width: 100%;
+}
+
+.up_hero,
+.about_us,
+.section.light {
+    width: 100%;
+}
+
+.Save_Lives_content,
+.about_us_content {
+    min-width: 0;
+}
+
+.left_card,
+.right_card,
+.about_us_card,
+.feature-card,
+.request {
+    min-width: 0;
+}
+
+.left_card h1 {
+    font-size: clamp(2.25rem, 5vw, 4.0625rem);
+}
+
+.buttons {
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about,
+.cards {
+    min-width: 0;
+}
+
+@media (max-width: 1100px) {
+    .Save_Lives_content,
+    .about_us_content {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 28px;
+    }
+
+    .left_card,
+    .right_card,
+    .about_us_card {
+        padding: 32px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 32px;
+    }
+
+    .about-box {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+    }
+}
+
+@media (max-width: 760px) {
+    header {
+        flex-direction: row;
+        padding: 10px 18px;
+        gap: 12px;
+    }
+
+    .logo img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        max-height: 46px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 8px 14px;
+    }
+
+    nav ul li:nth-last-child(2) a {
+        width: auto;
+        height: auto;
+        line-height: 1.4;
+        padding: 7px 12px;
+    }
+
+    nav ul li:last-child a {
+        display: inline-block;
+        padding: 8px 12px;
+    }
+
+    .up_hero {
+        padding: 40px 20px 56px;
+    }
+
+    .Save_Lives_content,
+    .about_us_content,
+    .about {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+    }
+
+    .left_card,
+    .right_card,
+    .about_us_card {
+        padding: 26px;
+    }
+
+    .left_card h1 {
+        font-size: clamp(2.25rem, 10vw, 3.5rem);
+    }
+
+    .hero-art {
+        height: clamp(220px, 55vw, 320px);
+    }
+
+    .art-circle {
+        width: min(72vw, 280px);
+        height: min(72vw, 280px);
+    }
+
+    .blood-drop {
+        font-size: clamp(5rem, 22vw, 8rem);
+    }
+
+    .art-card {
+        right: 0;
+        bottom: 0;
+    }
+
+    .about_us {
+        padding: 52px 20px;
+    }
+
+    .section.light {
+        padding: 48px 20px;
+    }
+
+    .about-box {
+        padding: 36px 28px;
+        font-size: 2rem;
+    }
+
+    .stats {
+        padding: 48px 20px;
+    }
+
+    .stats-card {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px 0;
+        padding: 28px 12px;
+    }
+
+    .stat-item {
+        padding: 0 12px;
+    }
+
+    .stat-item:nth-child(odd) {
+        border-left: 0;
+    }
+
+    .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+        padding: 9px 14px;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    nav ul {
+        justify-content: flex-start;
+        gap: 8px 12px;
+    }
+
+    .up_hero {
+        padding: 28px 14px 40px;
+    }
+
+    .left_card,
+    .right_card,
+    .about_us_card {
+        padding: 22px 18px;
+        border-radius: 14px;
+    }
+
+    .left_card label {
+        font-size: 0.72rem;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .buttons .btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .feature-grid,
+    .cards {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .section.light {
+        padding: 40px 14px;
+    }
+
+    .section h2,
+    .center h2,
+    .about h2 {
+        font-size: clamp(1.5rem, 7vw, 2rem);
+    }
+
+    .stats-card {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stat-item,
+    .stat-item:nth-child(odd) {
+        border-left: 0;
+    }
+
+    .request-info {
+        gap: 12px;
+    }
+
+    .request-info > b {
+        font-size: 1.5rem;
+    }
+
+    .contact-details {
+        align-items: center;
+    }
+
+    footer,
+    .footer {
+        padding: 32px 16px 20px;
+    }
+}
