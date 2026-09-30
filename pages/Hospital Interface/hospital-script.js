@@ -1273,7 +1273,7 @@ if (logoutBtn) {
 
                     localStorage.removeItem("hospitalData");
                     window.location.href =
-                        "../Public Interfaces/Home/Home.html";
+                        "../Public Interfaces/Home/index.html";
                 } catch (error) {
                     console.error("Hospital logout failed:", error);
                     logoutBtn.disabled = false;

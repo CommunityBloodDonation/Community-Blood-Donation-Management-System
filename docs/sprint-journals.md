@@ -17,7 +17,7 @@ Define the problem, target users, navigation, and initial visual language for a 
 
 ### Evidence in repository
 
-- `pages/Public Interfaces/Home/Home.html`
+- `pages/Public Interfaces/Home/index.html`
 - `pages/Public Interfaces/Home/home.css`
 - `pages/Public Interfaces/Login/login.html`
 - Role-specific page folders under `pages/`

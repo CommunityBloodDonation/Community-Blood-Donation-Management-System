@@ -326,7 +326,7 @@ document.getElementById("logoutBtn")
             if (confirm("Do you want to logout?")) {
 
                 window.location.href =
-                    "../../Public Interfaces/Home/Home.html";
+                    "../../Public Interfaces/Home/index.html";
 
             }
 

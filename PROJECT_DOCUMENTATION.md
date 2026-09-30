@@ -112,7 +112,7 @@ There is no separate patient account workflow in the current implementation. Pat
 
 ### 5.1 Public Home Page
 
-File: `pages/Public Interfaces/Home/Home.html`
+File: `pages/Public Interfaces/Home/index.html`
 
 The home page introduces the Community Blood Donation Network and contains:
 
@@ -526,7 +526,7 @@ pages/
     hospital-update-profile.html
   Public Interfaces/
     Home/
-      Home.html
+      index.html
       home.css
       home.js
     Login/
@@ -574,7 +574,7 @@ WHERE email = 'admin@example.com';
 
 1. Open the repository in VS Code.
 2. Start Live Server from the repository root or an appropriate page folder.
-3. Open `pages/Public Interfaces/Home/Home.html` or `pages/Public Interfaces/Login/login.html` through the server URL.
+3. Open `pages/Public Interfaces/Home/index.html` or `pages/Public Interfaces/Login/login.html` through the server URL.
 4. Register a donor and hospital test account.
 5. Verify that the corresponding profile rows are created.
 6. Log in to each role and test its workflow.
