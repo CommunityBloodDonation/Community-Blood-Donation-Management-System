@@ -2,6 +2,8 @@
 
 This journal records the project progression represented by the current repository. It is written as an implementation record based on the completed pages and database work, with unresolved work kept visible for the next sprint.
 
+The journal is the record of sprint goals, team work, outcomes, evidence, and follow-ups. It complements the ordered story index in `product-backlog.md`; individual contribution summaries belong in each student's root-level `portfolio-<student-id>.md` file.
+
 ## Sprint 1: Product Foundation
 
 ### Goal
@@ -143,7 +145,7 @@ Capture the implemented system accurately and prepare a repeatable demonstration
 
 ### Work completed
 
-- Added `PROJECT_DOCUMENTATION.md` with the complete system overview.
+- Added the required repository documents and role-based individual portfolios.
 - Added a product backlog with implemented, pending, and future items.
 - Added a definition of done for stories, database work, UI work, sprints, and release.
 - Added this architecture note covering frontend layers, data flow, security, and deployment.

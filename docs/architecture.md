@@ -1,4 +1,6 @@
-# System Architecture
+﻿# System Architecture
+
+This document describes the implemented system structure and its security boundaries. Mermaid is used for the system and data-flow diagrams so the diagrams remain editable alongside the source.
 
 ## 1. Architectural Style
 
@@ -139,19 +141,39 @@ Cached values improve dashboard rendering between page loads but are not trusted
 
 The application has no build step or server-side application in the repository. It should be served using VS Code Live Server or another static HTTP server. This is required for dynamic HTML fragments loaded with `fetch` and avoids browser restrictions that occur when pages are opened directly from the filesystem.
 
-## 9. Current Architecture Risks
+## 9. Repository Placement
+
+```text
+README.md
+supabase-blood-requests.sql
+docs/
+  product-backlog.md
+  definition-of-done.md
+  architecture.md
+  sprint-journals.md
+portfolio-6880.md         Software Developer
+portfolio-6882.md         Project Owner
+portfolio-6883.md         Scrum Master
+portfolio-6945.md         UI/UX Designer
+pages/                 Application HTML, CSS, and JavaScript by interface
+Assets/                Shared images
+```
+
+The source code lives under `pages/`; the assignment allows application code to follow the team's chosen organization. The four individual portfolios are kept in the repository root. `README.md` is the entry point for setup and navigation to the four required documents in `docs/`.
+
+## 10. Current Architecture Risks
 
 - Supabase client configuration is repeated in multiple pages.
 - Apply the updated SQL before using donor availability, directory consent, or request response workflows.
 - Configure Supabase's allowed redirect URL and email template before using password recovery.
-- The architecture has no notification service, background job, or server-side application layer.
 - Some dynamic template rendering should receive a consistent escaping review.
 - The architecture has no notification service, background job, or server-side application layer.
 
-## 10. Recommended Evolution
+## 11. Recommended Evolution
 
 1. Centralize shared Supabase client and authentication utilities.
 2. Add a small backend or Supabase Edge Functions for notifications and privileged workflows.
 3. Replace localStorage profile state with authenticated database reads on protected pages.
 4. Extend request-response tracking with in-app or delivered notifications.
 5. Add automated browser tests around role isolation and request lifecycle.
+

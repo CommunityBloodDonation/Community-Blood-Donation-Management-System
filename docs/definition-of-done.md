@@ -2,6 +2,8 @@
 
 This document defines when a feature, user story, sprint increment, and release can be considered complete for the Community Blood Donation Management System.
 
+Use this as the team's shared completion checklist. A backlog item moves to Done only when its applicable criteria below are satisfied and its status/evidence are reflected in the backlog and sprint journal.
+
 ## User Story Done
 
 A user story is done when:
@@ -95,4 +97,6 @@ An academic release is done when:
 - The main donor, hospital, public, and administrator demonstrations are repeatable.
 - Known limitations are listed honestly.
 - The final repository contains no accidental secrets, debug credentials, or unrelated generated files.
-- The project note, architecture note, backlog, definition of done, and sprint journals are present under `docs/`.
+- `docs/product-backlog.md`, `docs/definition-of-done.md`, `docs/architecture.md`, and `docs/sprint-journals.md` are present and current.
+- `README.md` explains setup, deployment, and where the deliverables live.
+- One individual portfolio per team member is present in the repository root, identifies the assigned project role, and links contributions to repository evidence.
