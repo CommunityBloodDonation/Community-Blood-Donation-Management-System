@@ -157,12 +157,18 @@ The project now has a documentation set that distinguishes completed functionali
 
 ### Release checks
 
-- Configure Supabase and run the complete SQL file.
-- Create donor and hospital test users.
-- Create an administrator Auth user and add it to `admin_profiles`.
-- Run the pages through Live Server.
-- Demonstrate registration, login, request creation, donation recording, request completion, and admin search/deletion.
-- Record any environment-specific errors before final submission.
+The team reports that the configured Supabase environment and the core workflows below have been verified and are working (reported 2026-10-14):
+
+- Donor and hospital registration and login.
+- Hospital blood-request creation and completion.
+- Donor donation recording.
+- Administrator workflow.
+
+The application is intended to be served through Live Server or another HTTP server. For a lecturer demonstration, open the public home page and use prepared donor, hospital, and administrator accounts. Do not display passwords or privileged credentials. The workflows above are recorded from the team's confirmation; this repository review did not independently exercise the live Supabase environment.
+
+The backlog contains planned estimates, not measured sprint velocity. Actual sprint dates, completed issue links, review/retrospective notes, burndown data, and formal UAT feedback are not recorded in this repository. If the lecturer requires process evidence, add the team's real GitHub issue/project links and actual meeting or test records before submission; do not infer them from the planned backlog.
+
+Before the demonstration, confirm the presentation machine can reach the configured Supabase project and that the required tables and administrator profile are present. Record any environment-specific issues if they arise.
 
 ## Next Sprint Candidate
 
@@ -182,8 +188,14 @@ Complete the highest-value unfinished workflow: live donor discovery and request
 
 ## Open Risks
 
-- Supabase table setup outside the supplied SQL file must exist for profiles and authentication to work.
-- Password recovery screens are not connected to Supabase Auth.
+- The Supabase project must retain the required `donor_profiles` and `staff_profiles` tables, which are not created by the supplied SQL file.
+- Password recovery screens are not connected to Supabase Auth; do not present password recovery as a working feature.
 - The eligibility calculation is a simplified software estimate, not a medical decision.
-- The donor directory and contact action are not live integrations.
+- The donor directory and contact action are not live integrations; do not promise live matching or contact delivery.
 - Frontend pages depend on correct relative paths and an HTTP development server.
+
+## Ceremony and analytics evidence required by the assignment
+
+The sprint summaries above describe repository work; they are not a dated ceremony log. This repository does not currently contain the required dated Sprint Planning notes, at least three standup summaries per week, sprint review feedback from the client team, retrospective findings, GitHub Projects board URL/history, or sprint-close burndown snapshots. Add the team's actual records and board evidence here before submission. Do not reconstruct meeting notes or velocity from planned story points.
+
+The documented UAT and workflow confirmation is the team's report dated 2026-10-14; there is no detailed client-team UAT scenario/result log or Milestone 1/2 feedback record in this repository yet.

@@ -2,6 +2,8 @@
 
 A web application that connects blood donors, hospitals, blood banks, and people who need blood. It supports donor and hospital accounts, donation history, blood requests, an opt-in donor directory, and administrator tools.
 
+For the SE32022 client/boutique crossover, this is Team 7's implementation of Team 6's Community Blood Donation app product idea.
+
 ## Technology stack
 
 - **Frontend:** HTML, CSS, and JavaScript
@@ -33,6 +35,18 @@ WHERE email = 'admin@example.com';
 
 Open `pages/Admin Interface/admin-dashboard.html` through Live Server. Run the SQL file first so the administrator policies and `admin_delete_user` function are available.
 
+## Lecturer demonstration
+
+The team reports that donor and hospital registration/login, hospital request creation and completion, donor donation recording, and the administrator workflow have been verified against the configured Supabase project (2026-10-14). Use prepared test accounts and serve the site over HTTP; do not display account passwords or privileged credentials. The team should confirm the presentation machine can reach the configured Supabase project before the demonstration.
+
+**Live deployment:** Add the publicly accessible deployment URL here before final handover. The repository currently provides local run instructions as a fallback; it does not record a live deployment URL.
+
+### Client handover
+
+The handover covers the public request pages, donor registration/profile and donation history, hospital request management, and administrator tools. The recipient should receive the deployment URL, setup notes, and a secure way to obtain their own account access. Do not place passwords, service-role keys, or other secrets in this repository. Known limitations are listed below and in [Sprint Journals](docs/sprint-journals.md).
+
+Known limitations to disclose if asked: password recovery is not connected to Supabase Auth, the donor directory/contact action is not a live integration, and eligibility information is a simplified estimate rather than medical advice. See [Sprint Journals](docs/sprint-journals.md) for release notes and [System Architecture](docs/architecture.md) for the system boundaries.
+
 ## Repository structure
 
 ```text
@@ -52,25 +66,39 @@ your-repo/
   README.md                      Setup, deployment, and usage guide
 ```
 
-The guide allows teams to organize application code according to their technology stack; this repository uses `pages/`. Keep the four required shared documents in `docs/` and one individual portfolio per student in the repository root. The architecture diagrams use Mermaid.
+Application code is organized by user role under `pages/`. The four shared project documents are in `docs/`, and each team member's portfolio is in the repository root. Architecture diagrams use Mermaid.
 
 ## Project documents
+
+- [GitHub repository](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System)
+- [GitHub issues](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues)
 
 - [Product backlog](docs/product-backlog.md)
 - [Definition of Done](docs/definition-of-done.md)
 - [System architecture](docs/architecture.md)
 - [Sprint journals](docs/sprint-journals.md)
-- [6880 â€” Software Developer portfolio](portfolio-6880.md)
+- [6880 — Software Developer portfolio](portfolio-6880.md)
 - [6882 Project Owner portfolio](portfolio-6882.md)
 - [6883 Scrum Master portfolio](portfolio-6883.md)
-- [6945 â€” UI/UX Designer portfolio](portfolio-6945.md)
+- [6945 — UI/UX Developer portfolio](portfolio-6945.md)
+
+## Final assessment evidence checklist
+
+The code and documentation are in this repository, but these course evidence items must also be completed in GitHub or supplied from actual team records:
+
+- Replace the issue-link notices in the [product backlog](docs/product-backlog.md) with the matching GitHub Issue URLs; put each story's Given-When-Then criteria in its issue.
+- Add the GitHub Projects board URL and confirm it has the required workflow columns, linked Issues, current status, and lecturer read-only access.
+- Add dated planning, standup, review, and retrospective records plus actual sprint velocity and burndown snapshots to the [sprint journal](docs/sprint-journals.md).
+- Record actual client UAT outcomes and feedback; do not treat the team's workflow confirmation as a substitute for client feedback.
+- Add each student's direct authored PR or commit links across the sprints and complete the personal Agile reflection in each portfolio.
+- Add the live deployment URL above.
 
 ## Team
 
-- 6880 RMTV KARUNARATHNA â€” Software Developer
-- 6882 SADPR SURAWEERA — Project Owner
-- 6883 AD RANAWAKA — Scrum Master
-- 6945 SPOV KARUNARATHILAKA â€” UI/UX Designer
+- 6880 RMTV KARUNARATHNA - Software Developer
+- 6882 SADPR SURAWEERA - Project Owner
+- 6883 AD RANAWAKA - Scrum Master
+- 6945 SPOV KARUNARATHILAKA - UI/UX Developer
 
 This is a group project for the RAD/Scrum assignment. Individual responsibilities and project evidence are documented in each student's portfolio.
 

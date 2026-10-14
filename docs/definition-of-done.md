@@ -88,6 +88,14 @@ A sprint increment is done when:
 - Documentation, backlog status, and sprint journal entries are updated.
 - Changes are reviewed by at least one other team member when possible.
 
+## Git Workflow Done
+
+- Each story or task is implemented on its own feature branch.
+- Changes are submitted to `main` through a pull request; work is not pushed directly to `main`.
+- Each pull request describes the change and links the GitHub Issue it completes.
+- Commits have clear messages and are attributable to the contributing student.
+- The pull request is reviewed and merged before the linked issue is closed and the board item is marked Done.
+
 ## Release Done
 
 An academic release is done when:

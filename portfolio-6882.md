@@ -16,10 +16,10 @@ As Project Owner, my focus was the product direction: defining the users the sys
 | Responsibility | Contribution reflected in the project | Evidence |
 |---|---|---|
 | Product vision | Framed the platform around coordinating blood requests, donor discovery, donation history, and administrative oversight. | [Product backlog](docs/product-backlog.md), [README](README.md) |
-| Scope and user needs | Organized the scope into user profiles, organization accounts, requests, donor search and responses, administration, reporting, and quality requirements. Documented exclusions such as medical diagnosis and replacing professional medical judgment. | [Product backlog — scope and roles](docs/product-backlog.md#scope) |
-| Backlog refinement | Maintained a structured set of 38 proposed stories with priorities, acceptance criteria, dependencies, and a five-sprint planning sequence. The sprint assignments are recorded as a proposed baseline, not proof of delivery. | [Product backlog — story index](docs/product-backlog.md#product-backlog-index) |
-| Acceptance and release clarity | Documented readiness and completion criteria, including validation, authorization, testing, review, documentation, and evidence expectations. | [Definition of Done](docs/definition-of-done.md), [Product backlog — DoR and DoD](docs/product-backlog.md#definition-of-ready) |
-| Product risk visibility | Kept policy and integration decisions visible, including eligibility rules, requester permissions, donor privacy, notification delivery, and Supabase/RLS verification. | [Product backlog — risks](docs/product-backlog.md#risks-and-decisions-to-confirm), [Sprint journals](docs/sprint-journals.md) |
+| Scope and user needs | Organized the scope into user profiles, organization accounts, requests, donor search and responses, administration, reporting, and quality requirements. Documented exclusions such as medical diagnosis and replacing professional medical judgment. | [Product boundaries and risks](docs/product-backlog.md#product-boundaries-and-risks) |
+| Backlog refinement | Maintained a structured index of 30 planned backlog items with priorities and a five-sprint sequence. The sprint assignments are planned estimates, not proof of delivery. | [Product backlog — story index](docs/product-backlog.md#ordered-story-index) |
+| Acceptance and release clarity | Documented readiness and completion criteria, including validation, authorization, testing, review, documentation, and evidence expectations. | [Definition of Done](docs/definition-of-done.md) |
+| Product risk visibility | Kept policy and integration decisions visible, including eligibility rules, donor privacy, notification delivery, and Supabase/RLS verification. | [Product backlog — risks](docs/product-backlog.md#product-boundaries-and-risks), [Sprint journals](docs/sprint-journals.md) |
 
 ## Product Decisions and Priorities
 
@@ -29,7 +29,14 @@ The backlog separates in-scope capabilities from out-of-scope medical decisions 
 
 ## Project Evidence and Outcome
 
-The repository contains a 38-story product baseline, five proposed sprint groupings, acceptance criteria, a Definition of Ready and Definition of Done, and sprint journals describing implementation increments and outstanding verification. The codebase and SQL provide implementation evidence for features; the backlog itself is a planning record and does not certify every story as complete. The project documentation identifies Supabase setup, role/RLS checks, and some integrations as environment-dependent follow-up.
+The repository contains a 30-story product baseline, five proposed sprint groupings, acceptance criteria, a Definition of Ready and Definition of Done, and sprint journals describing implementation increments and outstanding verification. The codebase and SQL provide implementation evidence for features; the backlog itself is a planning record and does not certify every story as complete. The project documentation identifies role/RLS checks and some integrations as follow-up work.
+
+### Commit history
+
+These are file-history pages, not direct links to a specific authored pull request or commit. Add direct links to significant commits or pull requests for each sprint, and ensure the linked work is authored by your GitHub account.
+
+- [Product backlog history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/docs/product-backlog.md)
+- [Definition of Done history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/docs/definition-of-done.md)
 
 ## Skills Developed
 
@@ -42,6 +49,8 @@ The product spans several user groups with different permissions, and some expec
 ## Reflection and Future Improvements
 
 This project strengthened my understanding of how product ownership connects user needs to a deliverable scope and measurable acceptance criteria. If the product continues, I would validate the most important workflows with donor and hospital representatives, confirm unresolved policy decisions early, and ensure each accepted story links to test results and demonstration evidence. I would also use actual team capacity and feedback to revise the proposed sprint sequence rather than treating the initial plan as fixed.
+
+For the assessed Agile reflection, add a specific bottleneck you personally faced, how you adapted to help the team self-organize, and an engineering practice you actually used (such as pair programming, code review, or TDD) with why you chose it. The repository does not establish those personal details, so they must come from your own experience.
 
 ## Project References
 

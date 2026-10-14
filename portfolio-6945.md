@@ -1,7 +1,7 @@
 # Individual Portfolio: SPOV KARUNATHILAKA
 
 **Student ID:** 6945  
-**Project role:** UI/UX Designer  
+**Project role:** UI/UX Developer  
 **Project:** Community Blood Donation Management System
 
 ## Project overview
@@ -10,13 +10,13 @@ The Community Blood Donation Management System is a web application intended to 
 
 ## Role and contribution
 
-As UI/UX Designer, I focused on presenting the blood donation workflows clearly and consistently across public pages and role-based interfaces, with attention to navigation, readable information, and useful feedback states.
+As UI/UX Developer, I focused on presenting the blood donation workflows clearly and consistently across public pages and role-based interfaces, with attention to navigation, readable information, and useful feedback states.
 
 | Area | Contribution | Project evidence |
 |---|---|---|
-| User journeys and interface structure | Considered the needs of public visitors, donors, hospital staff, and administrators when organizing page content and navigation. | [README](README.md), and the interface folders under `pages/`. |
-| Visual interface design | Contributed to interface patterns such as page layouts, forms, cards, dashboards, badges, and calls to action across the application. | `pages/Public Interfaces/Home/`; `pages/Public Interfaces/Login/`; role-specific folders under `pages/`. |
-| Usability and feedback | Accounted for loading, empty, success, and error feedback in data-driven screens and identified responsive layout review as part of completion. | [Definition of Done](definition-of-done.md); [Product Backlog](product-backlog.md). |
+| User journeys and interface structure | Organized public entry points and role-based screens for visitors, donors, hospital staff, and administrators. | [`Home/index.html`](pages/Public%20Interfaces/Home/index.html), [`login.html`](pages/Public%20Interfaces/Login/login.html), and the role-specific page folders under [`pages`](pages/). |
+| Visual interface | Designed interface patterns across the public home and sign-in screens, with role-specific dashboard and form screens as implementation evidence. | [`home.css`](pages/Public%20Interfaces/Home/home.css), [`login.html`](pages/Public%20Interfaces/Login/login.html), [`donor style.css`](pages/Doner%20Interfaces/donor/style.css), [`hospital-style.css`](pages/Hospital%20Interface/hospital-style.css), [`admin.css`](pages/Admin%20Interface/admin.css). |
+| Usability and feedback | Defined completion expectations for page navigation, field labels, status feedback, responsive layouts, and accessible image text. | [Definition of Done](docs/definition-of-done.md#frontend-done), [Product Backlog](docs/product-backlog.md#7-sprint-4----feature-completion--ux-polish). |
 
 ## Skills developed
 
@@ -28,7 +28,17 @@ The same platform needs to serve visitors and authenticated roles without overwh
 
 ## Reflection and next steps
 
-This role developed my ability to connect visual choices to user tasks. I would continue by testing key screens with representative users at desktop and mobile sizes and refining the layouts from their feedback.
+This role developed my ability to connect visual choices to user tasks. A useful next step is to record desktop and mobile review findings from representative users and link those findings to the screens updated.
+
+For the assessed Agile reflection, add a specific bottleneck you personally faced, how you adapted to help the team self-organize, and an engineering practice you actually used (such as pair programming, code review, or TDD) with why you chose it. The repository does not establish those personal details, so they must come from your own experience.
+
+### Commit history
+
+These are file-history pages, not direct links to a specific authored pull request or commit. Add direct links to significant commits or pull requests for each sprint, and ensure the linked work is authored by your GitHub account.
+
+- [Public home interface history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/pages/Public%20Interfaces/Home/home.css)
+- [Sign-in interface history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/pages/Public%20Interfaces/Login/login.html)
+- [Donor interface style history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/pages/Doner%20Interfaces/donor/style.css)
 
 ## Project references
 

@@ -14,9 +14,9 @@ As Scrum Master, I supported the team’s Scrum process by helping keep work org
 
 | Area | Contribution | Project evidence |
 |---|---|---|
-| Sprint planning and focus | Helped organize work into product foundation, authentication, donor and hospital workflows, database security, and release-readiness increments. | [Sprint Journals](docs/sprint-journals.md). |
-| Backlog visibility | Maintained visibility of prioritized stories, acceptance criteria, and outstanding verification. | [Product Backlog](docs/product-backlog.md). |
-| Continuous improvement | Recorded follow-up items and open risks, including Supabase setup, role/RLS verification, notifications, and testing. | [Sprint Journals](docs/sprint-journals.md); [Definition of Done](docs/definition-of-done.md). |
+| Sprint goals and outcomes | Organized the documented work into five increments covering the product foundation, authentication, role workflows, database administration, and release preparation. | [Sprint Journals](docs/sprint-journals.md#sprint-1-product-foundation), [Product Backlog](docs/product-backlog.md#9-sprint-summary). |
+| Backlog and completion process | Maintained the proposed 30-item backlog structure, acceptance criteria, and shared completion checklist. | [Product Backlog](docs/product-backlog.md), [Definition of Done](docs/definition-of-done.md). |
+| Risks and follow-up | Recorded the remaining verification work and product limitations so they remain visible for handover. | [Sprint Journals: open risks](docs/sprint-journals.md#open-risks). |
 
 ## Skills developed
 
@@ -28,7 +28,16 @@ Implementation status depended partly on configuration in the team’s Supabase 
 
 ## Reflection and next steps
 
-This role strengthened my ability to make team progress and blockers visible. In future work, I would make review and verification tasks explicit and record outcomes with evidence links.
+This role strengthened my ability to make team progress and follow-up work visible. The journal records planned sprint increments and current follow-up items; it does not claim actual velocity or provide GitHub issue history. In future work, I would connect each sprint outcome to issue and review records as the work happens.
+
+For the assessed Agile reflection, add a specific bottleneck you personally faced, how you adapted to help the team self-organize, and an engineering practice you actually used (such as pair programming, code review, or TDD) with why you chose it. The repository does not establish those personal details, so they must come from your own experience.
+
+### Commit history
+
+These are file-history pages, not direct links to a specific authored pull request or commit. Add direct links to significant commits or pull requests for each sprint, and ensure the linked work is authored by your GitHub account.
+
+- [Sprint journal history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/docs/sprint-journals.md)
+- [Backlog history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/docs/product-backlog.md)
 
 ## Project references
 

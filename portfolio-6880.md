@@ -14,9 +14,17 @@ I contributed to implementing the Community Blood Donation Management System as 
 
 | Area | Contribution | Project evidence |
 |---|---|---|
-| Frontend implementation | Developed and integrated HTML, CSS, and JavaScript page behavior for the donor, hospital, public, or administrator workflows assigned during the project. | `pages/` role interfaces; system structure in [System Architecture](docs/architecture.md). |
-| Supabase integration | Worked with Supabase Auth and PostgreSQL-backed operations used for profiles, blood requests, donation history, and administrator functions. | [Database SQL](supabase-blood-requests.sql); [System Architecture](docs/architecture.md). |
-| Implementation support | Used the product backlog and Definition of Done to connect feature work to acceptance criteria and documented project behavior. | [Product Backlog](docs/product-backlog.md); [Definition of Done](docs/definition-of-done.md). |
+| Donor workflows | Implemented donor profile loading and updates, donation recording, request display, and donation history behavior. | [`script.js`](pages/Doner%20Interfaces/donor/script.js), [`donation-history.html`](pages/Doner%20Interfaces/donor/donation-history.html), [`donor-dashboard.html`](pages/Doner%20Interfaces/donor/donor-dashboard.html). |
+| Hospital workflows | Implemented request creation and dashboard request lifecycle behavior. | [`hospital-script.js`](pages/Hospital%20Interface/hospital-script.js), [`create-blood-request.html`](pages/Hospital%20Interface/create-blood-request.html), [`hospital-dashboard.html`](pages/Hospital%20Interface/hospital-dashboard.html). |
+| Database and access support | Contributed to the documented Supabase schema, request, donation-history, and administrator database operations. | [`supabase-blood-requests.sql`](supabase-blood-requests.sql), [System Architecture](docs/architecture.md). |
+
+### Commit history
+
+These are file-history pages, not direct links to a specific authored pull request or commit. Add direct links to significant commits or pull requests for each sprint, and ensure the linked work is authored by your GitHub account.
+
+- [Donor script history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/pages/Doner%20Interfaces/donor/script.js)
+- [Hospital workflow history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/pages/Hospital%20Interface/hospital-script.js)
+- [Database SQL history](https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/commits/main/supabase-blood-requests.sql)
 
 ## Skills developed
 
@@ -29,6 +37,8 @@ The application spans several user roles and data permissions. I approached this
 ## Reflection and next steps
 
 This project strengthened my experience connecting frontend interactions to a hosted backend. I would continue by consolidating shared Supabase setup and adding repeatable checks for role access and request lifecycle behavior.
+
+For the assessed Agile reflection, add a specific bottleneck you personally faced, how you adapted to help the team self-organize, and an engineering practice you actually used (such as pair programming, code review, or TDD) with why you chose it. The repository does not establish those personal details, so they must come from your own experience.
 
 ## Project references
 
