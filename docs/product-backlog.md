@@ -1,4 +1,4 @@
-﻿# Product Backlog
+# Product Backlog
 
 ## Product goal
 
@@ -12,36 +12,36 @@ This file is the ordered index of planned epics and user stories. The GitHub Pro
 
 | ID | Epic | User story / backlog item | Priority | GitHub Issue |
 |---|---|---|---|---|
-| T1 | Authentication | Project & GitHub Setup | High | **Issue URL needed** |
-| T2 | UI/UX | Existing System Analysis & Requirements | High | **Issue URL needed** |
-| T3 | Public | Product Backlog Development | High | **Issue URL needed** |
-| T4 | Public | User Stories & Acceptance Criteria | Medium | **Issue URL needed** |
-| T5 | UI/UX | Scrum Documentation Setup | Medium | **Issue URL needed** |
-| T6 | Security | System Architecture & Database Documentation | High | **Issue URL needed** |
-| T7 | Authentication | Authentication & Role Management | High | **Issue URL needed** |
-| T8 | Donor | Donor Registration & Profile | High | **Issue URL needed** |
-| T9 | Donor | Donor Eligibility & Donation History | High | **Issue URL needed** |
-| T10 | Hospital | Hospital Registration & Profile | High | **Issue URL needed** |
-| T11 | Blood Requests | Blood Request Management | Urgent | **Issue URL needed** |
-| T12 | Public | Public Blood Request Search | Medium | **Issue URL needed** |
-| T13 | Blood Requests | Donor--Blood Request Integration | High | **Issue URL needed** |
-| T14 | Donor | Donation & Request Workflow | High | **Issue URL needed** |
-| T15 | Admin | Admin Management & Monitoring | High | **Issue URL needed** |
-| T16 | Public | Public Statistics & Dashboard Integration | Medium | **Issue URL needed** |
-| T17 | Security | Security & RLS Integration | High | **Issue URL needed** |
-| T18 | UI/UX | System Integration Testing | High | **Issue URL needed** |
-| T19 | Donor | Donor Module Enhancement | High | **Issue URL needed** |
-| T20 | Hospital | Hospital Module Enhancement | High | **Issue URL needed** |
-| T21 | Blood Requests | Blood Request & Search Enhancement | High | **Issue URL needed** |
-| T22 | UI/UX | Admin & Public UI Enhancement | Medium | **Issue URL needed** |
-| T23 | Security | Validation, Error Handling & Bug Fixing | High | **Issue URL needed** |
-| T24 | UI/UX | User Acceptance Testing & Client Feedback | High | **Issue URL needed** |
-| T25 | Security | Final System Hardening & Bug Fixing | Urgent | **Issue URL needed** |
-| T26 | Security | Production Deployment | Urgent | **Issue URL needed** |
-| T27 | Public | README & Project Documentation | High | **Issue URL needed** |
-| T28 | UI/UX | Final Scrum & RAD Documentation | High | **Issue URL needed** |
-| T29 | UI/UX | Individual Portfolio & Contribution Documentation | High | **Issue URL needed** |
-| T30 | Public | Final UAT, Handover & Review | Urgent | **Issue URL needed** |
+| T1 | Authentication | Project & GitHub Setup | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/48** |
+| T2 | UI/UX | Existing System Analysis & Requirements | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/49** |
+| T3 | Public | Product Backlog Development | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/50** |
+| T4 | Public | User Stories & Acceptance Criteria | Medium | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/51** |
+| T5 | UI/UX | Scrum Documentation Setup | Medium | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/52** |
+| T6 | Security | System Architecture & Database Documentation | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/54** |
+| T7 | Authentication | Authentication & Role Management | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/55** |
+| T8 | Donor | Donor Registration & Profile | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/56** |
+| T9 | Donor | Donor Eligibility & Donation History | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/57** |
+| T10 | Hospital | Hospital Registration & Profile | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/54** |
+| T11 | Blood Requests | Blood Request Management | Urgent | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/51** |
+| T12 | Public | Public Blood Request Search | Medium | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/60** |
+| T13 | Blood Requests | Donor--Blood Request Integration | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/61** |
+| T14 | Donor | Donation & Request Workflow | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/62** |
+| T15 | Admin | Admin Management & Monitoring | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/63** |
+| T16 | Public | Public Statistics & Dashboard Integration | Medium | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/64** |
+| T17 | Security | Security & RLS Integration | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/65** |
+| T18 | UI/UX | System Integration Testing | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/66** |
+| T19 | Donor | Donor Module Enhancement | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/67** |
+| T20 | Hospital | Hospital Module Enhancement | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/68** |
+| T21 | Blood Requests | Blood Request & Search Enhancement | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/69** |
+| T22 | UI/UX | Admin & Public UI Enhancement | Medium | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/70** |
+| T23 | Security | Validation, Error Handling & Bug Fixing | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/71** |
+| T24 | UI/UX | User Acceptance Testing & Client Feedback | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/72** |
+| T25 | Security | Final System Hardening & Bug Fixing | Urgent | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/73** |
+| T26 | Security | Production Deployment | Urgent | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/74** |
+| T27 | Public | README & Project Documentation | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/75** |
+| T28 | UI/UX | Final Scrum & RAD Documentation | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/80** |
+| T29 | UI/UX | Individual Portfolio & Contribution Documentation | High | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/76** |
+| T30 | Public | Final UAT, Handover & Review | Urgent | **https://github.com/CommunityBloodDonation/Community-Blood-Donation-Management-System/issues/77** |
 ## Planned sprint order
 
 | Sprint | Focus | Items | Planned points |
