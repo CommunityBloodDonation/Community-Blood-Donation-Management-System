@@ -1,4 +1,4 @@
-﻿# Community Blood Donation Management System
+# Community Blood Donation Management System
 
 A web application that connects blood donors, hospitals, blood banks, and people who need blood. It supports donor and hospital accounts, donation history, blood requests, an opt-in donor directory, and administrator tools.
 
@@ -81,17 +81,6 @@ Application code is organized by user role under `pages/`. The four shared proje
 - [6882 Project Owner portfolio](portfolio-6882.md)
 - [6883 Scrum Master portfolio](portfolio-6883.md)
 - [6945 — UI/UX Developer portfolio](portfolio-6945.md)
-
-## Final assessment evidence checklist
-
-The code and documentation are in this repository, but these course evidence items must also be completed in GitHub or supplied from actual team records:
-
-- Replace the issue-link notices in the [product backlog](docs/product-backlog.md) with the matching GitHub Issue URLs; put each story's Given-When-Then criteria in its issue.
-- Add the GitHub Projects board URL and confirm it has the required workflow columns, linked Issues, current status, and lecturer read-only access.
-- Add dated planning, standup, review, and retrospective records plus actual sprint velocity and burndown snapshots to the [sprint journal](docs/sprint-journals.md).
-- Record actual client UAT outcomes and feedback; do not treat the team's workflow confirmation as a substitute for client feedback.
-- Add each student's direct authored PR or commit links across the sprints and complete the personal Agile reflection in each portfolio.
-- Add the live deployment URL above.
 
 ## Team
 
