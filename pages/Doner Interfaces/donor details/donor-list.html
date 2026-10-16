@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <title>BloodConnect | Donor List</title>
 
     <link rel="stylesheet" href="donor-list.css">
+    <link rel="stylesheet" href="../../../responsive.css">
 </head>
 
 <body>
@@ -15,15 +16,15 @@
 
 <header class="header">
 
-    <div class="logo">
+    <a class="logo" href="../../../index.html" aria-label="Go to home page">
         <img src="../../Assets/images/logo.png" height="50">
-    </div>
+    </a>
 
     <div class="profile-menu">
 
         <button class="profile-btn" id="profileBtn">
             <span class="profile-avatar">D</span>
-            <span class="profile-arrow">▼</span>
+            <span class="profile-arrow">â–¼</span>
         </button>
 
         <div class="profile-card" id="profileCard">
@@ -37,7 +38,7 @@
             <div class="profile-options">
 
                 <a href="#">
-                    <span class="option-icon">👤</span>
+                    <span class="option-icon">ðŸ‘¤</span>
                     <span>
                         <b>Update Profile</b>
                         <small>Manage your information</small>
@@ -45,7 +46,7 @@
                 </a>
 
                 <a href="#" id="logoutBtn">
-                    <span class="option-icon">↪</span>
+                    <span class="option-icon">â†ª</span>
                     <span>
                         <b>Logout</b>
                         <small>Sign out of your account</small>
@@ -72,7 +73,7 @@
         <div class="page-title">
 
             <div>
-                <span>● BLOOD DONORS</span>
+                <span>â— BLOOD DONORS</span>
 
                 <h1>Donor Directory</h1>
 
@@ -98,7 +99,7 @@
 
             <div class="search">
 
-                <span>🔍</span>
+                <span>ðŸ”</span>
 
                 <input
                     type="text"
@@ -156,7 +157,7 @@
 
         <div class="no-results" id="noResults">
 
-            <div>🔍</div>
+            <div>ðŸ”</div>
 
             <h3>No donors found</h3>
 
@@ -180,7 +181,7 @@
         <button
             class="close-btn"
             id="closeDetails">
-            ×
+            Ã—
         </button>
 
         <div class="details-avatar" id="detailsAvatar">
@@ -190,7 +191,7 @@
         <h2 id="detailsName">Donor Name</h2>
 
         <span class="available" id="detailsStatus">
-            ● Available
+            â— Available
         </span>
 
 
@@ -208,12 +209,12 @@
 
             <div>
                 <small>Last Donation</small>
-                <strong id="detailsLast">—</strong>
+                <strong id="detailsLast">â€”</strong>
             </div>
 
             <div>
                 <small>Total Donations</small>
-                <strong id="detailsTotal">—</strong>
+                <strong id="detailsTotal">â€”</strong>
             </div>
 
         </div>
@@ -238,15 +239,15 @@
 
     <ul class="contact-details">
 
-        <li>📍 123 Main Street, Colombo, Sri Lanka</li>
+        <li>ðŸ“ 123 Main Street, Colombo, Sri Lanka</li>
 
-        <li>📞 Hotline: +94 11 234 5678</li>
+        <li>ðŸ“ž Hotline: +94 11 234 5678</li>
 
-        <li>📱 Emergency: +94 77 123 4567</li>
+        <li>ðŸ“± Emergency: +94 77 123 4567</li>
 
-        <li>✉️ Email: support@blooddonation.org</li>
+        <li>âœ‰ï¸ Email: support@blooddonation.org</li>
 
-        <li>🌐 Website: www.blooddonation.org</li>
+        <li>ðŸŒ Website: www.blooddonation.org</li>
 
     </ul>
 
@@ -263,3 +264,5 @@
 
 </body>
 </html>
+
+

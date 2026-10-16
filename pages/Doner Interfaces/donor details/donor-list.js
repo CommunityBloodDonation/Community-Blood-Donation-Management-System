@@ -120,7 +120,7 @@ document.getElementById("logoutBtn").addEventListener("click", async event => {
     if (!confirm("Do you want to logout?")) return;
     const { error } = await supabaseClient.auth.signOut();
     if (error) { alert("Unable to log out. Please try again."); return; }
-    window.location.href = "../../Public Interfaces/Home/index.html";
+    window.location.href = "../../../index.html";
 });
 
 loadPreferences();

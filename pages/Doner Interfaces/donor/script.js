@@ -772,7 +772,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         localStorage.removeItem("bloodConnectDonorProfile");
-        window.location.href = "../../Public Interfaces/Home/index.html";
+        window.location.href = "../../../index.html";
     });
 
     // Initial dashboard render

@@ -1,0 +1,136 @@
+﻿/* Shared responsive safeguards for the complete application. */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 320px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    min-width: 320px;
+    max-width: 100%;
+}
+
+img,
+svg,
+video,
+canvas {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    max-width: 100%;
+    min-width: 0;
+    font: inherit;
+}
+
+textarea {
+    resize: vertical;
+}
+
+p,
+li,
+td,
+th,
+label,
+strong,
+small {
+    overflow-wrap: anywhere;
+}
+
+.table-wrap,
+.table-container,
+.table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 900px) {
+    .page-heading,
+    .section-title,
+    .toolbar {
+        flex-wrap: wrap;
+    }
+
+    .stats,
+    .stats-grid,
+    .stats-card,
+    .request-grid,
+    .cards,
+    .feature-grid,
+    .filters,
+    .form-grid,
+    .details-grid,
+    .about,
+    .about_us_content,
+    .Save_Lives_content {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .topbar,
+    .header {
+        height: auto;
+        min-height: 60px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    main {
+        max-width: 100%;
+    }
+
+    .page-heading,
+    .section-title,
+    .toolbar {
+        align-items: stretch;
+    }
+
+    .page-heading > *,
+    .section-title > *,
+    .toolbar > * {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .form-grid,
+    .details-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+    }
+
+    button,
+    input[type="submit"],
+    input[type="button"] {
+        min-height: 42px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
