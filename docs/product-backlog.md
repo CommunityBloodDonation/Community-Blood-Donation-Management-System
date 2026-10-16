@@ -2,7 +2,9 @@
 
 ## Product goal
 
-Build a web application that helps donors and hospitals coordinate blood requests and donation records, with public information and controlled administration. Under the SE32022 client/boutique crossover, Team 7 develops Team 6's Community Blood Donation app product idea.
+Build a web-based Community Blood Donation Management System that helps donors and hospitals coordinate blood requests and donation records while providing public information and secure administrative management.
+Under the SE32022 client/boutique crossover, Team 7 develops Team 6's Community Blood Donation application as its product idea. The project follows an iterative development approach, using Scrum practices within the Rapid Application Development (RAD) process to organize requirements, implementation, testing, feedback, and continuous improvement.
+The main goal is to deliver a functional, user-friendly, secure, and maintainable application that supports the main blood donation coordination activities.
 
 ## Ordered story index
 
