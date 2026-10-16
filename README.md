@@ -18,7 +18,7 @@ The application has no build step. Serve it over HTTP; some pages load shared co
 2. Configure the Supabase project URL and publishable key in the pages that initialize the Supabase client.
 3. Run `supabase-blood-requests.sql` in the Supabase SQL Editor. The project also expects `donor_profiles` and `staff_profiles` tables to exist.
 4. Start Live Server from the repository root.
-5. Open `index.html` at the repository root. The same Home page is also available at `pages/Public Interfaces/Home/index.html`.
+5. Open `pages/Public Interfaces/Home/index.html`.
 
 Never put a Supabase service-role key or user password in frontend code.
 

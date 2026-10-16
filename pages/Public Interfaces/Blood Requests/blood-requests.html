@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -269,7 +269,6 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../../../responsive.css">
 </head>
 <body>
     <header class="topbar">
@@ -277,7 +276,7 @@
             <span class="brand-mark">+</span>
             <span>COMMUNITY BLOOD DONATION NETWORK</span>
         </div>
-        <a class="back-link" href="../../../index.html">Back to Home</a>
+        <a class="back-link" href="../Home/index.html">Back to Home</a>
     </header>
 
     <main>
@@ -408,7 +407,7 @@
                 bottom.querySelector(".respond-button").addEventListener("click", async event => {
                     const button = event.currentTarget;
                     button.disabled = true;
-                    button.textContent = "Savingâ€¦";
+                    button.textContent = "Saving…";
                     try {
                         const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
                         if (authError || !user) {
@@ -468,5 +467,3 @@
     </script>
 </body>
 </html>
-
-

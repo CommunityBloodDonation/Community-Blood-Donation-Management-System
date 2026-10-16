@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -299,12 +299,11 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../../../responsive.css">
 </head>
 <body>
     <header class="topbar">
         <div class="brand">
-            <div class="brand-mark">â™¥</div>
+            <div class="brand-mark">♥</div>
             <span>COMMUNITY BLOOD DONATION NETWORK</span>
         </div>
     </header>
@@ -315,10 +314,7 @@
                 <h1>Emergency Requests</h1>
                 <p>Urgent blood requests from hospitals and emergency units.</p>
             </div>
-            <nav style="display: flex; gap: 16px;">
-                <a href="../../../index.html" class="back-btn">Home</a>
-                <a href="donor-dashboard.html" class="back-btn">â† Back to Dashboard</a>
-            </nav>
+            <a href="donor-dashboard.html" class="back-btn">← Back to Dashboard</a>
         </div>
 
         <section class="stats">
@@ -441,7 +437,7 @@
                 card.querySelector(".reply-btn").addEventListener("click", async event => {
                     const button = event.currentTarget;
                     button.disabled = true;
-                    button.textContent = "Sendingâ€¦";
+                    button.textContent = "Sending…";
                     try {
                         const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
                         if (authError || !user) throw new Error("Please log in as a donor to respond.");
@@ -506,5 +502,3 @@
     </script>
 </body>
 </html>
-
-
